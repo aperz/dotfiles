@@ -1,0 +1,9 @@
+{
+    "path" : "/mnt/DATAPART1",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
