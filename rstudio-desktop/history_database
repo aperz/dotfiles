@@ -5280,3 +5280,601 @@
 1443470844731:write.csv(agg1, "output/summary1_catD", row.names=F)
 1443470844950:write.csv(agg2, "output/summary2_catD", row.names=F)
 1443471248847:View(agg2)
+1443552562007:pth <- "/mnt/DATAPART1/Sasi"
+1443552566690:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1443552566855:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1443552566997:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1443552567151:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1443552571879:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1443553164987:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1443553171065:measure_lsm_data <- matrix(NA)
+1443553171211:for( file in file_list_measure_lsm) {
+1443553171368:Label <- c(gsub(".lsm_measure_lsm.tsv", "", as.character(file)))
+1443553171520:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1443553171672:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1443553171848:}
+1443553172393:measure_lsm_data <- measure_lsm_data[,-6]
+1443553172393:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1443553172394:measure_lsm <- matrix(NA)
+1443553172524:for( i in unique(measure_lsm_data$parameter)) {
+1443553172635:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1443553172794:new <- new[,-1]
+1443553172953:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1443553173105:measure_lsm <- merge(measure_lsm, new)
+1443553173256:}
+1443553173705:measure_lsm <- measure_lsm[,-2]
+1443553175201:# colocalisation data; only measure yellow, which is blue. Put 0's where no measurement available
+1443553175358:coloc_data <- matrix(NA)
+1443553175514:for(file in file_list_coloc) {
+1443553175682:Label <- c(gsub("C1-", "", gsub(".tif_coloc.tsv", "", as.character(file))))
+1443553175839:new <- cbind(read.csv(paste0(pth, "/colocalisation/", file), header=T, sep="\t"), Label)
+1443553175990:coloc_data <- merge(coloc_data, new, all=T)
+1443553176161:}
+1443553176397:coloc_data <- coloc_data[,-6]
+1443553176537:coloc_data$parameter <- as.character(coloc_data$parameter)
+1443553176646:coloc <- matrix(NA)
+1443553176793:for( i in unique(coloc_data$parameter)) {
+1443553176973:new <- coloc_data[coloc_data$parameter == i,]
+1443553177124:new <- new[,-1]
+1443553177299:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1443553177452:coloc <- merge(coloc, new)
+1443553177609:}
+1443553177793:coloc <- coloc[,c(1,5,8,11)]
+1443553177952:names(coloc)[1] <- "Label"
+1443553178119:#
+1443553178279:count_data <- matrix(NA, 0, 13)
+1443553178437:for ( file in file_list_count) {
+1443553178589:new <-read.csv(paste0(pth, "/count/", file), header=T, sep="\t")
+1443553178765:count_data <- rbind(count_data, new)
+1443553178924:}
+1443553179082:count <- count_data[count_data$Area > 99,]
+1443553179227:count <- as.data.frame(xtabs(~Label, count))
+1443553179379:count$Label <- unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C3-", "", x))} ))
+1443553179560:# green in nuclei
+1443553179728:if (!is.na(file_list_in_nuclei[1])) {
+1443553179900:print("Green in nuclei data detected, adding...")
+1443553180064:in_nuclei_data <- matrix(NA)
+1443553180231:for (file in file_list_in_nuclei) {
+1443553180403:Label <- c(gsub("C3-", "", gsub(".tif_in_nuc.tsv", "", as.character(file))))
+1443553180561:new <- cbind(read.csv(paste0(pth, "/in_nuclei/", file), header=T, sep="\t"), Label)
+1443553180723:in_nuclei_data <- merge(in_nuclei_data, new, all=T)
+1443553180882:}
+1443553181052:in_nuclei <- matrix(NA)
+1443553181198:for( i in unique(in_nuclei_data$parameter)) {
+1443553181356:new <- in_nuclei_data[in_nuclei_data$parameter == i,]
+1443553181526:new <- new[,-1]
+1443553181733:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1443553181851:in_nuclei <- merge(in_nuclei, new)
+1443553182023:}
+1443553182218:in_nuclei <- in_nuclei[,c(1,6,9,12)]
+1443553182366:names(in_nuclei) <- c("file", "green_in_nuclei_area_fraction", "green_in_nuclei_mean", "green_in_nuclei_stdev")
+1443553182544:} else {
+1443553182715:print("No green in nuclei data detected.")
+1443553182878:}
+1443553184510:### MERGE TABLES
+1443553184666:res <- merge(measure_lsm, count, all=T)
+1443553184836:res <- merge(res, coloc, by="Label", all=T)
+1443553185024:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1443553185377:"blue_stdev", "cell_count", "yellow_area_fraction", "yellow_mean", "yellow_stdev")
+1443553186226:res$red_mean_per_cell <- round(res$red_mean / res$cell_count, 5)
+1443553186432:res$green_mean_per_cell <- round(res$green_mean / res$cell_count, 5)
+1443553186593:res$yellow_mean_per_cell <- round(res$yellow_mean / res$cell_count, 5)
+1443553186780:### META
+1443553186956:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1443553187135:meta <- meta[, -(1:5)]
+1443553187324:### LABELS: LYSO
+1443553197801:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1443553220423:as.data.frame(strsplit(as.character(res$file), "_")
+1443553224373:)
+1443553268082:as.data.frame(strsplit(as.character(res$file), "_")
+1443553272523:)
+1443553283523:strsplit(as.character(res$file), "_")
+1443553289403:View(res)
+1443553392799:165/3
+1443553471478:View(coloc)
+1443553487877:coloc$Label
+1443553546872:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1443553547021:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1443553547173:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1443553547317:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1443553550826:measure_lsm_data <- matrix(NA)
+1443553550984:for( file in file_list_measure_lsm) {
+1443553551151:Label <- c(gsub(".lsm_measure_lsm.tsv", "", as.character(file)))
+1443553551293:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1443553551429:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1443553551563:}
+1443553552079:measure_lsm_data <- measure_lsm_data[,-6]
+1443553552079:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1443553552080:measure_lsm <- matrix(NA)
+1443553552252:for( i in unique(measure_lsm_data$parameter)) {
+1443553552386:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1443553552811:new <- new[,-1]
+1443553552833:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1443553552919:measure_lsm <- merge(measure_lsm, new)
+1443553552920:}
+1443553552952:measure_lsm <- measure_lsm[,-2]
+1443553553048:# colocalisation data; only measure yellow, which is blue. Put 0's where no measurement available
+1443553553090:coloc_data <- matrix(NA)
+1443553553274:for(file in file_list_coloc) {
+1443553553782:Label <- c(gsub("C1-", "", gsub(".tif_coloc.tsv", "", as.character(file))))
+1443553553801:new <- cbind(read.csv(paste0(pth, "/colocalisation/", file), header=T, sep="\t"), Label)
+1443553553855:coloc_data <- merge(coloc_data, new, all=T)
+1443553553899:}
+1443553554139:coloc_data <- coloc_data[,-6]
+1443553554139:coloc_data$parameter <- as.character(coloc_data$parameter)
+1443553554140:coloc <- matrix(NA)
+1443553554153:for( i in unique(coloc_data$parameter)) {
+1443553554153:new <- coloc_data[coloc_data$parameter == i,]
+1443553554154:new <- new[,-1]
+1443553554154:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1443553554163:coloc <- merge(coloc, new)
+1443553554272:}
+1443553554613:coloc <- coloc[,c(1,5,8,11)]
+1443553555112:names(coloc)[1] <- "Label"
+1443553555168:#
+1443553555194:count_data <- matrix(NA, 0, 13)
+1443553555268:for ( file in file_list_count) {
+1443553555338:new <-read.csv(paste0(pth, "/count/", file), header=T, sep="\t")
+1443553555339:count_data <- rbind(count_data, new)
+1443553555339:}
+1443553555472:count <- count_data[count_data$Area > 99,]
+1443553555685:count <- as.data.frame(xtabs(~Label, count))
+1443553555799:count$Label <- unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C3-", "", x))} ))
+1443553556276:# green in nuclei
+1443553556299:if (!is.na(file_list_in_nuclei[1])) {
+1443553556376:print("Green in nuclei data detected, adding...")
+1443553556377:in_nuclei_data <- matrix(NA)
+1443553556428:for (file in file_list_in_nuclei) {
+1443553556458:Label <- c(gsub("C3-", "", gsub(".tif_in_nuc.tsv", "", as.character(file))))
+1443553556539:new <- cbind(read.csv(paste0(pth, "/in_nuclei/", file), header=T, sep="\t"), Label)
+1443553556576:in_nuclei_data <- merge(in_nuclei_data, new, all=T)
+1443553556577:}
+1443553556578:in_nuclei <- matrix(NA)
+1443553556785:for( i in unique(in_nuclei_data$parameter)) {
+1443553557284:new <- in_nuclei_data[in_nuclei_data$parameter == i,]
+1443553557342:new <- new[,-1]
+1443553557405:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1443553557465:in_nuclei <- merge(in_nuclei, new)
+1443553557466:}
+1443553557507:in_nuclei <- in_nuclei[,c(1,6,9,12)]
+1443553557508:names(in_nuclei) <- c("file", "green_in_nuclei_area_fraction", "green_in_nuclei_mean", "green_in_nuclei_stdev")
+1443553557609:} else {
+1443553557609:print("No green in nuclei data detected.")
+1443553557667:}
+1443553557792:### MERGE TABLES
+1443553557792:res <- merge(measure_lsm, count, all=T)
+1443553557824:res <- merge(res, coloc, by="Label", all=T)
+1443553557841:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1443553560089:"blue_stdev", "cell_count", "yellow_area_fraction", "yellow_mean", "yellow_stdev")
+1443553565197:res <- merge(measure_lsm, count, all=T)
+1443553603249:count$Label <- as.factor(count$Label)
+1443553611244:res <- merge(measure_lsm, count, all=T)
+1443553625630:length(unique(res$Label))
+1443553633325:res$Label
+1443554098500:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1443554102915:measure_lsm_data <- matrix(NA)
+1443554103118:for( file in file_list_measure_lsm) {
+1443554103258:Label <- c(gsub(".lsm_measure_lsm.tsv", "", as.character(file)))
+1443554103479:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1443554103717:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1443554103853:}
+1443554104076:measure_lsm_data <- measure_lsm_data[,-6]
+1443554104278:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1443554104304:measure_lsm <- matrix(NA)
+1443554104495:for( i in unique(measure_lsm_data$parameter)) {
+1443554104762:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1443554104762:new <- new[,-1]
+1443554104976:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1443554105112:measure_lsm <- merge(measure_lsm, new)
+1443554105501:}
+1443554105717:measure_lsm <- measure_lsm[,-2]
+1443554111729:res <- merge(measure_lsm, count, all=T)
+1443554114141:res <- merge(res, coloc, by="Label", all=T)
+1443554122823:res$Label
+1443554146373:View(measure_lsm)
+1443554155249:measure_lsm$Label
+1443554219994:measure_lsm_data <- matrix(NA)
+1443554220327:for( file in file_list_measure_lsm) {
+1443554220637:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1443554222342:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1443554222565:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1443554223772:}
+1443554225466:measure_lsm_data <- measure_lsm_data[,-6]
+1443554225668:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1443554226443:measure_lsm <- matrix(NA)
+1443554226626:for( i in unique(measure_lsm_data$parameter)) {
+1443554226778:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1443554226949:new <- new[,-1]
+1443554227121:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1443554227279:measure_lsm <- merge(measure_lsm, new)
+1443554227455:}
+1443554227757:measure_lsm <- measure_lsm[,-2]
+1443554234423:res <- merge(measure_lsm, count, all=T)
+1443554236211:res <- merge(res, coloc, by="Label", all=T)
+1443554249592:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1443554250049:"blue_stdev", "cell_count", "yellow_area_fraction", "yellow_mean", "yellow_stdev")
+1443554252269:res$red_mean_per_cell <- round(res$red_mean / res$cell_count, 5)
+1443554252463:res$green_mean_per_cell <- round(res$green_mean / res$cell_count, 5)
+1443554252612:res$yellow_mean_per_cell <- round(res$yellow_mean / res$cell_count, 5)
+1443554253035:### META
+1443554253234:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1443554253554:meta <- meta[, -(1:5)]
+1443554261474:View(meta)
+1443554275258:meta <- meta[,-1]
+1443554275880:names(meta) <- c("date", "cell_line", "treatment", "image", "file")
+1443554278630:res <- merge(meta,res)
+1443554280173:View(meta)
+1443554286346:levels(res$cell_line)[levels(res$cell_line)=="231"] <- "MDAMB231"
+1443554286727:res$cell_line <- droplevels(res$cell_line)
+1443554294879:res <- res[,c(1:5,15,6:14,16:21)]
+1443554297510:if (!is.na(file_list_in_nuclei[1])) {
+1443554297950:res <- merge(res, in_nuclei, all.x=T)
+1443554298130:}
+1443554298367:res$file <- gsub("_", "/", res$file)
+1443554298696:### AREA
+1443554299050:#yellow
+1443554299304:area_p <- 1024^2
+1443554299502:area_um <- 18211.8110
+1443554299699:res$yellow_area_pixels <- res$yellow_area_fraction*area_p
+1443554299755:res$yellow_area_um <- res$yellow_area_fraction*area_um
+1443554299900:res$yellow_area_pixels_per_cell <- res$yellow_area_fraction*area_p/res$cell_count
+1443554300061:res$yellow_area_um_per_cell <- res$yellow_area_fraction*area_um/res$cell_count
+1443554300303:#red
+1443554300466:res$red_area_pixels <- res$red_area_fraction*area_p
+1443554300618:res$red_area_um <- res$red_area_fraction*area_um
+1443554300800:res$red_area_pixels_per_cell <- res$red_area_fraction*area_p/res$cell_count
+1443554300962:res$red_area_um_per_cell <- res$red_area_fraction*area_um/res$cell_count
+1443554301122:#green
+1443554301290:res$green_area_pixels <- res$green_area_fraction*area_p
+1443554301479:res$green_area_um <- res$green_area_fraction*area_um
+1443554301683:res$green_area_pixels_per_cell <- res$green_area_fraction*area_p/res$cell_count
+1443554301801:res$green_area_um_per_cell <- res$green_area_fraction*area_um/res$cell_count
+1443554301982:### INNE
+1443554302146:res$green_in_nuclei_mean_per_cell <- res$green_in_nuclei_mean/res$cell_count
+1443554350927:agg1 <- aggregate(res, by=list(res$cell_line, res$treatment, res$date), FUN=mean, na.rm=T)
+1443554351098:agg1 <- agg1[,-c(4,5,6,7,8)]
+1443554351307:names(agg1)[1:3] <- c("cell_line", "treatment", "date")
+1443554351585:agg2 <- aggregate(res, by=list(res$cell_line, res$treatment), FUN=mean, na.rm=T)
+1443554351623:agg2<- agg2[,-c(3,4,5,6,7)]
+1443554351794:names(agg2)[1:2] <- c("cell_line", "treatment")
+1443554354489:system("mkdir output")
+1443554356849:View(agg1)
+1443554362948:View(agg2)
+1443554385332:View(agg2)
+1443554613696:agg3 <- aggregate(res, by=list(res$cell_line, res$treatment), FUN=mean, na.rm=T)
+1443554614042:agg3 <- agg3[,-c(3,4,5,6,7)]
+1443554614080:names(agg3)[1:2] <- c("cell_line", "treatment")
+1443554649837:agg4 <- aggregate(res, by=list(res$cell_line, res$treatment), FUN=mean, na.rm=T)
+1443554650146:agg4 <- agg4[,-c(3,4,5,6,7)]
+1443554650176:names(agg4)[1:2] <- c("cell_line", "treatment")
+1443554652973:View(agg4)
+1443554657075:View(agg1)
+1443554659973:View(agg4)
+1443554701762:agg4 <- aggregate(res, by=list(res$cell_line, res$treatment, res$date), FUN=mean, na.rm=T)
+1443554702063:agg4 <- agg4[,-c(3,4,5,6,7)]
+1443554702092:names(agg4)[1:2] <- c("cell_line", "treatment", 'date')
+1443554713407:names(agg4)[1:3] <- c("cell_line", "treatment", 'date')
+1443554717627:View(agg4)
+1443554735876:View(agg4)
+1443554769694:agg1 <- aggregate(res, by=list(res$cell_line, res$treatment, res$date), FUN=mean, na.rm=T)
+1443554770010:agg1 <- agg1[,-c(4,5,6,7,8)]
+1443554770131:names(agg1)[1:3] <- c("cell_line", "treatment", "date")
+1443554774007:agg2 <- aggregate(res, by=list(res$cell_line, res$treatment), FUN=mean, na.rm=T)
+1443554774306:agg2<- agg2[,-c(3,4,5,6,7)]
+1443554774436:names(agg2)[1:2] <- c("cell_line", "treatment")
+1443554791781:write.csv(res, "output/measurements_catD", row.names=F)
+1443554792953:write.csv(agg2, "output/summary2_catD", row.names=F)
+1443554802544:write.csv(agg2, "output/summary_catD", row.names=F)
+1443554858615:write.csv(res, "output/measurements_caD.csv", row.names=F)
+1443554859402:write.csv(agg2, "output/summary_catD.csv", row.names=F)
+1443554907266:write.csv(res, "output/measurements_catD.csv", row.names=F)
+1443555081898:rm(agg1, agg2,agg3,agg4)
+1443564418751:system("mv script.R R/script.R")
+1443565162547:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443565284081:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443566286781:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443566666898:go.path = file.path(CACHE.DIR, "GO.rda")
+1443566667744:if (!file.exists(go.path)) {
+1443566667956:path = file.path(CACHE.DIR, "gene2go.gz")
+1443566668326:if (!file.exists(path)) {
+1443566668628:download.file("ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/gene2go.gz", path)
+1443566668922:}
+1443566670036:h = gzfile(path, open="r")
+1443566670297:o = read.table(h, skip=1, sep="\t",
+1443566670648:col.names=c("Taxon ID", "Gene ID", "Term ID", "Evidence", "Qualifier", "Term Name", "PMID", "Category"))
+1443566671496:nv = o$Term.Name
+1443566671709:names(nv) = o$Term.ID
+1443566672286:GO <<- list(
+1443566672589:table=o,
+1443566672882:terms=nv[unique(names(nv))],
+1443566673051:annotation=by(o, o$Taxon.ID,
+1443566673209:function(ts) {
+1443566673346:by(ts, ts$Term.ID, function(x) {
+1443566673498:unique(x$Gene.ID)
+1443566673656:})
+1443566673814:}))
+1443566673959:save(GO, file=go.path)
+1443566674150:} else {
+1443566674311:if (!("GO" %in% ls())) {
+1443566674469:load(go.path)
+1443566674878:}
+1443566675029:}
+1443566675205:}
+1443567627619:path = file.path(CACHE.DIR, "gene2go.gz")
+1443567629190:h = gzfile(path, open="r")
+1443567630045:o = read.table(h, skip=1, sep="\t",
+1443567630303:col.names=c("Taxon ID", "Gene ID", "Term ID", "Evidence", "Qualifier", "Term Name", "PMID", "Category"))
+1443567640790:nv = o$Term.Name
+1443568029048:"GO" in ls()
+1443568037848:"GO" %iN% ls()
+1443568041151:"GO" %in% ls()
+1443568056234:!9"GO" %in% ls())
+1443568059577:!("GO" %in% ls())
+1443644880992:class(pred)
+1443644884431:class(predictions)
+1443644891231:names(predictions)
+1443644969551:class(spe)
+1443645043682:dim(X, 1)
+1443645051529:dim(X)[1]
+1443645121834:predict.annotations.knn = function(X, A, taxon.id, k=50, min.count=3, tx_input_list=NULL) {
+1443645121834:taxon.id = as.character(taxon.id)
+1443645121834:At = A$annotation[[taxon.id]]
+1443645121834:background = intersect(unique(unlist(At)), rownames(X))
+1443645121835:if(dim(X)[1] == dim(X)[2]) {
+1443645121835:r = X
+1443645121835:} else {
+1443645121835:r = most.correlated(X, subset=background, tx_input_list, k)
+1443645121836:}
+1443645121836:#r = top.correlated(X, subset=background, k=k)
+1443645121836:mclapply(r, function(c1) { # dla każdego transkryptu
+1443645121837:c1 = as.integer(background %in% c1) # ogarnij które z przestrzeni(annotacjach&rownames) są w skorelowanych dla danego tx
+1443645121837:o = sapply(At, function(c2) { # dla każdej annotacji (do każdej annotacji są transkrypty należące do niej)
+1443645121837:c2 = as.integer(background %in% c2) # ogarnij które z przestzeni są w annotacajch dla danego GO term
+1443645121838:oo = NULL
+1443645121838:if (sum(c2) > 0) { #jeśli którekolwiek są, to
+1443645121838:ct = as.matrix(table(c1,c2))[c("1","0"),c("1","0")] # zrób klasyczną contingency table, gdzie 1,1 to freq należących do obu -> powiązanie tx z GO term
+1443645121838:if (ct[1,1] >= min.count) {
+1443645121839:fet = fisher.test(ct)
+1443645121839:#oo = list(p=fet$p.value, OR=fet$estimate, log.OR=log(fet$estimate))
+1443645121839:oo = as.numeric(fet$estimate)
+1443645121840:#oo = fet$p.value * sign(log10(as.numeric(fet$estimate)))
+1443645121840:} else {
+1443645121840:oo <- NA
+1443645121841:}
+1443645121841:} else {
+1443645121841:oo <- NA
+1443645121842:}
+1443645121842:})
+1443645121842:unlist(o)
+1443645121843:}, mc.cores=NCPU)
+1443645121843:}
+1443645142939:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443645303774:ls()
+1443645329822:?ls
+1443645486396:ylab
+1443645526359:ylab <- ylabels(GO)
+1443645529937:ylab <- y.labels(GO)
+1443645549717:prepare.env()
+1443645591213:ylab <- y.labels(GO)
+1443645600491:ylab[1]
+1443645661544:ylab <- y.labels(GO, yhat)
+1443645674469:yhat
+1443645704979:yhat <- y.hat.from.pred(predictions)
+1443645746036:ylab <- y.labels(GO, yhat)
+1443645750280:ylab[1]
+1443645774509:spe <- specif(yhat, ylab)
+1443646471367:yhat[[2]]
+1443646486109:summary(yhat[[2]])
+1443646635137:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443647138441:specificity(yhat$`55`, as.factor(ylab$`55`))
+1443647298843:y.hat <- yhat
+1443647309091:y.lab =  ylab
+1443647324482:o <- mclapply(list(names(y.hat)), function(tx) {
+1443647324765:oo <- specificity(y.hat[names(y.hat) == tx], as.factor(y.lab[names(y.lab) == tx]))
+1443647325015:}, mc.cores = NCPU)
+1443647549151:o <- mclapply(list(names(y.hat)), function(tx) {
+1443647549748:oo <- specificity(y.hat[names(y.hat) == tx], as.factor(y.lab[names(y.lab) == tx]))
+1443647550000:}, mc.cores = NCPU)
+1443647580818:prepare.env()
+1443647641657:o <- mclapply((names(y.hat)), function(tx) {
+1443647642141:oo <- specificity(y.hat[names(y.hat) == tx], as.factor(y.lab[names(y.lab) == tx]))
+1443647642500:}, mc.cores = NCPU)
+1443647651306:o <- mclapply(list(names(y.hat)), function(tx) {
+1443647651569:oo <- specificity(y.hat[names(y.hat) == tx], as.factor(y.lab[names(y.lab) == tx]))
+1443647651849:}, mc.cores = NCPU)
+1443647723070:names(t.lab)
+1443647726437:names(y.lab)
+1443647735398:tx=
+1443647743029:"55"
+1443647753209:oo <- specificity(y.hat[names(y.hat) == tx], as.factor(y.lab[names(y.lab) == tx]))
+1443647879004:y.hat[names(y.hat) == tx],
+1443647884303:y.hat[names(y.hat) == tx]
+1443647900845:as.factor(y.lab[names(y.lab) == tx]
+1443647906162:)
+1443647931180:y.lab[names(y.lab) == tx]
+1443648056539:y.lab <- mclapply(y.lab, function(tx){
+1443648056778:tx <- as.factor(tx)
+1443648057005:}, mc.cores = NCPU)
+1443648059574:o <- mclapply(list(names(y.hat)), function(tx) {
+1443648059850:oo <- specificity(y.hat[names(y.hat) == tx], y.lab[names(y.lab) == tx])
+1443648060079:}, mc.cores = NCPU)
+1443648102281:y.lab[[1]]
+1443648107909:oo <- specificity(y.hat[names(y.hat) == tx], y.lab[names(y.lab) == tx])
+1443648155722:names(y.lab)
+1443648198527:y.hat[names(y.hat) == tx]
+1443648202631:y.lab[names(y.lab) == tx]
+1443648210201:oo <- specificity(y.hat[names(y.hat) == tx], y.lab[names(y.lab) == tx])
+1443648254279:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443648256981:oo <- specificity(y.hat[[names(y.hat) == tx]], y.lab[[names(y.lab) == tx]])
+1443648268494:y.hat[[names(y.hat) == tx]]
+1443648294192:y.lab[names(y.lab) == tx][1]
+1443648318955:head(y.lab[names(y.lab) == tx][[1]])
+1443648333162:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443648339498:head(y.lab[names(y.lab) == tx][[1]])
+1443648343681:y.hat[[names(y.hat) == tx]]
+1443648346518:oo <- specificity(y.hat[names(y.hat) == tx][[1]], y.lab[names(y.lab) == tx][[1]])
+1443648383804:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443648429606:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443648449934:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443648480636:spe <- specif(yhat,ylab)
+1443648497978:specif <- function(y.hat, y.lab) {
+1443648497978:o <- mclapply(list(names(y.hat)), function(tx) {
+1443648497978:oo <- specificity(y.hat[names(y.hat) == tx][[1]], as.factor(y.lab[names(y.lab) == tx][[1]]))
+1443648497979:}, mc.cores = NCPU)
+1443648497979:#names(o) <- names(y.hat)
+1443648497979:o
+1443648497979:}
+1443648502811:spe <- specif(yhat,ylab)
+1443648560766:specif <- function(y.hat, y.lab) {
+1443648560767:o <- mclapply(names(y.hat), function(tx) {
+1443648560767:oo <- specificity(y.hat[names(y.hat) == tx][[1]], as.factor(y.lab[names(y.lab) == tx][[1]]))
+1443648560767:}, mc.cores = NCPU)
+1443648560767:#names(o) <- names(y.hat)
+1443648560768:o
+1443648560768:}
+1443648566698:spe <- specif(yhat,ylab)
+1443648581428:specif <- function(y.hat, y.lab) {
+1443648581428:o <- mclapply(names(y.hat), function(tx) {
+1443648581429:oo <- specificity(y.hat[names(y.hat) == tx][[1]], as.factor(y.lab[names(y.lab) == tx][[1]]))
+1443648581429:}, mc.cores = NCPU)
+1443648581429:names(o) <- names(y.hat)
+1443648581429:o
+1443648581430:}
+1443648583702:spe <- specif(yhat,ylab)
+1443648708368:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443648785878:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443648808074:sen <- sensit(yhat, ylab)
+1443648870349:?AUC
+1443649179649:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443650833450:ROC <- auroc(rocurv, yhat,ylab)
+1443650857149:auroc <- function(measure, min=0, max=1) {
+1443650857149:o <- mclapply(measure, function(tx){
+1443650857150:oo  <- auc(tx, min, max)
+1443650857150:}, mc.cores = NCPU)
+1443650857150:}
+1443650861185:ROC <- auroc(rocurv, yhat,ylab)
+1443650983887:auroc <- function(measure, min=0, max=1) {
+1443650983887:o <- mclapply(names(measure), function(tx){
+1443650983887:oo  <- auc(measure[names(measure)==tx][[1]], min, max)
+1443650983887:}, mc.cores = NCPU)
+1443650983888:names(o) <- names(measure)
+1443650983888:o
+1443650983888:}
+1443650988775:ROC <- auroc(rocurv, yhat,ylab)
+1443651064573:ROC <- auroc(spe, yhat,ylab)
+1443651122649:measure[names(measure)==tx][[1]]
+1443651132549:measure<-spe
+1443651133948:measure[names(measure)==tx][[1]]
+1443651171538:oo  <- auc(measure[names(measure)==tx][[1]], min, max)
+1443651226173:measure[names(measure)==tx]
+1443651332499:x <- measure[names(measure)==tx]
+1443651349830:auc(x)
+1443651401249:auc(spe[[1]])
+1443651409560:auc(spe[[2]])
+1443652102427:ROCURV <- rocurv(yhat, ylab)
+1443652125223:auc(ROCURV[[2]])
+1443652130298:auc(ROCURV[[1]])
+1443652200923:auc <- function(measure, min=0, max=1) {
+1443652200923:o <- mclapply(names(measure), function(tx){
+1443652200923:oo  <- auc(measure[names(measure)==tx][[1]], min, max)
+1443652200924:}, mc.cores = NCPU)
+1443652200924:names(o) <- names(measure)
+1443652200924:o
+1443652200924:}
+1443652216148:AUROC <- auc(ROCURV)
+1443652272704:measure = AUROC[[1]]
+1443652326567:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443652336781:prepare.env()
+1443652377274:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443652394329:rm(prepare.env())
+1443652396899:rm(prepare.env
+1443652398373:)
+1443652706599:Roc <- roc.all(yhat,ylab)
+1443652724500:Auc <- auc.all(Roc)
+1443652733599:rm(AUROC)
+1443652815378:measure[names(measure)==tx][[1]]
+1443652829698:measure[names(measure)==tx]
+1443652844624:measure <- Roc
+1443652846274:measure[names(measure)==tx]
+1443652848233:measure[names(measure)==tx][[1]]
+1443652885488:auc.all <- function(measure, min=0, max=1) {
+1443652885489:o <- mclapply(names(measure), function(tx){
+1443652885489:oo  <- auc(measure[names(measure)==tx][[1]], min, max)
+1443652885489:unlist(oo)
+1443652885489:}, mc.cores = NCPU)
+1443652885490:names(o) <- names(measure)
+1443652885490:o
+1443652885490:}
+1443652899824:Auc <- auc.all(Roc)
+1443652994404:oo  <- auc(measure[names(measure)==tx][[1]], min, max)
+1443653032082:measure[1]
+1443653047773:measure[names(measure)==tx][[1]]
+1443653065256:class(measure[names(measure)==tx][[1]])
+1443653084323:plot(measure[names(measure)==tx][[1]])
+1443653101774:plot(measure[names(measure)=='221150'][[1]])
+1443653411425:class(measure)
+1443653484538:class(measure[[1]])
+1443653550801:x <- auc(measure[[1]])
+1443653566773:x[[1]]
+1443653569098:x
+1443653602999:x <- auc(roc(yhat[[1]], ylab[[1]]))
+1443653666049:yhat[[1]]
+1443653675173:ylab[[1]]
+1443653737155:Roc[[1]]
+1443653814404:auc(Roc[[1]])
+1443653824074:auc(spe[[1]])
+1443653845162:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443653851505:take.off
+1443653854323:take.off()
+1443653873504:library(AUC)
+1443653880232:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443654071837:rm(functions, h, info.path, nv, o,oo,path,ROC,ROCURV,x)
+1443654077727:rm(auc, )
+1443654116333:take.off()
+1443654133382:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443654152074:Auc <- auc.all(Roc)
+1443656455983:?stop
+1443656580096:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443656615534:A <-auc.from.pred(predictions)
+1443659306038:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443660811938:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443661525857:dim(X)
+1443720259374:dim(tcga.expression.matrix())
+1443720266660:dim(tcga.expression.matrix)
+1443720410610:take.off()
+1443720431949:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443720446162:rm(take.off())
+1443720458264:rm(take.off)
+1443720958574:predictions[[1]]
+1443721054990:?fisher.test
+1443721384874:?sample
+1443722785681:source('/mnt/DATAPART1/rnaseq/R/get.data.R')
+1443723059089:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443724168126:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443725599566:X = read.table("expression.gene.v2.tsv")
+1443725611007:Xp = preprocess(X)
+1443725618865:q = intersect(unique(unlist(GO$annotation[["9606"]])), rownames(Xp)) #[2001:2200]
+1443725618936:Xp.q = Xp[q,]
+1443727134259:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443727177510:correlation.selected(Xp, tx_input_list = c("55", "221150"))
+1443727222817:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443727229056:correlation.selected(Xp, tx_input_list = c("55", "221150"))
+1443727613972:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443727619915:correlation.selected(Xp, tx_input_list = c("55", "221150"))
+1443727632636:c=correlation.selected(Xp, tx_input_list = c("55", "221150"))
+1443727704075:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443727705791:c=correlation.selected(Xp, tx_input_list = c("55", "221150"))
+1443727732328:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443727734175:c=correlation.selected(Xp, tx_input_list = c("55", "221150"))
+1443727775362:sum(colnames(t(X)) == tx)
+1443727825203:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443727825378:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443727828823:sum(colnames(t(X)) == tx)
+1443727831367:c=correlation.selected(Xp, tx_input_list = c("55", "221150"))
+1443727885753:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443727889394:c=correlation.selected(Xp, tx_input_list = c("55", "221150"))
+1443728062451:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443728110990:View(predict.annotations.knn)
+1443729040436:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443729764521:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443730934886:NCPU =4

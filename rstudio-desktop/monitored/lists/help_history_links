@@ -1,15 +1,15 @@
-help/library/base/html/apply.html,R: Apply Functions Over Array Margins
-help/library/base/html/lapply.html,R: Apply a Function over a List or Vector
-help/library/base/html/mapply.html,R: Apply a Function to Multiple List or Vector Arguments
 help/library/parallel/html/mclapply.html,R: Parallel Versions of 'lapply' and 'mapply' using Forking
 help/library/base/html/as.data.frame.html,R: Coerce to a Data Frame
 help/library/base/html/file.info.html,R: Extract File Information
 help/library/TCGA2STAT/html/getTCGA.html,R: Get TCGA Data.
 help/library/utils/html/write.table.html,R: Data Output
-help/library/stats/html/fisher.test.html,R: Fisher's Exact Test for Count Data
 help/library/AUC/html/specificity.html,R: Compute the specificity curve.
 help/library/AUC/html/sensitivity.html,R: Compute the sensitivity curve.
+help/library/graphics/html/plot.html,R: Generic X-Y Plotting
+help/library/base/html/ls.html,R: List Objects
 help/library/AUC/html/AUC-package.html,R: Threshold independent performance measures for probabilistic...
 help/library/AUC/html/roc.html,R: Compute the receiver operating characteristic (ROC) curve.
-help/library/graphics/html/plot.html,R: Generic X-Y Plotting
+help/library/base/html/stop.html,R: Stop Function Execution
 help/library/AUC/html/auc.html,R: Compute the area under the curve of a given performance...
+help/library/stats/html/fisher.test.html,R: Fisher's Exact Test for Count Data
+help/library/base/html/sample.html,R: Random Samples and Permutations

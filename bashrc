@@ -118,7 +118,7 @@ COLOR_RESET='\[\033[00m\]'
 #if [ "$TERM" == "screen" ]; then
 #    PS1="$BLUE\w $GREEN\$ $COLOR_RESET"
 #else
-    PS1="$GREEN\h $BLUE\w$PURPLE\$(__git_ps1)$GREEN \$ $COLOR_RESET"
+    PS1="$YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 #fi
 
 #export TERM=xterm-256color
