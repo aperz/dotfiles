@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+mv $1 /mnt/48AE3F58AE3F3DAE/dp1_trash
+echo "$1 moved to trash"

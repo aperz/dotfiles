@@ -5878,3 +5878,21 @@
 1443729040436:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
 1443729764521:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
 1443730934886:NCPU =4
+1443824892823:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443825515596:source('/mnt/DATAPART1/rnaseq/R/get.data.R')
+1443825985041:source('/mnt/DATAPART1/rnaseq/R/get.data.R')
+1443827565533:source('/mnt/DATAPART1/rnaseq/R/get.data.R')
+1443827591520:rm(get.gene.info)
+1443827636880:source('/mnt/DATAPART1/rnaseq/R/get.data.R')
+1443828902328:source('/mnt/DATAPART1/rnaseq/R/fpredict.R')
+1443995797383:View(specif)
+1443995807857:View(auc.from.pred)
+1443995813069:View(auc.from.pred)
+1443995818719:View(auc.from.pred)
+1444060354969:ls()
+1444161502861:library(DESeq2)
+1444161516199:ls()
+1444161525305:?ls
+1444161574016:View(estimateSizeFactors
+1444161575282:)
+1444161583083:View(estimateSizeFactors)

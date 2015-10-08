@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+time=$1
+sleep $(time*60)
+

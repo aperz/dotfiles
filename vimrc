@@ -1,3 +1,139 @@
+
+" Keymap
+:inoremap <C-x> <Esc>
+
+""""""""""""""""""""""""""""""""""""""""
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+syntax enable
+filetype off
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+
+"set autoindent         " always set autoindenting on
+if has("vms")
+      set nobackup              " do not keep a backup file, use versions instead
+else
+      set backup          " keep a backup file
+endif
+
+set history=50              " keep 50 lines of command line history
+set showcmd         " display incomplete commands
+set incsearch               " do incremental searching
+set nowrap          " turns off text wrapping
+set nospell                 " turns on spell check for all files
+" autocmd BufNewFile,BufRead *.txt,*.html,README set spell "turns on spell check only for specified files
+set paste           " turns on traditional pasting of text
+set number                " turns line numbering on
+set ruler           " show the cursor position all the time
+
+set cursorline
+set expandtab
+set autoindent
+set smartindent
+set rulerformat=%l\:%c
+set laststatus=2
+set visualbell
+set clipboard=unnamed
+""""""""""""""""""""""""""""""""""""""""
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Keep Plugin commands between vundle#begin/end.
+Plugin 'https://github.com/jalvesaq/R-Vim-runtime'
+Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux'
+Plugin 'https://github.com/vim-scripts/Vim-R-plugin'
+Plugin 'https://github.com/jalvesaq/VimCom'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" see :h vundle for more details or wiki for FAQ
+
+""""""""""""""""""""""""""""""""""""""""
+"map T <Esc>:tabnew<CR>                                                                                                                                                                                           
+"map W <Esc>:tabclose<CR>                                                                                                                                                                                         
+"map H <Esc>:tabprev<CR>                                                                                                                                                                                          
+"map L <Esc>:tabnext<CR>                                                                                                                                                                                          
+"map M <Esc>:make<CR>                                                                                                                                                                                             
+"map <C-h> :execute 'tabmove' tabpagenr() - 2 <CR>                                                                                                                                                                
+"map <C-l> :execute 'tabmove' tabpagenr() <CR>    
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" sample settings for vim-r-plugin and screen.vim
+" Installation 
+"       - Place plugin file under ~/.vim/
+"       - To activate help, type in vim :helptags ~/.vim/doc
+"       - Place the following vim conf lines in .vimrc
+" Usage
+"       - Read intro/help in vim with :h vim-r-plugin or :h screen.txt
+"       - To initialize vim/R session, start screen/tmux, open some *.R file in vim and then hit F2 key
+"       - Object/omni completion command CTRL-X CTRL-O
+"       - To update object list for omni completion, run :RUpdateObjList
+" My favorite Vim/R window arrangement 
+"	tmux attach
+"	Open *.R file in Vim and hit F2 to open R
+"	Go to R pane and create another pane with C-a %
+"	Open second R session in new pane
+"	Go to vim pane and open a new viewport with :split *.R
+" Useful tmux commands
+"       tmux new -s <myname>       start new session with a specific name
+"	tmux ls (C-a-s)            list tmux session
+"       tmux attach -t <id>        attach to specific session  
+"       tmux kill-session -t <id>  kill specific session
+" 	C-a-: kill-session         kill a session
+" 	C-a %                      split pane vertically
+"       C-a "                      split pane horizontally
+" 	C-a-o                      jump cursor to next pane
+"	C-a C-o                    swap panes
+" 	C-a-: resize-pane -L 10    resizes pane by 10 to left (L R U D)
+" Corresponding Vim commands
+" 	:split or :vsplit      split viewport
+" 	C-w-w                  jump cursor to next pane-
+" 	C-w-r                  swap viewports
+" 	C-w C-++               resize viewports to equal split
+" 	C-w 10+                increase size of current pane by value
+
+" For tmux support
+let g:ScreenImpl = 'Tmux'
+let vimrplugin_screenvsplit = 1 " For vertical tmux split
+let g:ScreenShellInitialFocus = 'shell' 
+" instruct to use your own .screenrc file
+let g:vimrplugin_noscreenrc = 1
+" For integration of r-plugin with screen.vim
+let g:vimrplugin_screenplugin = 1
+" Don't use conque shell if installed
+let vimrplugin_conqueplugin = 0
+" map the letter 'r' to send visually selected lines to R 
+let g:vimrplugin_map_r = 1
+" see R documentation in a Vim buffer
+let vimrplugin_vimpager = "no"
+"set expandtab
+set shiftwidth=4
+set tabstop=8
+" start R with F2 key
+map <F2> <Plug>RStart 
+imap <F2> <Plug>RStart
+vmap <F2> <Plug>RStart
+" send selection to R with space bar
+vmap <Space> <Plug>RDSendSelection 
+" send line to R with space bar
+nmap <Space> <Plug>RDSendLine
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 "Tomorrow Night Bright - Full Colour and 256 Colour
 " http://chriskempson.com
 "
@@ -10,13 +146,28 @@ let s:selection = "424242"
 let s:line = "2a2a2a"
 let s:comment = "969896"
 let s:red = "d54e53"
-let s:orange = "e78c45"
-let s:yellow = "e7c547"
-let s:green = "b9ca4a"
-let s:aqua = "70c0b1"
-let s:blue = "7aa6da"
-let s:purple = "c397d8"
+let s:orange = "fcaf3e"
+let s:yellow = "fce94f"
+let s:green = "9ae234"
+let s:aqua = "63e2e2"
+let s:blue = "729fcf"
+let s:purple = "d77dcd"
 let s:window = "4d5057"
+
+
+"let s:foreground = '"eaeaea"
+"let s:background = '"000000"
+"let s:selection = '"424242"
+"let s:line = '"2a2a2a"
+"let s:comment = '"969896"
+"let s:red = '"d54e53"
+"let s:orange = '"e78c45"
+"let s:yellow = '"e7c547"
+"let s:green = '"b9ca4a"
+"let s:aqua = '"70c0b1"
+"let s:blue = '"7aa6da"
+"let s:purple = '"c397d8"
+"let s:window = '"4d5057"
 
 hi clear
 syntax reset
@@ -263,7 +414,9 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	end
 
 	" Standard Highlighting
-	call <SID>X("Comment", s:comment, "", "")
+        syn match Braces display '[{}()\[\]$<>]'
+        call <SID>X("Braces", s:yellow, "", "")
+	call <SID>X("Comment", s:red, "", "")
 	call <SID>X("Todo", s:comment, s:background, "")
 	call <SID>X("Title", s:comment, "", "")
 	call <SID>X("Identifier", s:red, "", "none")
@@ -487,15 +640,4 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 endif
 
 set background=dark
-
-
-set number
-set cursorline
-set expandtab
-set autoindent
-set smartindent
-set ruler
-set rulerformat=%l\:%c
-set laststatus=2
-set visualbell
-set clipboard=unnamed
+hi Comment ctermfg=grey

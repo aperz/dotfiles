@@ -66,6 +66,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias xterm='xterm -maximized'
+# alias vim="vim --servername VIM"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -88,7 +89,8 @@ if ! shopt -oq posix; then
 fi
 
 # set additional PATHs
-export PATH=$PATH:/home/perza/.aspera/connect/bin
+# export PATH=$PATH:/home/perza/.aspera/connect/bin
+export PATH=$PATH:/home/perza/.bin
 export PATH=$PATH:/usr/local/bin/sratoolkit.2.5.2-ubuntu64/binexport 
 export PATH=$PATH:/usr/local/bin/kentUtils
 
