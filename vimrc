@@ -31,13 +31,17 @@ set number                " turns line numbering on
 set ruler           " show the cursor position all the time
 
 set cursorline
+
+set tabstop=8
 set expandtab
+set shiftwidth=4
 set autoindent
 set smartindent
 set rulerformat=%l\:%c
 set laststatus=2
 set visualbell
 set clipboard=unnamed
+set paste
 """"""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -55,9 +59,9 @@ Plugin 'https://github.com/vim-scripts/Vim-R-plugin'
 Plugin 'https://github.com/jalvesaq/VimCom'
 
 call vundle#end()            " required
-filetype plugin indent on    " required
+"filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+filetype plugin on
 "
 " see :h vundle for more details or wiki for FAQ
 
@@ -119,6 +123,7 @@ let vimrplugin_conqueplugin = 0
 let g:vimrplugin_map_r = 1
 " see R documentation in a Vim buffer
 let vimrplugin_vimpager = "no"
+let vimrplugin_args_in_stline = 1
 "set expandtab
 set shiftwidth=4
 set tabstop=8
@@ -417,7 +422,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
         syn match Braces display '[{}()\[\]$<>]'
         call <SID>X("Braces", s:yellow, "", "")
 	call <SID>X("Comment", s:red, "", "")
-	call <SID>X("Todo", s:comment, s:background, "")
+	call <SID>X("Todo", s:comment, s:selection, "")
 	call <SID>X("Title", s:comment, "", "")
 	call <SID>X("Identifier", s:red, "", "none")
 	call <SID>X("Statement", s:foreground, "", "")

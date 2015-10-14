@@ -66,7 +66,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias xterm='xterm -maximized'
-# alias vim="vim --servername VIM"
+# alias vim='vim --servername VIM'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
