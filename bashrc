@@ -66,7 +66,14 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias xterm='xterm -maximized'
-# alias vim='vim --servername VIM'
+alias vim='vim --servername VIM'
+alias project='cd /mnt/DATAPART1/gamma_postM/'
+alias wb='cd /mnt/DATAPART1/'
+alias dt='cd /mnt/DATAPART2/'
+
+won () {
+	mv "$@" ~/smietniczek
+}
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
