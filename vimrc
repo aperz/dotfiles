@@ -27,18 +27,22 @@ set ruler           " show the cursor position all the time
 set rulerformat=%l\:%c
 set cursorline
 
-set tabstop=4
-set softtabstop=4
-set expandtab
-set shiftwidth=4
-set autoindent
-set smartindent
 
 set laststatus=2
 set visualbell
 set clipboard=unnamed
 set paste
 
+"if has("autocmd")
+"    au InsertEnter *
+"        \ if v:insertmode == 'i' |
+"        \   silent execute "!gnome-terminal-cursor-shape.sh ibeam" |
+"        \ elseif v:insertmode == 'r' |
+"        \   silent execute "!gnome-terminal-cursor-shape.sh underline" |
+"        \ endif
+"    au InsertLeave * silent execute "!gnome-terminal-cursor-shape.sh block"
+"    au VimLeave * silent execute "!gnome-terminal-cursor-shape.sh block"
+"endif
 
 """"""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
@@ -52,11 +56,13 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
 Plugin 'https://github.com/jalvesaq/R-Vim-runtime'
-Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux'
+"Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux'
+Plugin 'https://github.com/ervandew/screen'
 Plugin 'https://github.com/vim-scripts/Vim-R-plugin'
 Plugin 'https://github.com/jalvesaq/VimCom'
-
 " Plugin 'https://github.com/vim-scripts/pythoncomplete'
+"Plugin 'vim-scripts/indentpython.vim'
+"Plugin 'https://github.com/ivanov/vim-ipython'
 Plugin 'https://github.com/vim-scripts/Python-mode-klen'
 
 call vundle#end()            " required
@@ -111,8 +117,8 @@ call vundle#end()            " required
 " 	C-w 10+                increase size of current pane by value
 
 "" For tmux support
-"let g:ScreenImpl = 'Tmux'
-"let vimrplugin_screenvsplit = 1 " For vertical tmux split
+let g:ScreenImpl = 'Tmux'
+let vimrplugin_screenvsplit = 1 " For vertical tmux split
 "let g:ScreenShellInitialFocus = 'shell' 
 "" instruct to use your own .screenrc file
 "let g:vimrplugin_noscreenrc = 1
@@ -125,17 +131,12 @@ call vundle#end()            " required
 "" see R documentation in a Vim buffer
 "let vimrplugin_vimpager = "no"
 "let vimrplugin_args_in_stline = 1
-""set expandtab
-"set shiftwidth=4
-"set tabstop=8
 "" start R with F2 key
 "map <F2> <Plug>RStart 
 "imap <F2> <Plug>RStart
 "vmap <F2> <Plug>RStart
 "" send selection to R with space bar
-"vmap <Space> <Plug>RDSendSelection 
 "" send line to R with space bar
-"nmap <Space> <Plug>RDSendLine
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " python-mode
@@ -150,22 +151,23 @@ call vundle#end()            " required
 " [M            Jump on previous class or method (normal, visual, operator modes)
 " ]M            Jump on next class or method (normal, visual, operator modes)
 let g:pymode_rope = 1
+let g:pymode_rope_show_doc_bind = 'K'
 
 " Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
+let g:pymode_doc = 0
+"let g:pymode_doc_key = 'N'
 
 "Linting
-"let g:pymode_lint = 1
+let g:pymode_lint = 0
 "let g:pymode_lint_checker = "pyflakes,pep8"
 " Auto check on save
-"let g:pymode_lint_write = 1
+let g:pymode_lint_write = 0
 
 " Support virtualenv
-"let g:pymode_virtualenv = 1
+let g:pymode_virtualenv = 1
 
 " Enable breakpoints plugin
-"let g:pymode_breakpoint = 1
+let g:pymode_breakpoint = 0
 "let g:pymode_breakpoint_bind = '<leader>b'
 
 " syntax highlighting
@@ -174,33 +176,48 @@ let g:pymode_syntax_all = 1
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
+
 " Don't autofold code
 let g:pymode_folding = 0
 
 "let g:pymode_python = 'python3'
 
-
-
-
-
+let pymode = 1
+let pymode_path = 1
+let pymode_paths = []
+let pymode_run = 1
+let pymode_run_key = 'r'
 
 
 
 """""""""""""""""""""""""""""""""""""""
 " Keymap
-inoremap <C-c> <Esc>
-vnoremap <C-c> <Esc>
-iunmap <Esc>
-" inoremap <BS> <Nop>
+inoremap <C-x> <Esc>
+vnoremap <C-x> <Esc>
+"inoremap <C-b> <C-h>
+inoremap <BS> <Nop>
+inoremap <C-b> <>
+" or C-Space
+inoremap <C-c> <C-h>
+
+"Plugins
 vnoremap <Space> <Plug>RDSendSelection
 nnoremap <Space> <Plug>RDSendLine
-inoremap <Nul> <C-x><C-o>
+nnoremap <Space> :ScreenSend
+vnoremap <Space> :ScreenSend
+"inoremap <Nul> <C-x><C-o>
+
+" arrows in insert mode
+inoremap <C-j> ^[OA
+inoremap <C-k> ^[OB
+inoremap <C-l> ^[OC
+inoremap <C-h> ^[OD
 
 " pane navigation
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
 
 noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " omnicompletion navigation in popup buffers
@@ -208,4 +225,17 @@ noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> tr
 "inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 """"""""""""""""""""""""""""""""""""""""
 colorscheme Tomorrow-Night-Bright
-"hi Comment ctermfg=grey
+set statusline=%<%f%{FF()}\ %M\ %h%r%=%-10.(%l,%c%V\ b=%n,w=%{winnr()}%)\ %P
+function! FF()
+    if &ft == 'qf'
+		return exists('w:quickfix_title') ? ' ' . w:quickfix_title : ''
+    endif
+    return &ff == 'unix'  ?  ''  :  ' [' . &ff . ']'
+endfunction
+"hi Comment ctermfg=yellow
+set tabstop=4
+set softtabstop=4
+set expandtab
+set shiftwidth=4
+set autoindent
+set smartindent

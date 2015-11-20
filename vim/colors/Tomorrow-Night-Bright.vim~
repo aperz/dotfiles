@@ -13,8 +13,8 @@ let s:red = "d54e53"
 let s:orange = "ffa321"
 let s:yellow = "f8ff33"
 let s:green = "7FFA66"
-let s:aqua = "33FFE7"
-"""63e2e2"
+let s:aqua = "87ffff"
+""33FFE7"
 let s:blue = "729fcf"
 let s:purple = "d77dcd"
 let s:window = "4d5057"
@@ -283,7 +283,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
 	" Standard Highlighting
 	call <SID>X("Comment", s:comment, "", "")
-	call <SID>X("Todo", s:comment, s:red, "")
+	call <SID>X("Todo", s:background, s:yellow, "")
 	call <SID>X("Title", s:comment, "", "")
 	call <SID>X("Identifier", s:red, "", "none")
 	call <SID>X("Statement", s:purple, "", "")
@@ -309,6 +309,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("rDollar", s:orange, "", "")
 
 	" Python Highlighting
+    " these match all parens :(
 	syn match pythonParens '('
 	syn match pythonParens ')'
 	syn match pythonParens '\['
