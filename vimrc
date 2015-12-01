@@ -1,14 +1,23 @@
 """"""""""""""""""""""""""""""""""""""""
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-filetype off
-filetype plugin on
-filetype plugin indent on
-syntax on
 
-set modeline
-set backspace=indent,eol,start " allow backspacing over everything in insert mode
+""""""""""""""""""""""""""""""""""""""""
+colorscheme Tomorrow-Night-Bright
+set statusline=%<%f%{FF()}\ %M\ %h%r%=%-10.(%l,%c%V\ b=%n,w=%{winnr()}%)\ %P
+function! FF()
+    if &ft == 'qf'
+		return exists('w:quickfix_title') ? ' ' . w:quickfix_title : ''
+    endif
+    return &ff == 'unix'  ?  ''  :  ' [' . &ff . ']'
+endfunction
 
+set number                " turns line numbering on
+set ruler           " show the cursor position all the time
+set rulerformat=%l\:%c
+set cursorline
+"set colorcolumn=81
+""""""""""""""""""""""""""""""""""""""""
 if has("vms")
       set nobackup              " do not keep a backup file, use versions instead
 else
@@ -16,22 +25,23 @@ else
 endif
 set history=50              " keep 50 lines of command line history
 
-set showcmd         " display incomplete commands
-set incsearch               " do incremental searching
-set nowrap          " turns off text wrapping
-set nospell                 " turns on spell check for all files
+set modeline
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set showcmd					   " display incomplete commands
+set incsearch                  " do incremental searching
+set nowrap					   " turns off text wrapping
+set nospell                    " turns on spell check for all files
 autocmd BufNewFile,BufRead *.txt,*.html,README set spell "turns on spell check only for specified files
-set paste           " turns on traditional pasting of text
-set number                " turns line numbering on
-set ruler           " show the cursor position all the time
-set rulerformat=%l\:%c
-set cursorline
-
-
+set paste                      " turns on traditional pasting of text
 set laststatus=2
 set visualbell
 set clipboard=unnamed
 set paste
+
+filetype off
+filetype plugin on
+filetype plugin indent on
+syntax on
 
 "if has("autocmd")
 "    au InsertEnter *
@@ -60,9 +70,9 @@ Plugin 'https://github.com/jalvesaq/R-Vim-runtime'
 Plugin 'https://github.com/ervandew/screen'
 Plugin 'https://github.com/vim-scripts/Vim-R-plugin'
 Plugin 'https://github.com/jalvesaq/VimCom'
-" Plugin 'https://github.com/vim-scripts/pythoncomplete'
+Plugin 'https://github.com/ivanov/vim-ipython'
+"Plugin 'https://github.com/vim-scripts/pythoncomplete'
 "Plugin 'vim-scripts/indentpython.vim'
-"Plugin 'https://github.com/ivanov/vim-ipython'
 Plugin 'https://github.com/vim-scripts/Python-mode-klen'
 
 call vundle#end()            " required
@@ -103,18 +113,18 @@ call vundle#end()            " required
 "	tmux ls (C-a-s)            list tmux session
 "       tmux attach -t <id>        attach to specific session  
 "       tmux kill-session -t <id>  kill specific session
-" 	C-a-: kill-session         kill a session
-" 	C-a %                      split pane vertically
+"	C-a-: kill-session         kill a session
+"	C-a %                      split pane vertically
 "       C-a "                      split pane horizontally
-" 	C-a-o                      jump cursor to next pane
+"	C-a-o                      jump cursor to next pane
 "	C-a C-o                    swap panes
-" 	C-a-: resize-pane -L 10    resizes pane by 10 to left (L R U D)
+"	C-a-: resize-pane -L 10    resizes pane by 10 to left (L R U D)
 " Corresponding Vim commands
-" 	:split or :vsplit      split viewport
-" 	C-w-w                  jump cursor to next pane-
-" 	C-w-r                  swap viewports
-" 	C-w C-++               resize viewports to equal split
-" 	C-w 10+                increase size of current pane by value
+"	:split or :vsplit      split viewport
+"	C-w-w                  jump cursor to next pane-
+"	C-w-r                  swap viewports
+"	C-w C-++               resize viewports to equal split
+"	C-w 10+                increase size of current pane by value
 
 "" For tmux support
 let g:ScreenImpl = 'Tmux'
@@ -180,7 +190,7 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
-"let g:pymode_python = 'python3'
+let g:pymode_python = 'python3'
 
 let pymode = 1
 let pymode_path = 1
@@ -223,16 +233,8 @@ noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> tr
 " omnicompletion navigation in popup buffers
 "inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
 "inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+
 """"""""""""""""""""""""""""""""""""""""
-colorscheme Tomorrow-Night-Bright
-set statusline=%<%f%{FF()}\ %M\ %h%r%=%-10.(%l,%c%V\ b=%n,w=%{winnr()}%)\ %P
-function! FF()
-    if &ft == 'qf'
-		return exists('w:quickfix_title') ? ' ' . w:quickfix_title : ''
-    endif
-    return &ff == 'unix'  ?  ''  :  ' [' . &ff . ']'
-endfunction
-"hi Comment ctermfg=yellow
 set tabstop=4
 set softtabstop=4
 set expandtab

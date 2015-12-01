@@ -16,23 +16,13 @@ let s:green = "7FFA66"
 let s:aqua = "87ffff"
 ""33FFE7"
 let s:blue = "729fcf"
+let s:theme = "005f5f" "193
+" "005f87" "24
+let s:theme2 = "dfffaf" "23
+" "87ffff" "123
+let s:theme3 = "00af87" "36
 let s:purple = "d77dcd"
 let s:window = "4d5057"
-
-" Default GUI Colours
-"let s:foreground = "eaeaea"
-"let s:background = "000000"
-"let s:selection = "424242"
-"let s:line = "2a2a2a"
-"let s:comment = "969896"
-"let s:red = "d54e53"
-"let s:orange = "e78c45"
-"let s:yellow = "e7c547"
-"let s:green = "b9ca4a"
-"let s:aqua = "70c0b1"
-"let s:blue = "7aa6da"
-"let s:purple = "c397d8"
-"let s:window = "4d5057"
 
 hi clear
 "syntax reset
@@ -247,18 +237,24 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 		endif
 	endfun
 
+
+    " help highlighting
+	call <SID>X("helpExample", s:aqua, "", "")
+	call <SID>X("helpBar", s:red, "", "")
+	call <SID>X("helpOption", s:blue, "", "")
+
 	" Vim Highlighting
 	call <SID>X("Normal", s:foreground, s:background, "")
 	call <SID>X("LineNr", s:selection, "", "")
-	call <SID>X("CursorLineNr", s:yellow, "", "")
+	call <SID>X("CursorLineNr", s:theme2, "", "")
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
 	call <SID>X("Search", s:background, s:yellow, "")
 	call <SID>X("TabLine", s:window, s:foreground, "reverse")
 	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
-	call <SID>X("StatusLine", s:window, s:foreground, "reverse")
-	call <SID>X("StatusLineNC", s:window, s:background, "reverse")
-	call <SID>X("VertSplit", s:window, s:background, "none")
+	call <SID>X("StatusLine", s:theme, s:theme2, "reverse")
+	call <SID>X("StatusLineNC", s:selection, s:theme2, "reverse")
+	call <SID>X("VertSplit", s:selection, s:background, "none")
 	call <SID>X("Visual", "", s:selection, "")
 	call <SID>X("Directory", s:blue, "", "")
 	call <SID>X("ModeMsg", s:green, "", "")
@@ -266,7 +262,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("Question", s:green, "", "")
 	call <SID>X("WarningMsg", s:red, "", "")
 	call <SID>X("MatchParen", "", s:selection, "")
-	call <SID>X("Folded", s:comment, s:background, "")
+	call <SID>X("Folded", s:background, s:purple, "")
 	call <SID>X("FoldColumn", "", s:background, "")
 	if version >= 700
 		"autocmd InsertEnter * call <SID>X("CursorLine", "", s:selection, "")
@@ -279,9 +275,15 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	end
 	if version >= 703
 		call <SID>X("ColorColumn", "", s:line, "none")
+		" moje
+		call <SID>X("ErrorMsg", s:red, s:background, "")
+		call <SID>X("ModeMsg", s:theme3, "", "")
+
 	end
 
 	" Standard Highlighting
+	syn match Attention '#ATT'
+    call <SID>X("Attention", s:background, s:orange, "")
 	call <SID>X("Comment", s:comment, "", "")
 	call <SID>X("Todo", s:background, s:yellow, "")
 	call <SID>X("Title", s:comment, "", "")
