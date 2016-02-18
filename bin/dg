@@ -1,4 +1,0 @@
-#! /usr/bin/env bash
-
-mv $1 /mnt/DATAPART1/dp1_trash
-echo "$1 moved to trash"

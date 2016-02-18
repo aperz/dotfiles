@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+cd ~
+tmux rename-window 'py'
+vim-py3 -S pyide.vim
+#vim-py3 -c "ScreenShell"
+wb

@@ -3,7 +3,7 @@ XTerm*faceName: Monospace
 XTerm*faceSize: 12.0
 
 !TomorrowNight
-#define t_foreground        #eaeaea
+#define t_foreground        #1c1c1c
 #define t_background        #000000
 #define t_selection         #424242
 #define t_current_line      #2a2a2a
@@ -13,10 +13,10 @@ XTerm*faceSize: 12.0
 #define t_yellow            #f8ff33
 #define t_green             #7FFA66
 #define t_aqua              #87ffff
-#define t_blue              #729fcf         
+#define t_blue              #729fcf
 #define t_purple            #d77dcd
 
-!#define t_background        #1d1f21
+!#define t_background        #1d1f21eaeaea
 !#define t_current_line      #EEEEEC
 !#define t_selection         #D3D7CF
 !#define t_foreground        #c5c8c6

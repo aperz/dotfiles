@@ -1,0 +1,6 @@
+#! /usr/bin/env bash
+
+needle=$1
+var=$2
+
+echo $(grep -o "$needle" <<< "$var" | wc -l)

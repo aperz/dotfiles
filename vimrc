@@ -31,12 +31,18 @@ set showcmd					   " display incomplete commands
 set incsearch                  " do incremental searching
 set nowrap					   " turns off text wrapping
 set nospell                    " turns on spell check for all files
-autocmd BufNewFile,BufRead *.txt,*.html,README set spell "turns on spell check only for specified files
 set paste                      " turns on traditional pasting of text
 set laststatus=2
 set visualbell
 set clipboard=unnamed
 set paste
+
+autocmd BufNewFile,BufRead *.txt,*.html,README set spell "turns on spell check only for specified files
+
+" Associate filetypes with extensions
+autocmd BufNewFile,BufRead *.not setlocal filetype=not
+autocmd BufNewFile,BufRead *.kalen setlocal filetype=calendar
+autocmd BufNewFile,BufRead *.tsv,*.csv setlocal filetype=tabular
 
 filetype off
 filetype plugin on

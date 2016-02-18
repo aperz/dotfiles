@@ -52,7 +52,7 @@ shopt -s checkwinsize
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='ls --color=auto' 
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
 
@@ -62,18 +62,16 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
+alias lf='ls -B' # list files (anf folders)
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias xterm='xterm -maximized'
-alias vim='vim --servername VIM'
-alias project='cd /mnt/DATAPART1/gamma_postM/'
-alias wb='cd /mnt/DATAPART1/gamma_postM'
-alias dt='cd /dat2'
-
-won () {
-	mv "$@" ~/smietniczek
-}
+if [ $HOSTNAME = "Osiris" ]; then
+    alias vim='vim --servername VIM'
+    alias wb='cd /dat1/gamma_postM'
+    alias dt='cd /dat2'
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -96,10 +94,17 @@ if ! shopt -oq posix; then
 fi
 
 # set additional PATHs
-# export PATH=$PATH:/home/perza/.aspera/connect/bin
-export PATH=$PATH:/home/perza/.bin
-export PATH=$PATH:/usr/local/bin/sratoolkit.2.5.2-ubuntu64/binexport 
-export PATH=$PATH:/usr/local/bin/kentUtils
+if [ $HOSTNAME = "Osiris" ]; then
+    # export PATH=$PATH:/home/perza/.aspera/connect/bin
+    export PATH=$PATH:/home/perza/.bin
+    export PATH=$PATH:/usr/local/bin/sratoolkit.2.5.2-ubuntu64/binexport 
+    export PATH=$PATH:/usr/local/bin/kentUtils
+fi
+
+
+if [ $HOSTNAME = "Sirius" ]; then
+    export PATH=$PATH:/home/aleksandra/.bin
+fi
 
 #####
 source /etc/bash_completion.d/git-prompt

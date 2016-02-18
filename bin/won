@@ -1,0 +1,22 @@
+#! /usr/bin/env bash
+
+# if is directory
+if [ -d $1 ]; then
+    cp -r $1 ~/smietniczek
+    echo Moved $1 to smietniczek
+    if [ -d ~/smietniczek/$1 ]; then
+        rm -r $1
+        echo Removed folder from original location
+    fi
+
+# if is file
+elif [ -f $1 ]; then
+    cp -r $1 ~/smietniczek
+    echo Moved $1 to smietniczek
+    if [ -f ~/smietniczek/$1 ]; then
+        rm $1
+        echo Removed file from original location
+    fi
+else
+    echo Target not file nor directory
+fi

@@ -5896,3 +5896,901 @@
 1444161574016:View(estimateSizeFactors
 1444161575282:)
 1444161583083:View(estimateSizeFactors)
+1449517008980:pth <- "/mnt/DATAPART1/Sasi"
+1449517021268:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1449517021441:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1449517021737:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449517021968:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1449517023353:# measure RGB channels on converted .lsm images
+1449517025274:measure_lsm_data <- matrix(NA)
+1449517025817:for( file in file_list_measure_lsm) {
+1449517026088:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449517026568:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449517026873:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449517027215:}
+1449517027688:measure_lsm_data <- measure_lsm_data[,-6]
+1449517028078:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449517028311:measure_lsm <- matrix(NA)
+1449517063481:measure_lsm
+1449517067985:measure_lsm_data
+1449518175078:measure_lsm_data <- matrix(NA)
+1449518175283:for( file in file_list_measure_lsm) {
+1449518175576:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449518175754:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449518175921:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449518176192:}
+1449518191393:measure_lsm_data
+1449518194831:measure_lsm
+1449518238376:file_list_measure_lsm
+1449518245102:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449518248190:measure_lsm_data <- matrix(NA)
+1449518248326:for( file in file_list_measure_lsm) {
+1449518248478:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449518248637:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449518248758:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449518249048:}
+1449518255198:measure_lsm
+1449518265198:measure_lsm_data
+1449518281657:measure_lsm_data <- matrix(NA)
+1449518282161:for( file in file_list_measure_lsm) {
+1449518282190:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449518282377:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449518282537:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449518282860:}
+1449518283241:measure_lsm_data <- measure_lsm_data[,-6]
+1449518283594:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449518285146:measure_lsm <- matrix(NA)
+1449518285364:for( i in unique(measure_lsm_data$parameter)) {
+1449518285561:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1449518285792:new <- new[,-1]
+1449518286032:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449518286256:measure_lsm <- merge(measure_lsm, new)
+1449518286516:}
+1449518286776:measure_lsm <- measure_lsm[,-2]
+1449518288289:# colocalisation data; only measure yellow, which is blue. Put 0's where no measurement available
+1449518288504:coloc_data <- matrix(NA)
+1449518288707:for(file in file_list_coloc) {
+1449518288898:Label <- c(gsub("C1-", "", gsub(".tif_coloc.tsv", "", as.character(file))))
+1449518289112:new <- cbind(read.csv(paste0(pth, "/colocalisation/", file), header=T, sep="\t"), Label)
+1449518289328:coloc_data <- merge(coloc_data, new, all=T)
+1449518289560:}
+1449518290061:coloc_data <- coloc_data[,-6]
+1449518290249:coloc_data$parameter <- as.character(coloc_data$parameter)
+1449518290888:coloc <- matrix(NA)
+1449518291089:for( i in unique(coloc_data$parameter)) {
+1449518291280:new <- coloc_data[coloc_data$parameter == i,]
+1449518291493:new <- new[,-1]
+1449518291706:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449518291913:coloc <- merge(coloc, new)
+1449518292120:}
+1449518292311:coloc <- coloc[,c(1,5,8,11)]
+1449518292515:names(coloc)[1] <- "Label"
+1449518293744:#
+1449518293937:count_data <- matrix(NA, 0, 13)
+1449518294166:for ( file in file_list_count) {
+1449518294354:new <-read.csv(paste0(pth, "/count/", file), header=T, sep="\t")
+1449518294565:count_data <- rbind(count_data, new)
+1449518294781:}
+1449518294969:count <- count_data[count_data$Area > 99,]
+1449518295333:count <- as.data.frame(xtabs(~Label, count))
+1449518295801:count$Label <- as.factor(unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C3-", "", x))} )))
+1449518297757:# green in nuclei
+1449518298254:if (!is.na(file_list_in_nuclei[1])) {
+1449518298285:print("Green in nuclei data detected, adding...")
+1449518298342:in_nuclei_data <- matrix(NA)
+1449518298384:for (file in file_list_in_nuclei) {
+1449518298538:Label <- c(gsub("C3-", "", gsub(".tif_in_nuc.tsv", "", as.character(file))))
+1449518299044:new <- cbind(read.csv(paste0(pth, "/in_nuclei/", file), header=T, sep="\t"), Label)
+1449518299068:in_nuclei_data <- merge(in_nuclei_data, new, all=T)
+1449518299120:}
+1449518299160:in_nuclei <- matrix(NA)
+1449518299203:for( i in unique(in_nuclei_data$parameter)) {
+1449518299204:new <- in_nuclei_data[in_nuclei_data$parameter == i,]
+1449518299277:new <- new[,-1]
+1449518299334:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449518299334:in_nuclei <- merge(in_nuclei, new)
+1449518300706:}
+1449518300882:in_nuclei <- in_nuclei[,c(1,6,9,12)]
+1449518301096:names(in_nuclei) <- c("file", "green_in_nuclei_area_fraction", "green_in_nuclei_mean", "green_in_nuclei_stdev")
+1449518301986:} else {
+1449518302387:print("No green in nuclei data detected.")
+1449518303752:}
+1449518359810:coloc_data
+1449518379170:count_data
+1449518391943:res <- merge(measure_lsm, count, all=T)
+1449518392589:res <- merge(res, coloc, by="Label", all=T)
+1449518397677:res
+1449518401305:View(res)
+1449518465677:count <- count_data[count_data$Area > 99,]
+1449518465954:count <- as.data.frame(xtabs(~Label, count))
+1449518471240:count$Label <- as.factor(unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C2-", "", x))} )))
+1449518473416:if (!is.na(file_list_in_nuclei[1])) {
+1449518473610:print("Green in nuclei data detected, adding...")
+1449518473793:in_nuclei_data <- matrix(NA)
+1449518473976:for (file in file_list_in_nuclei) {
+1449518474169:Label <- c(gsub("C2-", "", gsub(".tif_in_nuc.tsv", "", as.character(file))))
+1449518474328:new <- cbind(read.csv(paste0(pth, "/in_nuclei/", file), header=T, sep="\t"), Label)
+1449518474496:in_nuclei_data <- merge(in_nuclei_data, new, all=T)
+1449518474688:}
+1449518474856:in_nuclei <- matrix(NA)
+1449518475023:for( i in unique(in_nuclei_data$parameter)) {
+1449518475191:new <- in_nuclei_data[in_nuclei_data$parameter == i,]
+1449518475383:new <- new[,-1]
+1449518475504:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449518475728:in_nuclei <- merge(in_nuclei, new)
+1449518475903:}
+1449518476071:in_nuclei <- in_nuclei[,c(1,6,9,12)]
+1449518476247:names(in_nuclei) <- c("file", "green_in_nuclei_area_fraction", "green_in_nuclei_mean", "green_in_nuclei_stdev")
+1449518476409:} else {
+1449518476599:print("No green in nuclei data detected.")
+1449518476952:}
+1449518480279:### MERGE TABLES
+1449518480464:res <- merge(measure_lsm, count, all=T)
+1449518480655:res <- merge(res, coloc, by="Label", all=T)
+1449518488179:View(res)
+1449518648386:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449518648510:"blue_stdev", "cell_count", "yellow_area_fraction", "yellow_mean", "yellow_stdev")
+1449518674361:res$red_mean_per_cell <- round(res$red_mean / res$cell_count, 5)
+1449518674562:res$green_mean_per_cell <- round(res$green_mean / res$cell_count, 5)
+1449518674761:res$yellow_mean_per_cell <- round(res$yellow_mean / res$cell_count, 5)
+1449518677737:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1449518677948:meta <- meta[, -(1:5)]
+1449518757867:as.data.frame(strsplit(as.character(res$file), "_")))
+1449518759907:as.data.frame(strsplit(as.character(res$file), "_"))
+1449518765691:x = (strsplit(as.character(res$file), "_"))
+1449518767465:x
+1449518771265:class(x)
+1449518784827:sapply(x, lenght)
+1449518790946:sapply(x, length)
+1449518851842:meta <- cbind(t(as.data.frame(x[sapply(x, length)==9].., as.data.frame(res$file))
+1449518858905:sapply(x, length) ==9
+1449518892772:meta <- cbind(t(as.data.frame(x[sapply(x, length)==9]), as.data.frame(res$file[sapply(x, length) == 9])))
+1449518916002:meta <- cbind(t(as.data.frame(x[sapply(x, length)==9])), as.data.frame(res$file[sapply(x, length) == 9]))
+1449518918138:meta
+1449518947260:View(meta)
+1449518966620:meta <- meta[, -(1:5)]
+1449518977668:meta
+1449519084998:names(meta) <- c("date", "cell_line", "treatment", "image", "file")
+1449519089358:res <- merge(meta,res)
+1449519100949:res <- res[,c(1:5,15,6:14,16:21)]
+1449519121852:if (!is.na(file_list_in_nuclei[1])) {
+1449519122067:res <- merge(res, in_nuclei, all.x=T)
+1449519122562:}
+1449519126637:res$file <- gsub("_", "/", res$file)
+1449519130987:area_p <- 1024^2
+1449519131323:area_um <- 18211.8110
+1449519131517:res$yellow_area_pixels <- res$yellow_area_fraction*area_p
+1449519131697:res$yellow_area_um <- res$yellow_area_fraction*area_um
+1449519131893:res$yellow_area_pixels_per_cell <- res$yellow_area_fraction*area_p/res$cell_count
+1449519132103:res$yellow_area_um_per_cell <- res$yellow_area_fraction*area_um/res$cell_count
+1449519132633:#red
+1449519132820:res$red_area_pixels <- res$red_area_fraction*area_p
+1449519132999:res$red_area_um <- res$red_area_fraction*area_um
+1449519133197:res$red_area_pixels_per_cell <- res$red_area_fraction*area_p/res$cell_count
+1449519133223:res$red_area_um_per_cell <- res$red_area_fraction*area_um/res$cell_count
+1449519133422:#green
+1449519133693:res$green_area_pixels <- res$green_area_fraction*area_p
+1449519133719:res$green_area_um <- res$green_area_fraction*area_um
+1449519133890:res$green_area_pixels_per_cell <- res$green_area_fraction*area_p/res$cell_count
+1449519134158:res$green_area_um_per_cell <- res$green_area_fraction*area_um/res$cell_count
+1449519134187:### INNE
+1449519134953:res$green_in_nuclei_mean_per_cell <- res$green_in_nuclei_mean/res$cell_count
+1449519140535:agg1 <- aggregate(res, by=list(res$cell_line, res$treatment, res$date), FUN=mean, na.rm=T)
+1449519140707:agg1 <- agg1[,-c(4,5,6,7,8)]
+1449519140996:names(agg1)[1:3] <- c("cell_line", "treatment", "date")
+1449519141024:agg2 <- aggregate(res, by=list(res$cell_line, res$treatment), FUN=mean, na.rm=T)
+1449519141225:agg2<- agg2[,-c(3,4,5,6,7)]
+1449519141586:names(agg2)[1:2] <- c("cell_line", "treatment")
+1449519150405:system("mkdir output")
+1449519158178:agg1
+1449519178736:View(agg1)
+1449519179427:View(agg2)
+1449519247180:write.csv(res, "output/measurements_catD.csv", row.names=F)
+1449519286652:write.csv(res, "output/measurements_catB.csv", row.names=F)
+1449519286889:write.csv(agg2, "output/summary_catB.csv", row.names=F)
+1449519406527:meta <- cbind(t(as.data.frame(x[sapply(x, length)==8]), as.data.frame(res$file[sapply(x, length) == 8])))
+1449519415045:meta <- cbind(t(as.data.frame(x[sapply(x, length)==8])), as.data.frame(res$file[sapply(x, length) == 8]))
+1449519426084:meta <- meta[, -(1:5)]
+1449519437731:names(meta) <- c("date", "cell_line", "image", "file")
+1449519458075:res <- merge(meta,res)
+1449519461419:levels(res$cell_line)[levels(res$cell_line)=="231"] <- "MDAMB231"
+1449519462203:res$cell_line <- droplevels(res$cell_line)
+1449519464657:res <- res[,c(1:5,15,6:14,16:21)]
+1449519474943:View(res)
+1449519492714:res <- merge(meta,res)
+1449519509727:res <- merge(measure_lsm, count, all=T)
+1449519509729:res <- merge(res, coloc, by="Label", all=T)
+1449519509731:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449519509731:"blue_stdev", "cell_count", "yellow_area_fraction", "yellow_mean", "yellow_stdev")
+1449519509732:res$red_mean_per_cell <- round(res$red_mean / res$cell_count, 5)
+1449519509732:res$green_mean_per_cell <- round(res$green_mean / res$cell_count, 5)
+1449519509732:res$yellow_mean_per_cell <- round(res$yellow_mean / res$cell_count, 5)
+1449519524721:res <- merge(meta,res)
+1449519534119:res <- merge(measure_lsm, count, all=T)
+1449519534121:res <- merge(res, coloc, by="Label", all=T)
+1449519534123:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449519534123:"blue_stdev", "cell_count", "yellow_area_fraction", "yellow_mean", "yellow_stdev")
+1449519534123:res$red_mean_per_cell <- round(res$red_mean / res$cell_count, 5)
+1449519534124:res$green_mean_per_cell <- round(res$green_mean / res$cell_count, 5)
+1449519534124:res$yellow_mean_per_cell <- round(res$yellow_mean / res$cell_count, 5)
+1449519537953:View(res)
+1449519542909:View(meta)
+1449519558986:meta <- cbind(t(as.data.frame(x[sapply(x, length)==8])), as.data.frame(res$file[sapply(x, length) == 8]))
+1449519561580:View(meta)
+1449519575792:meta <- meta[, -(1:5)]
+1449519577859:View(meta)
+1449519586842:names(meta) <- c("date", "cell_line", "treatment", "image", "file")
+1449519591989:View(meta)
+1449519608164:names(meta) <- c("date", "cell_line", "image", "file")
+1449519610343:View(meta)
+1449519617161:res <- merge(meta,res)
+1449519619188:levels(res$cell_line)[levels(res$cell_line)=="231"] <- "MDAMB231"
+1449519619580:res$cell_line <- droplevels(res$cell_line)
+1449519619970:### rearrange
+1449519620147:#LYSO
+1449519620320:res <- res[,c(1:5,15,6:14,16:21)]
+1449519624805:View(res)
+1449519632777:res <- res[,c(1:4,14,5:13,15:20)]
+1449519639776:if (!is.na(file_list_in_nuclei[1])) {
+1449519639945:res <- merge(res, in_nuclei, all.x=T)
+1449519640280:}
+1449519640455:res$file <- gsub("_", "/", res$file)
+1449519653325:area_p <- 1024^2
+1449519653325:area_um <- 18211.8110
+1449519653326:res$yellow_area_pixels <- res$yellow_area_fraction*area_p
+1449519653326:res$yellow_area_um <- res$yellow_area_fraction*area_um
+1449519653326:res$yellow_area_pixels_per_cell <- res$yellow_area_fraction*area_p/res$cell_count
+1449519653327:res$yellow_area_um_per_cell <- res$yellow_area_fraction*area_um/res$cell_count
+1449519653327:#red
+1449519653327:res$red_area_pixels <- res$red_area_fraction*area_p
+1449519653328:res$red_area_um <- res$red_area_fraction*area_um
+1449519653328:res$red_area_pixels_per_cell <- res$red_area_fraction*area_p/res$cell_count
+1449519653329:res$red_area_um_per_cell <- res$red_area_fraction*area_um/res$cell_count
+1449519653329:#green
+1449519653329:res$green_area_pixels <- res$green_area_fraction*area_p
+1449519653330:res$green_area_um <- res$green_area_fraction*area_um
+1449519653330:res$green_area_pixels_per_cell <- res$green_area_fraction*area_p/res$cell_count
+1449519653331:res$green_area_um_per_cell <- res$green_area_fraction*area_um/res$cell_count
+1449519653331:### INNE
+1449519653331:res$green_in_nuclei_mean_per_cell <- res$green_in_nuclei_mean/res$cell_count
+1449519671641:agg1 <- aggregate(res, by=list(res$cell_line, res$treatment, res$date), FUN=mean, na.rm=T)
+1449519671884:agg1 <- agg1[,-c(4,5,6,7,8)]
+1449519672051:names(agg1)[1:3] <- c("cell_line", "treatment", "date")
+1449519672257:agg2 <- aggregate(res, by=list(res$cell_line, res$treatment), FUN=mean, na.rm=T)
+1449519672533:agg2<- agg2[,-c(3,4,5,6,7)]
+1449519672559:names(agg2)[1:2] <- c("cell_line", "treatment")
+1449519679691:agg3 <- aggregate(res, by=list(res$cell_line, res$date), FUN=mean, na.rm=T)
+1449519679858:agg3 <- agg3[,-c(3,4,5,6)]
+1449519680148:names(agg3)[1:2] <- c("cell_line", "date")
+1449519683383:View(agg3)
+1449519696732:View(res)
+1449519739955:names(res)[2] <- "treatment"
+1449519743247:View(res)
+1449519752233:names(res)[2] <- "date"
+1449519756249:names(res)[3] <- "treatment"
+1449519759541:View(res)
+1449519828009:View(coloc)
+1449519829479:View(agg3)
+1449521928941:write.csv(res, "output/measurements2_catB.csv", row.names=F)
+1449521933724:write.csv(agg1, "output/summary1_catB.csv", row.names=F)
+1449521933899:write.csv(agg2, "output/summary2_catB.csv", row.names=F)
+1449521934066:write.csv(agg3, "output/summary3_catB.csv", row.names=F)
+1449595512976:q()
+1449595544903:ls()
+1449595562206:pth <- "/mnt/DATAPART1/Sasi"
+1449595570506:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1449595570679:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1449595570846:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449595571125:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1449595574468:measure_lsm_data <- matrix(NA)
+1449595574654:for( file in file_list_measure_lsm) {
+1449595574894:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449595575061:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449595575229:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449595575414:}
+1449595575611:measure_lsm_data <- measure_lsm_data[,-6]
+1449595576100:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449595577245:measure_lsm <- matrix(NA)
+1449595577413:for( i in unique(measure_lsm_data$parameter)) {
+1449595577572:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1449595577724:new <- new[,-1]
+1449595577899:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449595578054:measure_lsm <- merge(measure_lsm, new)
+1449595578220:}
+1449595578723:measure_lsm <- measure_lsm[,-2]
+1449595583357:# colocalisation data; only measure yellow, which is blue. Put 0's where no measurement available
+1449595583942:coloc_data <- matrix(NA)
+1449595584099:for(file in file_list_coloc) {
+1449595584244:Label <- c(gsub("C1-", "", gsub(".tif_coloc.tsv", "", as.character(file))))
+1449595584419:new <- cbind(read.csv(paste0(pth, "/colocalisation/", file), header=T, sep="\t"), Label)
+1449595584588:coloc_data <- merge(coloc_data, new, all=T)
+1449595584755:}
+1449595584908:coloc_data <- coloc_data[,-6]
+1449595585067:coloc_data$parameter <- as.character(coloc_data$parameter)
+1449595585235:coloc <- matrix(NA)
+1449595585394:for( i in unique(coloc_data$parameter)) {
+1449595585587:new <- coloc_data[coloc_data$parameter == i,]
+1449595586619:new <- new[,-1]
+1449595586827:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449595587019:coloc <- merge(coloc, new)
+1449595588420:}
+1449595588586:coloc <- coloc[,c(1,5,8,11)]
+1449595588778:names(coloc)[1] <- "Label"
+1449595589378:#
+1449595589618:count_data <- matrix(NA, 0, 13)
+1449595589842:for ( file in file_list_count) {
+1449595590067:new <-read.csv(paste0(pth, "/count/", file), header=T, sep="\t")
+1449595590242:count_data <- rbind(count_data, new)
+1449595590430:}
+1449595590594:count <- count_data[count_data$Area > 99,]
+1449595591059:count <- as.data.frame(xtabs(~Label, count))
+1449595592490:count$Label <- as.factor(unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C3-", "", x))} )))
+1449595643204:res = measure_lsm
+1449595644356:res
+1449595771822:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449595771988:"blue_stdev")
+1449595891669:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1449595891868:meta <- meta[, -(1:5)]
+1449595904892:meta
+1449595957603:ls()
+1449595976210:names(meta) <- c("date", "staining", "treatment", "image", "file")
+1449596075571:res <- merge(meta,res)
+1449596082303:res
+1449596105989:res$cell_line <- droplevels(res$cell_line)
+1449596123337:res$file <- gsub("_", "/", res$file)
+1449596129161:area_p <- 1024^2
+1449596129368:area_um <- 18211.8110
+1449596134424:res$green_area_pixels <- res$green_area_fraction*area_p
+1449596134614:res$green_area_um <- res$green_area_fraction*area_um
+1449596134877:res$green_area_pixels_per_cell <- res$green_area_fraction*area_p/res$cell_count
+1449596135072:res$green_area_um_per_cell <- res$green_area_fraction*area_um/res$cell_count
+1449596136340:### INNE
+1449596161294:res
+1449596183346:write.csv(res, "output/measurements_catD.csv", row.names=F)
+1449596189293:system("mkdir output")
+1449596195245:write.csv(res, "output/measurements_catD.csv", row.names=F)
+1449596258829:agg1 <- aggregate(res, by=list(res$treatment))
+1449596273260:agg1 <- aggregate(res, by=list(res$treatment), FUN=mean, na.rm=TRUE)
+1449596282610:agg1
+1449596368668:agg1 <- aggregate(res, by=list(res$treatment, res$date, res$staining), FUN=mean, na.rm=TRUE)
+1449596371131:agg1
+1449596401859:agg1 <- agg1[, -c(4,)]
+1449596436604:agg1 <- agg1[, -c(4,5,6,7,8)]
+1449596438126:agg1
+1449596477780:names(agg1)[1:3] <- c("treatment","date", "staining")
+1449596480332:agg1
+1449596495373:write.csv(agg1, "output/summary1_catD.csv", row.names=F)
+1449596572031:85.02*85.02
+1449596648391:area_um_magn <- 7228.4
+1449598163851:res$green_area_um <- res$green_area_um/area_um * area_um_magn
+1449598211979:agg1$green_area_um <- agg1$green_area_um/area_um * area_um_magn
+1449598216422:agg1
+1449598241061:write.csv(res, "output/measurements_catD.csv", row.names=F)
+1449598241702:write.csv(agg1, "output/summary1_catD.csv", row.names=F)
+1449598791872:pth <- "/mnt/DATAPART1/Sasi"
+1449598796906:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1449598797037:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1449598797168:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449598797517:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1449598799022:measure_lsm_data <- matrix(NA)
+1449598799174:for( file in file_list_measure_lsm) {
+1449598799291:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449598799460:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449598799573:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449598800461:}
+1449598802694:measure_lsm_data <- measure_lsm_data[,-6]
+1449598802867:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449598803086:measure_lsm <- matrix(NA)
+1449598803236:for( i in unique(measure_lsm_data$parameter)) {
+1449598803388:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1449598803534:new <- new[,-1]
+1449598803676:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449598803963:measure_lsm <- merge(measure_lsm, new)
+1449598804189:}
+1449598804676:measure_lsm <- measure_lsm[,-2]
+1449598813373:measure_lsm
+1449598833182:res <- measure_lsm
+1449598848424:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449598848575:"blue_stdev")
+1449598857376:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1449598858397:meta <- meta[, -(1:5)]
+1449598863837:meta
+1449598884149:names(meta) <- c("date", "cell_line", "treatment", "image", "file")
+1449598886117:res <- merge(meta,res)
+1449598892372:levels(res$cell_line)[levels(res$cell_line)=="231"] <- "MDAMB231"
+1449598892580:res$cell_line <- droplevels(res$cell_line)
+1449598905480:res$file <- gsub("_", "/", res$file)
+1449598990040:area_um2 <- 94.4^^2
+1449598997282:area_um2 <- 94.4^2
+1449599004212:area_um2
+1449599048144:res$green_area_pixels <- res$green_area_fraction*area_p
+1449599054822:area_p <- 1024^2
+1449599061204:res$red_area_pixels <- res$red_area_fraction*area_p
+1449599069004:res$red_area_um <- res$red_area_fraction*area_um2
+1449599086395:res$green_area_pixels <- res$green_area_fraction*area_p
+1449599086528:res$green_area_um <- res$green_area_fraction*area_um2
+1449599104328:res
+1449599165351:res2 <- res[,-c(15,16)]
+1449599167677:res2
+1449599173295:res <- res2
+1449599245640:head(res)
+1449599304057:agg1 <- aggregate(res, by=list(res$date, res$cell_line, res$treatment), FUN=mean, rm.na=T)
+1449599307766:warnings()
+1449599312336:agg1
+1449599344062:res$treatment
+1449599458363:names(agg1)[1:3] <- c("date", "cell_line", "treatment")
+1449599460527:agg1
+1449599496256:agg1 <- agg1[,-c(4,5,6,7,8)]
+1449599497934:agg1
+1449599511298:system("mkdir output")
+1449599513618:write.csv(res, "output/measurements_catD.csv", row.names=F)
+1449599515003:write.csv(agg1, "output/summary1_catD.csv", row.names=F)
+1449600083036:area_um3 <- 134.95^2
+1449600102700:area_um^(1/2)
+1449600110187:area_um <- 18211.8110
+1449600112311:area_um^(1/2)
+1449600208294:area_um1 <- 7228.4
+1449600224157:area_um1^(1/2)
+1449600261179:area_p <- 1024^2
+1449600261341:area_um <- 134.95^2
+1449600261472:area_um1 <- 85.02^2
+1449600261639:area_um2 <- 94.4^2
+1449600384319:pth <- "/mnt/DATAPART1/Sasi"
+1449600387347:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1449600388654:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1449600388821:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449600388967:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1449600390325:# measure RGB channels on converted .lsm images
+1449600390469:measure_lsm_data <- matrix(NA)
+1449600390968:for( file in file_list_measure_lsm) {
+1449600391007:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449600391051:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449600391097:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449600391097:}
+1449600391152:measure_lsm_data <- measure_lsm_data[,-6]
+1449600391239:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449600391240:measure_lsm <- matrix(NA)
+1449600391311:for( i in unique(measure_lsm_data$parameter)) {
+1449600391312:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1449600391312:new <- new[,-1]
+1449600391486:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449600391595:measure_lsm <- merge(measure_lsm, new)
+1449600391780:}
+1449600392028:measure_lsm <- measure_lsm[,-2]
+1449600602630:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449600607670:measure_lsm_data <- matrix(NA)
+1449600607822:for( file in file_list_measure_lsm) {
+1449600607977:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449600608132:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449600608279:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449600608454:}
+1449600608639:measure_lsm_data <- measure_lsm_data[,-6]
+1449600608794:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449600608941:measure_lsm <- matrix(NA)
+1449600609107:for( i in unique(measure_lsm_data$parameter)) {
+1449600609268:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1449600609435:new <- new[,-1]
+1449600609602:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449600609786:measure_lsm <- merge(measure_lsm, new)
+1449600609946:}
+1449600610243:measure_lsm <- measure_lsm[,-2]
+1449600625948:res <- measure_lsm
+1449600629624:res
+1449604997168:pth <- "/mnt/DATAPART1/Sasi"
+1449605001166:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1449605001327:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1449605001478:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449605001775:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1449605002782:# measure RGB channels on converted .lsm images
+1449605002942:measure_lsm_data <- matrix(NA)
+1449605003125:for( file in file_list_measure_lsm) {
+1449605003271:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449605003446:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449605003613:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449605003774:}
+1449605003946:measure_lsm_data <- measure_lsm_data[,-6]
+1449605004124:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449605004268:measure_lsm <- matrix(NA)
+1449605004643:for( i in unique(measure_lsm_data$parameter)) {
+1449605004832:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1449605004988:new <- new[,-1]
+1449605005171:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449605005427:measure_lsm <- merge(measure_lsm, new)
+1449605005659:}
+1449605005864:measure_lsm <- measure_lsm[,-2]
+1449605008676:# colocalisation data; only measure yellow, which is blue. Put 0's where no measurement available
+1449605008916:coloc_data <- matrix(NA)
+1449605009277:for(file in file_list_coloc) {
+1449605009451:Label <- c(gsub("C1-", "", gsub(".tif_coloc.tsv", "", as.character(file))))
+1449605009628:new <- cbind(read.csv(paste0(pth, "/colocalisation/", file), header=T, sep="\t"), Label)
+1449605009812:coloc_data <- merge(coloc_data, new, all=T)
+1449605009987:}
+1449605010148:coloc_data <- coloc_data[,-6]
+1449605010316:coloc_data$parameter <- as.character(coloc_data$parameter)
+1449605010684:coloc <- matrix(NA)
+1449605010858:for( i in unique(coloc_data$parameter)) {
+1449605010995:new <- coloc_data[coloc_data$parameter == i,]
+1449605011170:new <- new[,-1]
+1449605011531:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449605011715:coloc <- merge(coloc, new)
+1449605011877:}
+1449605012041:coloc <- coloc[,c(1,5,8,11)]
+1449605012186:names(coloc)[1] <- "Label"
+1449605012354:#
+1449605012514:count_data <- matrix(NA, 0, 13)
+1449605012698:for ( file in file_list_count) {
+1449605012866:new <-read.csv(paste0(pth, "/count/", file), header=T, sep="\t")
+1449605013058:count_data <- rbind(count_data, new)
+1449605013242:}
+1449605013602:count <- count_data[count_data$Area > 99,]
+1449605013986:count <- as.data.frame(xtabs(~Label, count))
+1449605014403:count$Label <- as.factor(unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C3-", "", x))} )))
+1449605021202:# green in nuclei (possibly red?)
+1449605021702:if (!is.na(file_list_in_nuclei[1])) {
+1449605021736:print("Green in nuclei data detected, adding...")
+1449605021778:in_nuclei_data <- matrix(NA)
+1449605021850:for (file in file_list_in_nuclei) {
+1449605021917:Label <- c(gsub("C3-", "", gsub(".tif_in_nuc.tsv", "", as.character(file))))
+1449605021918:new <- cbind(read.csv(paste0(pth, "/in_nuclei/", file), header=T, sep="\t"), Label)
+1449605021918:in_nuclei_data <- merge(in_nuclei_data, new, all=T)
+1449605021996:}
+1449605021996:in_nuclei <- matrix(NA)
+1449605022066:for( i in unique(in_nuclei_data$parameter)) {
+1449605022067:new <- in_nuclei_data[in_nuclei_data$parameter == i,]
+1449605022067:new <- new[,-1]
+1449605022649:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449605022913:in_nuclei <- merge(in_nuclei, new)
+1449605023049:}
+1449605023210:in_nuclei <- in_nuclei[,c(1,6,9,12)]
+1449605023401:names(in_nuclei) <- c("file", "green_in_nuclei_area_fraction", "green_in_nuclei_mean", "green_in_nuclei_stdev")
+1449605023578:} else {
+1449605023753:print("No green in nuclei data detected.")
+1449605024049:}
+1449605304340:res <- merge(measure_lsm, count, all=T)
+1449605310846:res <- merge(res, coloc, by="Label", all=T)
+1449605333508:head(res)
+1449605383049:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449605383223:"blue_stdev", "cell_count", "yellow_area_fraction", "yellow_mean", "yellow_stdev")
+1449605390988:res$red_mean_per_cell <- round(res$red_mean / res$cell_count, 5)
+1449605391159:res$green_mean_per_cell <- round(res$green_mean / res$cell_count, 5)
+1449605391348:res$yellow_mean_per_cell <- round(res$yellow_mean / res$cell_count, 5)
+1449605394627:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1449605394824:meta <- meta[, -(1:5)]
+1449605403963:names(meta) <- c("date", "cell_line", "image", "file")
+1449605409658:View(new)
+1449605416547:View(meta)
+1449605448652:names(meta) <- c("date", "treatment", "image", "file")
+1449605466711:res <- merge(meta,res)
+1449605471193:levels(res$cell_line)[levels(res$cell_line)=="231"] <- "MDAMB231"
+1449605471359:res$cell_line <- droplevels(res$cell_line)
+1449605485738:res$file <- gsub("_", "/", res$file)
+1449605489549:area_p <- 1024^2
+1449605539780:area_p <- 1024^2
+1449605539954:area_um <- 134.95^2
+1449605546094:res$yellow_area_pixels <- res$yellow_area_fraction*area_p
+1449605546248:res$yellow_area_um <- res$yellow_area_fraction*area_um
+1449605549243:res$yellow_area_pixels_per_cell <- res$yellow_area_fraction*area_p/res$cell_count
+1449605549386:res$yellow_area_um_per_cell <- res$yellow_area_fraction*area_um/res$cell_count
+1449605550419:res$red_area_pixels <- res$red_area_fraction*area_p
+1449605550569:res$red_area_um <- res$red_area_fraction*area_um
+1449605550753:res$red_area_pixels_per_cell <- res$red_area_fraction*area_p/res$cell_count
+1449605550937:res$red_area_um_per_cell <- res$red_area_fraction*area_um/res$cell_count
+1449605551086:#green
+1449605551242:res$green_area_pixels <- res$green_area_fraction*area_p
+1449605551398:res$green_area_um <- res$green_area_fraction*area_um
+1449605551554:res$green_area_pixels_per_cell <- res$green_area_fraction*area_p/res$cell_count
+1449605551710:res$green_area_um_per_cell <- res$green_area_fraction*area_um/res$cell_count
+1449605551873:### INNE
+1449605561997:res$green_in_nuclei_mean_per_cell <- res$green_in_nuclei_mean/res$cell_count
+1449605607829:View(res)
+1449605642553:res$file
+1449605752719:count_data <- matrix(NA, 0, 13)
+1449605752894:for ( file in file_list_count) {
+1449605753047:new <-read.csv(paste0(pth, "/count/", file), header=T, sep="\t")
+1449605753219:count_data <- rbind(count_data, new)
+1449605753391:}
+1449605753574:count <- count_data[count_data$Area > 99,]
+1449605753741:count <- as.data.frame(xtabs(~Label, count))
+1449605753919:count$Label <- as.factor(unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C2-", "", x))} )))
+1449605757562:if (!is.na(file_list_in_nuclei[1])) {
+1449605770288:}
+1449605779571:count
+1449605811625:count_data <- matrix(NA, 0, 13)
+1449605811776:for ( file in file_list_count) {
+1449605811908:new <-read.csv(paste0(pth, "/count/", file), header=T, sep="\t")
+1449605812054:count_data <- rbind(count_data, new)
+1449605812198:}
+1449605812369:count <- count_data[count_data$Area > 99,]
+1449605812490:count <- as.data.frame(xtabs(~Label, count))
+1449605812650:count$Label <- as.factor(unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C3-", "", x))} )))
+1449605815204:View(coloc)
+1449605816657:View(coloc_data)
+1449605819470:View(count)
+1449605822378:View(measure_lsm)
+1449605845357:coloc_data <- matrix(NA)
+1449605845860:for(file in file_list_coloc) {
+1449605845900:Label <- c(gsub("C2-", "", gsub(".tif_coloc.tsv", "", as.character(file))))
+1449605845900:new <- cbind(read.csv(paste0(pth, "/colocalisation/", file), header=T, sep="\t"), Label)
+1449605845963:coloc_data <- merge(coloc_data, new, all=T)
+1449605846066:}
+1449605846229:coloc_data <- coloc_data[,-6]
+1449605846405:coloc_data$parameter <- as.character(coloc_data$parameter)
+1449605846525:coloc <- matrix(NA)
+1449605846684:for( i in unique(coloc_data$parameter)) {
+1449605847016:new <- coloc_data[coloc_data$parameter == i,]
+1449605847156:new <- new[,-1]
+1449605847301:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449605847435:coloc <- merge(coloc, new)
+1449605847605:}
+1449605847800:coloc <- coloc[,c(1,5,8,11)]
+1449605848163:names(coloc)[1] <- "Label"
+1449605850300:View(coloc)
+1449605862679:res <- merge(measure_lsm, count, all=T)
+1449605863431:res <- merge(res, coloc, by="Label", all=T)
+1449605865193:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449605865388:"blue_stdev", "cell_count", "yellow_area_fraction", "yellow_mean", "yellow_stdev")
+1449605872636:res$red_mean_per_cell <- round(res$red_mean / res$cell_count, 5)
+1449605872797:res$green_mean_per_cell <- round(res$green_mean / res$cell_count, 5)
+1449605872989:res$yellow_mean_per_cell <- round(res$yellow_mean / res$cell_count, 5)
+1449605874376:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1449605874565:meta <- meta[, -(1:5)]
+1449605889620:names(meta) <- c("date",  "treatment", "image", "file")
+1449605895002:res <- merge(meta,res)
+1449605899150:res$file <- gsub("_", "/", res$file)
+1449605901657:View(res)
+1449605907333:area_p <- 1024^2
+1449605907469:area_um <- 134.95^2
+1449605910112:res$yellow_area_pixels <- res$yellow_area_fraction*area_p
+1449605910250:res$yellow_area_um <- res$yellow_area_fraction*area_um
+1449605910913:res$yellow_area_pixels_per_cell <- res$yellow_area_fraction*area_p/res$cell_count
+1449605911060:res$yellow_area_um_per_cell <- res$yellow_area_fraction*area_um/res$cell_count
+1449605911206:#red
+1449605911806:res$red_area_pixels <- res$red_area_fraction*area_p
+1449605911942:res$red_area_um <- res$red_area_fraction*area_um
+1449605912094:res$red_area_pixels_per_cell <- res$red_area_fraction*area_p/res$cell_count
+1449605912250:res$red_area_um_per_cell <- res$red_area_fraction*area_um/res$cell_count
+1449605912391:#green
+1449605912541:res$green_area_pixels <- res$green_area_fraction*area_p
+1449605912677:res$green_area_um <- res$green_area_fraction*area_um
+1449605912862:res$green_area_pixels_per_cell <- res$green_area_fraction*area_p/res$cell_count
+1449605913037:res$green_area_um_per_cell <- res$green_area_fraction*area_um/res$cell_count
+1449605913201:### INNE
+1449605918409:View(res)
+1449605983858:agg1 <- aggregate(res, by=list(res$treatment, res$date), FUN=mean, na.rm=T)
+1449606001937:View(agg1)
+1449606049802:agg2<- agg2[,-c(3,4,5,6)]
+1449606061964:agg1<- agg1[,-c(3,4,5,6)]
+1449606143141:names(agg1)[1:2] <- c("treatment", "date")
+1449606216099:system("mkdir output")
+1449606251341:write.csv(res, "output/measurements_catD.csv", row.names=F)
+1449606251485:write.csv(agg1, "output/summary1_catD.csv", row.names=F)
+1449606846686:pth <- "/mnt/DATAPART1/Sasi"
+1449606849895:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1449606850119:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1449606850270:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449606850421:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1449606852414:measure_lsm_data <- matrix(NA)
+1449606852590:for( file in file_list_measure_lsm) {
+1449606852742:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449606852902:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449606853037:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449606853182:}
+1449606853359:measure_lsm_data <- measure_lsm_data[,-6]
+1449606853498:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449606853638:measure_lsm <- matrix(NA)
+1449606853948:for( i in unique(measure_lsm_data$parameter)) {
+1449606854118:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1449606854277:new <- new[,-1]
+1449606854429:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449606854588:measure_lsm <- merge(measure_lsm, new)
+1449606854764:}
+1449606855074:measure_lsm <- measure_lsm[,-2]
+1449606871581:res <- measure_lsm
+1449606888014:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449606888198:"blue_stdev")
+1449606896827:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1449606897875:meta <- meta[, -(1:5)]
+1449606906303:View(meta)
+1449606928191:names(meta) <- c("date", "treatment", "image", "file")
+1449606929886:res <- merge(meta,res)
+1449606935915:res$file <- gsub("_", "/", res$file)
+1449606936937:area_p <- 1024^2
+1449606937706:area_um1 <- 85.02^2
+1449606942106:area_um <- 85.02^2
+1449606955235:res$red_area_pixels <- res$red_area_fraction*area_p
+1449606955410:res$red_area_um <- res$red_area_fraction*area_um
+1449606990172:View(res)
+1449607036058:agg1 <- aggregate(res, by=list(res$treatment, res$date), FUN=mean, na.rm=T)
+1449607061413:agg1 <- agg1[,-c(3,4,5,6)]
+1449607080626:names(agg1)[1:3] <- c("treatment", "date")
+1449607088137:names(agg1)[1:2] <- c("treatment", "date")
+1449607094397:system("mkdir output")
+1449607099515:write.csv(res, "output/measurements_catD.csv", row.names=F)
+1449607100196:write.csv(agg1, "output/summary1_catD.csv", row.names=F)
+1449607106627:write.csv(res, "output/measurements2_catB.csv", row.names=F)
+1449607112933:write.csv(res, "output/measurements_catB.csv", row.names=F)
+1449607113082:write.csv(agg1, "output/summary1_catB.csv", row.names=F)
+1449607436184:pth <- "/mnt/DATAPART1/Sasi"
+1449607438796:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1449607438975:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1449607439167:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449607439336:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1449607441069:measure_lsm_data <- matrix(NA)
+1449607441575:for( file in file_list_measure_lsm) {
+1449607441627:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449607441627:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449607441690:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449607441775:}
+1449607441846:measure_lsm_data <- measure_lsm_data[,-6]
+1449607441857:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449607441862:measure_lsm <- matrix(NA)
+1449607441864:for( i in unique(measure_lsm_data$parameter)) {
+1449607441942:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1449607442121:new <- new[,-1]
+1449607442276:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449607442442:measure_lsm <- merge(measure_lsm, new)
+1449607442604:}
+1449607442779:measure_lsm <- measure_lsm[,-2]
+1449607453790:res <- measure_lsm
+1449607458917:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449607459085:"blue_stdev")
+1449607463452:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1449607463620:meta <- meta[, -(1:5)]
+1449607467489:View(meta)
+1449607479149:names(meta) <- c("date", "cell_line", "treatment", "image", "file")
+1449607482508:res <- merge(meta,res)
+1449607486631:res$file <- gsub("_", "/", res$file)
+1449607487901:area_p <- 1024^2
+1449607488931:area_um <- 85.02^2
+1449607495019:res$red_area_pixels <- res$red_area_fraction*area_p
+1449607495146:res$red_area_um <- res$red_area_fraction*area_um
+1449607503241:View(res)
+1449607531108:agg1 <- aggregate(res, by=list(res$cell_line, res$treatment, res$date), FUN=mean, na.rm=T)
+1449607531346:agg1 <- agg1[,-c(4,5,6,7,8)]
+1449607531548:names(agg1)[1:3] <- c("cell_line", "treatment", "date")
+1449607546738:agg2 <- aggregate(res, by=list(res$date, res$treatment), FUN=mean, na.rm=T)
+1449607585301:agg2<- agg2[,-c(3,4,5,6,7)]
+1449607604900:names(agg2)[1:2] <- c("date", "treatment")
+1449607621340:write.csv(res, "output/measurements_catB.csv", row.names=F)
+1449607621547:write.csv(agg1, "output/summary1_catB.csv", row.names=F)
+1449607621682:write.csv(agg2, "output/summary2_catB.csv", row.names=F)
+1449607630449:system("mkdir output")
+1449607634332:write.csv(res, "output/measurements_catB.csv", row.names=F)
+1449607634512:write.csv(agg1, "output/summary1_catB.csv", row.names=F)
+1449607634698:write.csv(agg2, "output/summary2_catB.csv", row.names=F)
+1449613556975:pth <- "/mnt/DATAPART1/Sasi"
+1449613560141:file_list_coloc <- list.files(paste0(pth, "/colocalisation"), pattern=".tsv")
+1449613560385:file_list_count <- list.files(paste0(pth, "/count"), pattern=".tsv")
+1449613560540:file_list_measure_lsm <- list.files(paste0(pth, "/input"), pattern=".tsv")
+1449613560669:file_list_in_nuclei <- list.files(paste0(pth, "/in_nuclei"), pattern=".tsv")
+1449614091689:# measure RGB channels on converted .lsm images
+1449614091871:measure_lsm_data <- matrix(NA)
+1449614092004:for( file in file_list_measure_lsm) {
+1449614092505:Label <- c(gsub(".tif_measure_tif.tsv", "", as.character(file)))
+1449614092530:new <- cbind(read.csv(paste0(pth, "/input/", file), header=T, sep="\t"), Label)
+1449614092574:measure_lsm_data <- merge(measure_lsm_data, new, all=T)
+1449614092608:}
+1449614092681:measure_lsm_data <- measure_lsm_data[,-6]
+1449614092692:measure_lsm_data$parameter <- as.character(measure_lsm_data$parameter)
+1449614092710:measure_lsm <- matrix(NA)
+1449614092811:for( i in unique(measure_lsm_data$parameter)) {
+1449614092913:new <- measure_lsm_data[measure_lsm_data$parameter == i,]
+1449614093050:new <- new[,-1]
+1449614093200:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449614094408:measure_lsm <- merge(measure_lsm, new)
+1449614094559:}
+1449614094761:measure_lsm <- measure_lsm[,-2]
+1449614095816:# colocalisation data; only measure yellow, which is blue. Put 0's where no measurement available
+1449614095976:coloc_data <- matrix(NA)
+1449614096128:for(file in file_list_coloc) {
+1449614096292:Label <- c(gsub("C2-", "", gsub(".tif_coloc.tsv", "", as.character(file))))
+1449614096442:new <- cbind(read.csv(paste0(pth, "/colocalisation/", file), header=T, sep="\t"), Label)
+1449614096601:coloc_data <- merge(coloc_data, new, all=T)
+1449614097216:}
+1449614097360:coloc_data <- coloc_data[,-6]
+1449614097518:coloc_data$parameter <- as.character(coloc_data$parameter)
+1449614097669:coloc <- matrix(NA)
+1449614097805:for( i in unique(coloc_data$parameter)) {
+1449614097988:new <- coloc_data[coloc_data$parameter == i,]
+1449614098146:new <- new[,-1]
+1449614098299:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449614098443:coloc <- merge(coloc, new)
+1449614098610:}
+1449614098776:coloc <- coloc[,c(1,5,8,11)]
+1449614099721:names(coloc)[1] <- "Label"
+1449614099863:#
+1449614100784:count_data <- matrix(NA, 0, 13)
+1449614100926:for ( file in file_list_count) {
+1449614101077:new <-read.csv(paste0(pth, "/count/", file), header=T, sep="\t")
+1449614101230:count_data <- rbind(count_data, new)
+1449614101417:}
+1449614101560:count <- count_data[count_data$Area > 99,]
+1449614101726:count <- as.data.frame(xtabs(~Label, count))
+1449614101873:count$Label <- as.factor(unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C3-", "", x))} )))
+1449614102022:# green in nuclei (possibly red?)
+1449614102181:if (!is.na(file_list_in_nuclei[1])) {
+1449614103396:print("Green in nuclei data detected, adding...")
+1449614103897:in_nuclei_data <- matrix(NA)
+1449614103937:for (file in file_list_in_nuclei) {
+1449614103982:Label <- c(gsub("C3-", "", gsub(".tif_in_nuc.tsv", "", as.character(file))))
+1449614104033:new <- cbind(read.csv(paste0(pth, "/in_nuclei/", file), header=T, sep="\t"), Label)
+1449614104084:in_nuclei_data <- merge(in_nuclei_data, new, all=T)
+1449614104085:}
+1449614104141:in_nuclei <- matrix(NA)
+1449614104142:for( i in unique(in_nuclei_data$parameter)) {
+1449614104207:new <- in_nuclei_data[in_nuclei_data$parameter == i,]
+1449614104208:new <- new[,-1]
+1449614104245:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449614104319:in_nuclei <- merge(in_nuclei, new)
+1449614104495:}
+1449614104678:in_nuclei <- in_nuclei[,c(1,6,9,12)]
+1449614104844:names(in_nuclei) <- c("file", "green_in_nuclei_area_fraction", "green_in_nuclei_mean", "green_in_nuclei_stdev")
+1449614105006:} else {
+1449614105207:print("No green in nuclei data detected.")
+1449614106008:}
+1449614109068:res <- merge(measure_lsm, count, all=T)
+1449614109366:res <- merge(res, coloc, by="Label", all=T)
+1449614109477:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449614110675:"blue_stdev", "cell_count", "yellow_area_fraction", "yellow_mean", "yellow_stdev")
+1449614161585:View(res)
+1449614188618:count <- count_data[count_data$Area > 99,]
+1449614188775:count <- as.data.frame(xtabs(~Label, count))
+1449614188920:count$Label <- as.factor(unlist(lapply(as.character(count$Label), function(x) { gsub(".tif", "", gsub("C2-", "", x))} )))
+1449614192654:if (!is.na(file_list_in_nuclei[1])) {
+1449614193154:print("Green in nuclei data detected, adding...")
+1449614193180:in_nuclei_data <- matrix(NA)
+1449614193226:for (file in file_list_in_nuclei) {
+1449614193264:Label <- c(gsub("C3-", "", gsub(".tif_in_nuc.tsv", "", as.character(file))))
+1449614193296:new <- cbind(read.csv(paste0(pth, "/in_nuclei/", file), header=T, sep="\t"), Label)
+1449614193380:in_nuclei_data <- merge(in_nuclei_data, new, all=T)
+1449614193424:}
+1449614193425:in_nuclei <- matrix(NA)
+1449614193464:for( i in unique(in_nuclei_data$parameter)) {
+1449614193464:new <- in_nuclei_data[in_nuclei_data$parameter == i,]
+1449614193512:new <- new[,-1]
+1449614193542:names(new) <- c(paste0("red_", i), paste0("green_", i), paste0("blue_", i), "Label") #blue = yellow
+1449614193542:in_nuclei <- merge(in_nuclei, new)
+1449614193588:}
+1449614193636:in_nuclei <- in_nuclei[,c(1,6,9,12)]
+1449614193637:names(in_nuclei) <- c("file", "green_in_nuclei_area_fraction", "green_in_nuclei_mean", "green_in_nuclei_stdev")
+1449614193715:} else {
+1449614193715:print("No green in nuclei data detected.")
+1449614194999:}
+1449614195930:res <- merge(measure_lsm, count, all=T)
+1449614196110:res <- merge(res, coloc, by="Label", all=T)
+1449614207187:View(res)
+1449614221529:View(res)
+1449614269355:names(res) <- c("file", "red_area_fraction", "green_area_fraction", "blue_area_fraction", "red_mean", "green_mean", "blue_mean", "red_stdev","green_stdev",
+1449614269497:"blue_stdev", "cell_count")
+1449614279582:res$red_mean_per_cell <- round(res$red_mean / res$cell_count, 5)
+1449614279759:res$green_mean_per_cell <- round(res$green_mean / res$cell_count, 5)
+1449614280111:res$yellow_mean_per_cell <- round(res$yellow_mean / res$cell_count, 5)
+1449614282510:meta <- cbind(t(as.data.frame(strsplit(as.character(res$file), "_"))), as.data.frame(res$file))
+1449614282654:meta <- meta[, -(1:5)]
+1449614300975:View(meta)
+1449614307803:names(meta) <- c("date", "treatment", "image", "file")
+1449614310400:res <- merge(meta,res)
+1449614314818:if (!is.na(file_list_in_nuclei[1])) {
+1449614314942:res <- merge(res, in_nuclei, all.x=T)
+1449614315125:}
+1449614316660:res$file <- gsub("_", "/", res$file)
+1449614318851:area_p <- 1024^2
+1449614339829:area_um <- 134.95^2
+1449614343601:res$red_area_pixels <- res$red_area_fraction*area_p
+1449614343755:res$red_area_um <- res$red_area_fraction*area_um
+1449614343982:res$red_area_pixels_per_cell <- res$red_area_fraction*area_p/res$cell_count
+1449614344131:res$red_area_um_per_cell <- res$red_area_fraction*area_um/res$cell_count
+1449614344637:#green
+1449614344788:res$green_area_pixels <- res$green_area_fraction*area_p
+1449614344925:res$green_area_um <- res$green_area_fraction*area_um
+1449614345075:res$green_area_pixels_per_cell <- res$green_area_fraction*area_p/res$cell_count
+1449614345375:res$green_area_um_per_cell <- res$green_area_fraction*area_um/res$cell_count
+1449614346512:### INNE
+1449614348901:res$green_in_nuclei_mean_per_cell <- res$green_in_nuclei_mean/res$cell_count
+1449614360565:View(res)
+1449614608657:system("mkdir output")
+1449614665341:agg1 <- aggregate(res, by=list(res$treatment, res$date), FUN=mean, na.rm=T)
+1449614666414:agg1 <- agg1[,-c(3,4,5,6)]
+1449614666656:names(agg1)[1:2] <- c("treatment", "date")
+1449614736169:write.csv(res, "output/measurements_catB.csv", row.names=F)
+1449614737586:write.csv(agg1, "output/summary1_catB.csv", row.names=F)
