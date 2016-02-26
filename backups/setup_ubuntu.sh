@@ -1,20 +1,30 @@
 #!/bin/bash
 
+## DOTFILES
+
+sudo apt-get install git
+sudo apt-get install python-pip
+pip install dotfiles
+git clone https://github.com/AleksTheAraneus/dotfiles
+mv dotfiles ~/Dotfiles
+dotfiles -s
+
 ## PACKAGES
 
 # Backup list of  packages (crontab)
 
-#dpkg --get-selections > ~/Dropbox/backups/dpkg_package_list
-#sudo cp -R /etc/apt/sources.list* ~/Dropbox/backups/
-#sudo apt-key exportall > ~/Dropbox/backups/dpkg_repo_keys
+#dpkg --get-selections > ~/.backups/dpkg_package_list
+#sudo cp -R /etc/apt/sources.list* ~/.backups/
+#sudo apt-key exportall > ~/.backups/dpkg_repo_keys
 
 # Reinstall packages
 
-sudo apt-key add ~/Dropbox/backups/dpkg_repo_keys
-sudo cp -R ~/Dropbox/backups/sources.list* /etc/apt/
+sudo apt-key add ~/.backups/dpkg_repo_keys
+sudo cp -R ~/.backups/sources.list* /etc/apt/
 sudo apt-get update
+sudo apt-get upgrade
 sudo apt-get install dselect
-sudo dpkg --set-selections < ~/Dropbox/backups/dpkg_package_list
+sudo dpkg --set-selections < ~./backups/dpkg_package_list
 sudo dselect
 
 # Misc
