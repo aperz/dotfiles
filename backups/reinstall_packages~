@@ -1,0 +1,12 @@
+dpkg --get-selections > ~/Dropbox/backups/dpkg_package_list
+sudo cp -R /etc/apt/sources.list* ~/Dropbox/backups/
+sudo apt-key exportall > ~/Dropbox/backups/dpkg_repo_keys
+
+##  Reinstall now
+
+sudo apt-key add ~/Dropbox/backups/dpkg_repo_keys
+sudo cp -R ~/Dropbox/backups/sources.list* /etc/apt/
+sudo apt-get update
+sudo apt-get install dselect
+sudo dpkg --set-selections < ~/Dropbox/backups/dpkg_package_list
+sudo dselect

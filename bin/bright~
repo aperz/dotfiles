@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+printf "the bright side of life %.0s" {1..666} | lolcat
+
+#TODO also change terminal colours to rainbowwww

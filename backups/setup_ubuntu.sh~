@@ -1,0 +1,20 @@
+#!/bin/bash
+
+dpkg --get-selections > ~/Dropbox/backups/dpkg_package_list
+sudo cp -R /etc/apt/sources.list* ~/Dropbox/backups/
+sudo apt-key exportall > ~/Dropbox/backups/dpkg_repo_keys
+
+##  Reinstall now
+
+sudo apt-key add ~/Dropbox/backups/dpkg_repo_keys
+sudo cp -R ~/Dropbox/backups/sources.list* /etc/apt/
+sudo apt-get update
+sudo apt-get install dselect
+sudo dpkg --set-selections < ~/Dropbox/backups/dpkg_package_list
+sudo dselect
+
+
+
+#wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+#gpg --keyserver pgpkeys.mit.edu --recv-key 51716619E084DAB9
+#gpg -a --export 51716619E084DAB9 | sudo apt-key add -

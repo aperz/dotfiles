@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+tmux rename-window 'kalendarz'
+vim -S ~/Dropbox/open_kalendarz_test.vim

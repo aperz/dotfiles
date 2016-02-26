@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+# An anti-depression tool.
+
+printf "the bright side of life %.0s" {1..666} | lolcat
+
+#TODO also change terminal colours to rainbowwww
