@@ -5,21 +5,21 @@
 	</entry>
 	<entry name="allow_bold" mtime="1447367188" type="bool" value="true"/>
 	<entry name="bold_color_same_as_fg" mtime="1443539282" type="bool" value="true"/>
-	<entry name="use_theme_colors" mtime="1455120871" type="bool" value="false"/>
-	<entry name="palette" mtime="1455120871" type="string">
+	<entry name="use_theme_colors" mtime="1455902195" type="bool" value="false"/>
+	<entry name="palette" mtime="1455902195" type="string">
 		<stringvalue>#000000000000:#F5F579790000:#4E4E9A9A0606:#C4C4A0A00000:#34346565A4A4:#9AE7566B92BF:#4A81BF0BA313:#BABABDBDB6B6:#555557575353:#FCFCAFAF3E3E:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#D7E37D37CE08:#89A9E571CF69:#D3D3D7D7CFCF</stringvalue>
 	</entry>
-	<entry name="alternate_screen_scroll" mtime="1455120871" type="bool" value="true"/>
-	<entry name="background_color" mtime="1455120871" type="string">
+	<entry name="alternate_screen_scroll" mtime="1455902195" type="bool" value="true"/>
+	<entry name="background_color" mtime="1455902195" type="string">
 		<stringvalue>#000000000000</stringvalue>
 	</entry>
-	<entry name="visible_name" mtime="1455120871" type="string">
+	<entry name="visible_name" mtime="1455902195" type="string">
 		<stringvalue>Default</stringvalue>
 	</entry>
-	<entry name="bold_color" mtime="1455120871" type="string">
+	<entry name="bold_color" mtime="1455902195" type="string">
 		<stringvalue>#000000000000</stringvalue>
 	</entry>
-	<entry name="foreground_color" mtime="1455120871" type="string">
+	<entry name="foreground_color" mtime="1455902195" type="string">
 		<stringvalue>#FFFFFFFFFFFF</stringvalue>
 	</entry>
 </gconf>

@@ -129,11 +129,21 @@ CYAN='\[\e[1;36m\]'
 WHITE='\[\e[1;37m\]'
 COLOR_RESET='\[\033[00m\]'
 
-#if [ "$TERM" == "screen" ]; then
-#    PS1="$BLUE\w $GREEN\$ $COLOR_RESET"
-#else
-    PS1="$YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
-#fi
+##if [ "$TERM" == "screen" ]; then
+##    PS1="$BLUE\w $GREEN\$ $COLOR_RESET"
+##else
+#    PS1="$YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+##fi
+
+export PS1="$RED\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+
+if [ $HOSTNAME = "Osiris" ]; then
+    export PS1="$BLACK\$(date +%d:%k:%M) $YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+fi
+
+if [ $HOSTNAME = "Sirius" ]; then
+    export PS1="$GREEN\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+fi
 
 #export TERM=xterm-256color
 export TERM=screen-256color
@@ -141,4 +151,3 @@ export TERM=screen-256color
 if [ -f $HOME/.Xdefaults ]; then
   xrdb -merge $HOME/.Xdefaults
 fi
-

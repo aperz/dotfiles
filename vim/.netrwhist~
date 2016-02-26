@@ -1,7 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/home/perza/Dotfiles/vim/syntax'
 let g:netrw_dirhist_2='/home/perza/Dotfiles/vim'
 let g:netrw_dirhist_3='/home/perza/Dotfiles/bin'
 let g:netrw_dirhist_4='/home/aleksandra/.Sirius'
 let g:netrw_dirhist_5='/dat1/gamma_postM/output_fpredict_py/Pred__X_1000__A_100'
+let g:netrw_dirhist_6='/dat1/gamma_postM/output_fpredict_py/Pred__X_permutations__A_10_1000'
