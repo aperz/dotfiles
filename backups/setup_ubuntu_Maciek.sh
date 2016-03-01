@@ -29,6 +29,10 @@ for package in $( cat packages_diff ); do
 	sudo apt-get install $package;
 done
 
+# TWEAKS
+# gnome-terminal: change profile
+# unity tweak tool
+# reboot
 
 # Misc
 
