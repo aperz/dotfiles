@@ -106,6 +106,10 @@ if [ $HOSTNAME = "Sirius" ]; then
     export PATH=$PATH:/home/aleksandra/.bin
 fi
 
+if [ $HOSTNAME = "Maciek" ]; then
+    export PATH=$PATH:/home/aleksandra/.bin
+fi
+
 #####
 source /etc/bash_completion.d/git-prompt
 #BLACK='\[\033[38;5;000m\]'
@@ -135,7 +139,7 @@ COLOR_RESET='\[\033[00m\]'
 #    PS1="$YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 ##fi
 
-export PS1="$RED\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+export PS1="$YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 
 if [ $HOSTNAME = "Osiris" ]; then
     export PS1="$BLACK\$(date +%d:%k:%M) $YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
