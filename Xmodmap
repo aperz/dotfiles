@@ -2,5 +2,8 @@ clear lock
 clear control
 add control = Caps_Lock Control_R
 keycode 66 = Control_L Caps_Lock NoSymbol NoSymbol
+keycode 118 = BackSpace
+!ins: 118
+!del: 119
 !keycode 37 = Caps_Lock NoSymbol Caps_Lock
 !keycode 66 = Control_L NoSymbol Control_L
