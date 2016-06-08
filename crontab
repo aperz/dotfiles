@@ -1,0 +1,46 @@
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+
+#TODO also backup the crontab file
+
+# apt, dpkg: get list of installed packages and keys
+00 01 * * * /usr/bin/dpkg --get-selections '*' | while read line; do apt-cache policy $(echo "$line" | cut -f1 ) | grep -q 'http://' && echo "$line" >> ~/.backups/dpkg_package_list; done
+00 01 * * * /usr/bin/dpkg --get-selections '*' | while read line; do apt-cache policy $(echo "$line" | cut -f1 ) | grep -q 'http://' && echo "$(line| cut -f1)" >> ~/.backups/dpkg_package_list_stripped; done
+00 01 * * * /usr/bin/sudo cp -R /etc/apt/sources.list* ~/.backups/
+00 01 * * * /usr/bin/sudo usr/bin/apt-key exportall > ~/.backups/dpkg_repo_keys
+
+# pip: get list of installed packages
+00 01 * * * /usr/bin/pip3 list | sed -e '/Exception:/,$d' | sed 's/(.*)//g' | sed ':a;N;$!ba;s/\n//g' >> ~.backups/pip3_package_list_old
+00 01 * * * /usr/bin/pip list | sed -e '/Exception:/,$d' | sed 's/(.*)//g' | sed ':a;N;$!ba;s/\n//g' >> ~.backups/pip2_package_list_old
+
+# R: get list of packages
+00 01 * * * ~/.bin/R_packages_list.R -s -d "~/.backups/"
+
+# back up some important stuff
+00 03 * * * /usr/bin/rsync -a --exclude .local/share/Trash --exclude VirtualBox\ VMs --exclude .cache/deja-dup --exclude .cache/duplicityi --exclude .cache/spotify /home/perza /media/perza/UUI1/backup_Osiris_rsync
+30 03 * * * /usr/bin/rsync -a /usr/local/bin /media/perza/UUI1/backup_Osiris_rsync
+30 03 * * * /usr/bin/rsync -a /opt /media/perza/UUI1/backup_Osiris_rsync
+00 04 * * * /usr/bin/rsync -a --exclude cache --exclude data/SRAmetadb.sqlite /dat1/gamma_postM /media/perza/UUI1/backup_Osiris_rsync 
+
+00 05 * * * /usr/bin/rsync -a --exclude ftp.ensembl.org --exclude ftp-trace.ncbi.nih.gov /dat2 /media/perza/UUI1/backup_Osiris_rsync
+
