@@ -159,3 +159,8 @@ export TERM=screen-256color
 if [ -f $HOME/.Xdefaults ]; then
   xrdb -merge $HOME/.Xdefaults
 fi
+
+
+# crontab
+#alias crontab-e='vim ~/.crontab && crontab -l > ~/.crontab'
+

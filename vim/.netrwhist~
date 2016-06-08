@@ -1,4 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/dat1/Sasi/package'
 let g:netrw_dirhist_2='/dat1/gamma_postM/source'
+let g:netrw_dirhist_3='/dat1/metag/.git'
+let g:netrw_dirhist_4='/dat1/metag'
+let g:netrw_dirhist_5='/home/perza/Dotfiles/bin'
+let g:netrw_dirhist_6='/etc/cron.hourly'
+let g:netrw_dirhist_7='/etc'
