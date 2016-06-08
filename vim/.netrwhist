@@ -8,3 +8,5 @@ let g:netrw_dirhist_5='/home/perza/Dotfiles/bin'
 let g:netrw_dirhist_6='/etc/cron.hourly'
 let g:netrw_dirhist_7='/etc'
 let g:netrw_dirhist_8='/home/perza/Dotfiles/backups'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/home/aleksandra/Dotfiles/vim/bundle/Vundle.vim'
