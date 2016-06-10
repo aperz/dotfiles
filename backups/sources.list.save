@@ -54,6 +54,6 @@ deb http://extras.ubuntu.com/ubuntu trusty main
 deb-src http://extras.ubuntu.com/ubuntu trusty main
 deb http://cran.rstudio.com/bin/linux/ubuntu trusty/
 deb-src http://cran.rstudio.com/bin/linux/ubuntu trusty/
-deb http://repository.spotify.com stable non-free
+# deb http://repository.spotify.com stable non-free
 # deb-src http://repository.spotify.com stable non-free
 deb http://us.archive.ubuntu.com/ubuntu/ trusty-backports multiverse universe main restricted

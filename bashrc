@@ -73,7 +73,7 @@ alias l='ls -CF'
 alias xterm='xterm -maximized'
 if [ $HOSTNAME = "Osiris" ]; then
     alias vim='vim --servername VIM'
-    alias wb='cd /dat1/gamma_postM'
+    alias wb='cd /dat1/metag'
     alias dt='cd /dat2'
 fi
 
