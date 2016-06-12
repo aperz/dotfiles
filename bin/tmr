@@ -1,1 +1,23 @@
-/home/perza/dotfiles/tmr
+#!/bin/bash
+
+#read -e -p "How many minutes: " -i "25" mins
+mins=$1
+
+echo "$((mins)) minutes"
+echo "|=====|"
+
+sleep $((12 * $((mins)) ))
+echo "|==== |"
+
+sleep $((12 * $((mins)) ))
+echo "|===  |"
+
+sleep $((12 * $((mins)) ))
+echo "|==   |"
+
+sleep $((12 * $((mins)) ))
+echo "|=    |"
+
+sleep $((12 * $((mins)) ))
+mpg123 -quiet /home/aleksandra/Music/Fire_pager-jason-1283464858.mp3
+

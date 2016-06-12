@@ -160,7 +160,12 @@ if [ -f $HOME/.Xdefaults ]; then
   xrdb -merge $HOME/.Xdefaults
 fi
 
+# file in Dropbox folder will be shared immediately. Play around?
+DROPBOXRC="~/Dropbox/.bash_file_instant_share"
+if [ -f $DROPBOXRC ];
+then
+    source $DROPBOXRC
+fi
 
-# crontab
-#alias crontab-e='vim ~/.crontab && crontab -l > ~/.crontab'
-
+# add my py_scripts to python module search path
+export PYTHONPATH="~/.bin; $PYTHONPATH"

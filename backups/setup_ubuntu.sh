@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# thighs to consider:
+### THINGHS TO CONSIDER:
 # - where to store manually downnloaded pacage files? Where to install them? checkinstall
-# if not Ubuntu: find list of base Ubuntu packages and subtract
+# - /usr/local/scr and bin both requrie password; perhaps ~/src?
+# if not Ubuntu: find list of base Ubuntu packages and subtract; dpkg manually installed?
 
 ### vim
 cd
