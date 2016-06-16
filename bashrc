@@ -115,7 +115,6 @@ if [ $HOSTNAME = "Maciek" ]; then
 fi
 
 #####
-source /etc/bash_completion.d/git-prompt
 #BLACK='\[\033[38;5;000m\]'
 #RED='\[\033[38;5;161m\]'
 #GREEN='\[\033[38;5;047m\]'
@@ -169,3 +168,10 @@ fi
 
 # add my py_scripts to python module search path
 export PYTHONPATH="~/.bin; $PYTHONPATH"
+
+if [ -f $HOME/.git-completion.sh ]; then
+	source $HOME/.git-completion.sh
+fi
+if [ -f /etc/bash_completion.d/git-prompt ]; then
+	source /etc/bash_completion.d/git-prompt
+fi
