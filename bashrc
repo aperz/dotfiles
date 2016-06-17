@@ -1,3 +1,6 @@
+# possible issues
+# - [[ versus [
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -169,9 +172,21 @@ fi
 # add my py_scripts to python module search path
 export PYTHONPATH="~/.bin; $PYTHONPATH"
 
-if [ -f $HOME/.git-completion.sh ]; then
-	source $HOME/.git-completion.sh
+### git-completion
+# copied from /etc/bash_completion.d/git-prompt
+
+# In git versions < 1.7.12, this shell library was part of the
+# git completion script.
+#
+# Some users rely on the __git_ps1 function becoming available
+# when bash-completion is loaded.  Continue to load this library
+# at bash-completion startup for now, to ease the transition to a
+# world order where the prompt function is requested separately.
+#
+if [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
+	. /usr/lib/git-core/git-sh-prompt
 fi
-if [ -f /etc/bash_completion.d/git-prompt ]; then
-	source /etc/bash_completion.d/git-prompt
-fi
+
+#if [[ -f $HOME/.git-completion.sh ]]; then
+#	source $HOME/.git-completion.sh
+#fi
