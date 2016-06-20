@@ -37,6 +37,9 @@ set visualbell
 set clipboard=unnamed
 set paste
 
+let mapleader=","
+"let mapleader = "\<Space>"
+
 autocmd BufNewFile,BufRead *.txt,*.html,README set spell "turns on spell check only for specified files
 
 " Associate filetypes with extensions
@@ -71,6 +74,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
+Plugin 'https://github.com/Yggdroot/indentLine'
+"Plugin 'https://github.com/nathanaelkane/vim-indent-guides'
 Plugin 'https://github.com/jalvesaq/R-Vim-runtime'
 "Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux'
 Plugin 'https://github.com/ervandew/screen'
@@ -85,16 +90,23 @@ call vundle#end()            " required
 "
 " see :h vundle for more details or wiki for FAQ
 
-""""""""""""""""""""""""""""""""""""""""
-"Cory's settings
 
-"map T <Esc>:tabnew<CR>                                                                                                                                                                                           
-"map W <Esc>:tabclose<CR>                                                                                                                                                                                         
-"map H <Esc>:tabprev<CR>                                                                                                                                                                                          
-"map L <Esc>:tabnext<CR>                                                                                                                                                                                          
-"map M <Esc>:make<CR>                                                                                                                                                                                             
-"map <C-h> :execute 'tabmove' tabpagenr() - 2 <CR>                                                                                                                                                                
-"map <C-l> :execute 'tabmove' tabpagenr() <CR>    
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-indent-guidelines
+"let mycolour = 222
+"set ts=4 sw=4 et
+"let g:indent_guides_start_level = 2
+"let g:indent_guides_guide_size = 1
+"hi IndentGuidesOdd ctermbg = 235
+"hi IndentGuidesEven ctermbg = 236
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" indentLine
+let g:indentLine_color_term = 239
+" disable by def let g:indentLine_enabled = 0
+let g:indentLine_char = '¦'
+"¦ ┆ │
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-r-plugin and screen.vim

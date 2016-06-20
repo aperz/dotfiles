@@ -1,6 +1,3 @@
-# Edit this file to introduce tasks to be run by cron.
-# 
-# Each task to run has to be defined through a single line
 # indicating with different fields when the task will be run
 # and what command to run for the task
 # 
@@ -21,8 +18,13 @@
 # 
 # m h  dom mon dow   command
 
+# this line has only been edited in the Dofiles 
+# handle the error log file
+00 02 * * 1 > ~/.cron.err
+05 02 * * * date >> ~/.cron.err 
+
 # 1> /dev/null
-# also backup the crontab file
+# backup the crontab file but don't set it. The root's default crontab should be used
 00 03 * * * /usr/bin/crontab -l 1> ~/.crontab 2>> ~/.cron.err
 
 # apt, dpkg: get list of installed packages and keys
@@ -30,8 +32,8 @@
 40 00 * * * > ~/.backups/dpkg_package_list_stripped 2>> ~/.cron.err
 00 01 * * * /usr/bin/dpkg --get-selections '*' | while read line; do apt-cache policy $(echo "$line" | cut -f1 ) | grep -q 'http://' && echo "$line" 1>> ~/.backups/dpkg_package_list; done 2>>~/.cron.err
 00 01 * * * /usr/bin/dpkg --get-selections '*' | while read line; do apt-cache policy $(echo "$line" | cut -f1 ) | grep -q 'http://' && echo "$(line| cut -f1)" >> ~/.backups/dpkg_package_list_stripped; done 2>>~/.cron.err
-00 01 * * * /usr/bin/sudo cp -R /etc/apt/sources.list* ~/.backups/ 2>> ~/.cron.err
-00 01 * * * /usr/bin/sudo usr/bin/apt-key exportall 1> ~/.backups/dpkg_repo_keys 2>> ~/.cron.err
+00 01 * * * /bin/cp -R /etc/apt/sources.list* ~/.backups/ 2>> ~/.cron.err
+00 01 * * * /usr/bin/apt-key exportall 1> ~/.backups/dpkg_repo_keys 2>> ~/.cron.err
 
 # pip: get list of installed packages
 00 01 * * * /usr/bin/pip3 list | sed -e '/Exception:/,$d' | sed 's/(.*)//g' | sed ':a;N;$!ba;s/\n//g' > ~.backups/pip3_package_list_old 2>> ~/.cron.err
@@ -41,10 +43,14 @@
 00 01 * * * ~/.bin/R_packages_list.R -s -d "~/.backups/" 2>> ~/.cron.err
 
 # back up some important stuff
-00 03 * * * /usr/bin/rsync -a --exclude .local/share/Trash --exclude VirtualBox\ VMs --exclude .cache/deja-dup --exclude .cache/duplicityi --exclude .cache/spotify /home/perza /media/perza/UUI/backup_Osiris_rsync 2>> ~/.cron.err
-30 03 * * * /usr/bin/rsync -a /usr/local/bin /media/perza/UUI/backup_Osiris_rsync 2>> ~/.cron.err
-30 03 * * * /usr/bin/rsync -a /opt /media/perza/UUI/backup_Osiris_rsync 2>> ~/.cron.err
-00 04 * * * /usr/bin/rsync -a --exclude cache --exclude data/SRAmetadb.sqlite /dat1/gamma_postM /media/perza/UUI/backup_Osiris_rsync 2>> ~/.cron.err
+00 03 * * * /usr/bin/rsync -a --exclude .local/share/Trash --exclude VirtualBox\ VMs --exclude .cache/deja-dup --exclude .cache/duplicityi --exclude .cache/spotify /home/perza /media/perza/UUI1/backup_Osiris_rsync 2>> ~/.cron.err
+30 03 * * * /usr/bin/rsync -a /usr/local/bin /media/perza/UUI1/backup_Osiris_rsync 2>> ~/.cron.err
+30 03 * * * /usr/bin/rsync -a /opt /media/perza/UUI1/backup_Osiris_rsync 2>> ~/.cron.err
+00 04 * * * /usr/bin/rsync -a --exclude cache --exclude data/SRAmetadb.sqlite /dat1/gamma_postM /media/perza/UUI1/backup_Osiris_rsync 2>> ~/.cron.err
+#00 05 * * * /usr/bin/rsync -a --exclude ftp.ensembl.org --exclude ftp-trace.ncbi.nih.gov /dat2 /media/perza/UUI1/backup_Osiris_rsync 2>> ~/.cron.err
+00 04 * * * /usr/bin/rsync -a ~/zotero_biblioteka /media/perza/UUI1/backup_Osiris_rsync 2>> ~/.cron.err
 
-#00 05 * * * /usr/bin/rsync -a --exclude ftp.ensembl.org --exclude ftp-trace.ncbi.nih.gov /dat2 /media/perza/UUI/backup_Osiris_rsync 2>> ~/.cron.err
+# keep Dotfiles updated
+00 05 * * * cd ~/Dotfiles && git add . && git commit -m "daily backup" && git pull origin $(git name-rev --name-only HEAD)
 
+42 17 * * * touch ~/crontab_test
