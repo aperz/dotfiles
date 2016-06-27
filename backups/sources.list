@@ -57,3 +57,9 @@ deb-src http://cran.rstudio.com/bin/linux/ubuntu trusty/
 # deb http://repository.spotify.com stable non-free
 # deb-src http://repository.spotify.com stable non-free
 deb http://us.archive.ubuntu.com/ubuntu/ trusty-backports multiverse universe main restricted
+
+# My sources
+# deb http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_14.10 ./
+deb http://code.bitlbee.org/debian/master/trusty/amd64 ./
+
+
