@@ -105,3 +105,7 @@ rsync -a /media/perza/UUI/backup_Osiris_rsync/bin /usr/local/bin
 rsync -a /media/perza/UUI/backup_Osiris_rsync/opt /opt
 rsync -a /media/perza/UUI/backup_Osiris_rsync/gamma_postM /dat1/gamma_postM
 
+## keymaps on X
+setxkbmap pl 
+loadkeys pl # for current session
+

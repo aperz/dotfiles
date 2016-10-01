@@ -27,8 +27,8 @@ HISTFILESIZE=10000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Save and reload history after every command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# Save and reload history after every command finishes #ATT
+#export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -111,6 +111,7 @@ fi
 
 if [ $HOSTNAME = "Sirius" ]; then
     export PATH=$PATH:/home/aleksandra/.bin
+    export PATH=$PATH:/home/aleksandra/.gem/ruby/2.3.0/bin 
 fi
 
 if [ $HOSTNAME = "Maciek" ]; then
@@ -152,7 +153,9 @@ if [ $HOSTNAME = "Osiris" ]; then
 fi
 
 if [ $HOSTNAME = "Sirius" ]; then
-    export PS1="$GREEN\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+    #export PS1="$GREEN\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+    PROMPT_COMMAND='history -a; history -c; history -r; printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+    export PS1="$GREEN\h $BLUE\w$YELLOW \$ $COLOR_RESET"
 fi
 
 #export TERM=xterm-256color
@@ -183,10 +186,14 @@ export PYTHONPATH="~/.bin; $PYTHONPATH"
 # at bash-completion startup for now, to ease the transition to a
 # world order where the prompt function is requested separately.
 #
-if [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
-	. /usr/lib/git-core/git-sh-prompt
-fi
-
-#if [[ -f $HOME/.git-completion.sh ]]; then
-#	source $HOME/.git-completion.sh
+#if [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
+	#. /usr/lib/git-core/git-sh-prompt
 #fi
+
+#if [[ -f $HOME/.git_completion.sh ]]; then
+	#source $HOME/.git_completion.sh
+#fi
+
+if [[ -f $HOME/.my_keymap ]]; then
+    loadkeys $HOME/.my_keymap
+fi
