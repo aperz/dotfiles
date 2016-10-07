@@ -339,11 +339,14 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	" ImageJ macro Highlighting
 	call <SID>X("ijmacroFunctions", s:purple, "", "")
 
-	" C Highlighting
+	" C and C++ Highlighting
 	call <SID>X("cType", s:yellow, "", "")
 	call <SID>X("cStorageClass", s:purple, "", "")
 	call <SID>X("cConditional", s:purple, "", "")
 	call <SID>X("cRepeat", s:purple, "", "")
+    call <SID>X("cParen", s:blue, "", "")
+    call <SID>X("cBracket", s:blue, "", "")
+    call <SID>X("cBlock", s:blue, "", "")
 
 	" PHP Highlighting
 	call <SID>X("phpVarSelector", s:red, "", "")

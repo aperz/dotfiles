@@ -1,4 +1,9 @@
 """"""""""""""""""""""""""""""""""""""""
+"NOTES, POSSIBILITIES?
+"
+"
+
+""""""""""""""""""""""""""""""""""""""""
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
@@ -74,6 +79,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'https://github.com/Yggdroot/indentLine'
 "Plugin 'https://github.com/nathanaelkane/vim-indent-guides'
 Plugin 'https://github.com/jalvesaq/R-Vim-runtime'
@@ -85,6 +91,10 @@ Plugin 'https://github.com/ivanov/vim-ipython'
 "Plugin 'https://github.com/vim-scripts/pythoncomplete'
 "Plugin 'vim-scripts/indentpython.vim'
 Plugin 'https://github.com/vim-scripts/Python-mode-klen'
+Plugin 'https://github.com/vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails'
+Plugin 'Valloric/YouCompleteMe'
+
 
 call vundle#end()            " required
 "
@@ -216,10 +226,23 @@ let pymode_paths = []
 let pymode_run = 1
 let pymode_run_key = 'r'
 
+"""""""""""""""""""""""""""""""""""""""
+" cpp c++ c
+
+" key to compile and run current file (coursera Algorithmic Toolbox flags)
+map <F8> :!g++ -pipe -O2 -std=c++11 max_pairwise_product.cpp % && ./a.out <CR> 
+"map <F8> :!g++ % && ./a.out <CR> 
+"autocmd BufNewFile *.cpp r /path/to/file.cpp
 
 
 """""""""""""""""""""""""""""""""""""""
-" Keymap
+" YouCompleteMe
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+
+
+"""""""""""""""""""""""""""""""""""""""
+""" Keymap
+
 inoremap <C-x> <Esc>
 vnoremap <C-x> <Esc>
 "inoremap <C-b> <C-h>
@@ -227,6 +250,19 @@ inoremap <BS> <Nop>
 inoremap <C-b> <>
 " or C-Space
 inoremap <C-c> <C-h>
+inoremap <C-h> <BS>
+nnoremap <C-h> <BS>
+
+" scrolling
+nnoremap <C-e> <C-u>
+nnoremap <C-u> <C-e>
+
+" show type of thing under cursor
+noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" omnicompletion navigation in popup buffers
+"inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+"inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+
 
 "Plugins
 vnoremap <Space> <Plug>RDSendSelection
@@ -242,20 +278,19 @@ inoremap <C-l> ^[OC
 inoremap <C-h> ^[OD
 
 " pane navigation
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
+"nnoremap <C-j> <C-w>j
+"nnoremap <C-k> <C-w>k
+"nnoremap <C-l> <C-w>l
+"nnoremap <C-h> <C-w>h
 
-" scrolling
-nnoremap <C-e> <C-u>
-nnoremap <C-u> <C-e>
+" vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
 
-" show type of thing under cursor
-noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-" omnicompletion navigation in popup buffers
-"inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
-"inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
 """"""""""""""""""""""""""""""""""""""""
 set tabstop=4

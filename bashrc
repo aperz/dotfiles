@@ -28,7 +28,7 @@ HISTFILESIZE=10000
 shopt -s checkwinsize
 
 # Save and reload history after every command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a; history -c; history -r" #; $PROMPT_COMMAND"
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -59,7 +59,7 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='ls --color=auto --group-directories-first'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
 
@@ -69,11 +69,15 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
+#alias hir='history -r'
 alias lf='ls -B' # list files (anf folders)
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias xterm='xterm -maximized'
+
+alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
+
 if [ $HOSTNAME = "Osiris" ]; then
     alias vim='vim --servername VIM'
     alias wb='cd /dat1/metag'
@@ -106,6 +110,7 @@ if [ $HOSTNAME = "Osiris" ]; then
     export PATH=$PATH:/home/perza/.bin
     export PATH=$PATH:/usr/local/bin/sratoolkit.2.5.2-ubuntu64/binexport 
     export PATH=$PATH:/usr/local/bin/kentUtils
+    export PATH=$PATH:/dat1/metag
 fi
 
 
@@ -169,6 +174,7 @@ then
     source $DROPBOXRC
 fi
 
+### python
 # add my py_scripts to python module search path
 export PYTHONPATH="~/.bin; $PYTHONPATH"
 
@@ -190,3 +196,15 @@ fi
 #if [[ -f $HOME/.git-completion.sh ]]; then
 #	source $HOME/.git-completion.sh
 #fi
+
+### ruby ror rvm
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+
+### android sdk
+export PATH=${PATH}:$HOME/Android/Sdk/tools
+export PATH=${PATH}:$HOME/Android/Sdk/platform-tools
+

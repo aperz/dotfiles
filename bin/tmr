@@ -19,5 +19,5 @@ sleep $((12 * $((mins)) ))
 echo "|=    |"
 
 sleep $((12 * $((mins)) ))
-mpg123 -quiet /home/aleksandra/Music/Fire_pager-jason-1283464858.mp3
+mpg123 -quiet /home/perza/Muzyka/Fire_pager-jason-1283464858.mp3
 
