@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="help" mtime="1474648103" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_10" mtime="1474648101" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_9" mtime="1474648100" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_8" mtime="1474648099" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_7" mtime="1474648095" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_6" mtime="1474648094" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_5" mtime="1474648092" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_4" mtime="1474648091" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_3" mtime="1474648090" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_2" mtime="1474648079" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="switch_to_tab_1" mtime="1474648076" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="move_tab_right" mtime="1474648069" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="move_tab_left" mtime="1474648068" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="next_tab" mtime="1474648066" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="prev_tab" mtime="1474648065" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="zoom_normal" mtime="1474648061" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="zoom_out" mtime="1474648059" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="zoom_in" mtime="1474648057" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="full_screen" mtime="1474648052" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="close_window" mtime="1474648045" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="close_tab" mtime="1474648044" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="new_window" mtime="1474648039" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="new_tab" mtime="1474648037" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+</gconf>
