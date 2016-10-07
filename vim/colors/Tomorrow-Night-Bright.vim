@@ -6,7 +6,7 @@
 " Default GUI Colours (my)
 let s:foreground = "ffffff"
 "eaeaea"
-let s:background = "1c1c1c"
+let s:background = "171717" "colour233 is 121212 ???
 "000000"
 let s:selection = "585858"
 "424242"

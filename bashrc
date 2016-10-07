@@ -27,9 +27,6 @@ HISTFILESIZE=10000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Save and reload history after every command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r" #; $PROMPT_COMMAND"
-
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
@@ -75,7 +72,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias xterm='xterm -maximized'
-
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 
 if [ $HOSTNAME = "Osiris" ]; then
@@ -116,6 +112,7 @@ fi
 
 if [ $HOSTNAME = "Sirius" ]; then
     export PATH=$PATH:/home/aleksandra/.bin
+    export PATH=$PATH:/home/aleksandra/.gem/ruby/2.3.0/bin 
 fi
 
 if [ $HOSTNAME = "Maciek" ]; then
@@ -153,11 +150,16 @@ COLOR_RESET='\[\033[00m\]'
 export PS1="$YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 
 if [ $HOSTNAME = "Osiris" ]; then
+    # Save and reload history after every command finishes
+    export PROMPT_COMMAND="history -a; history -c; history -r" #; $PROMPT_COMMAND"
+
     export PS1="$BLACK\$(date +%d:%k:%M) $YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 fi
 
 if [ $HOSTNAME = "Sirius" ]; then
-    export PS1="$GREEN\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+    #export PS1="$GREEN\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+    PROMPT_COMMAND='history -a; history -c; history -r; printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+    export PS1="$GREEN\h $BLUE\w$YELLOW \$ $COLOR_RESET"
 fi
 
 #export TERM=xterm-256color
@@ -190,11 +192,11 @@ export PYTHONPATH="~/.bin; $PYTHONPATH"
 # world order where the prompt function is requested separately.
 #
 if [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
-	. /usr/lib/git-core/git-sh-prompt
+    . /usr/lib/git-core/git-sh-prompt
 fi
 
-#if [[ -f $HOME/.git-completion.sh ]]; then
-#	source $HOME/.git-completion.sh
+#if [[ -f $HOME/.git_completion.sh ]]; then # git_completion or git-completion?
+	#source $HOME/.git_completion.sh
 #fi
 
 ### ruby ror rvm
@@ -208,3 +210,6 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH=${PATH}:$HOME/Android/Sdk/tools
 export PATH=${PATH}:$HOME/Android/Sdk/platform-tools
 
+if [[ -f $HOME/.my_keymap ]]; then
+    loadkeys $HOME/.my_keymap
+fi
