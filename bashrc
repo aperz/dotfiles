@@ -80,6 +80,11 @@ if [ $HOSTNAME = "Osiris" ]; then
     alias dt='cd /dat2'
 fi
 
+if [[ -f ~/.bin/py_utils.py ]]; then
+    alias ipython3="ipython3 -i ~/.bin/py_utils.py"
+    alias ipython="ipython -i ~/.bin/py_utils.py"
+fi
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.

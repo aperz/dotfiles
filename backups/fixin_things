@@ -1,0 +1,25 @@
+Solutions to various problems that I may not remember later.
+
+--------------------
+LAB
+--------------------
+10.84.146.
+
+
+
+
+--------------------
+PRINTERS
+--------------------
+CUPS
+localhost:631
+Brother MFC9970CDW
+    dnssd://Brother%20MFC-9970CDW._pdl-datastream._tcp.local/
+    70.163.84.130, 96
+    10.84.146.25 (Feb 2016)
+
+
+--------------------
+vim
+--------------------
+see ~/Dotfiles/backups/setup*
