@@ -18,9 +18,10 @@ let s:yellow = "f8ff33"
 let s:green = "7FFA66"
 let s:aqua = "33FFE7"
 let s:blue = "729fcf"
-let s:theme = "005f5f" "193
+let s:theme = "005f5f" "193 dark seledine
 "005f87" "24
-let s:theme2 = "dfffaf" "23
+"005f5f
+let s:theme2 = "dfffaf" "23 light seledine
 "87ffff" "123
 let s:theme3 = "00af87" "36
 let s:purple = "d77dcd"

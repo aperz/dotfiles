@@ -154,10 +154,10 @@ COLOR_RESET='\[\033[00m\]'
 
 export PS1="$YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 
+
 if [ $HOSTNAME = "Osiris" ]; then
     # Save and reload history after every command finishes
     export PROMPT_COMMAND="history -a; history -c; history -r" #; $PROMPT_COMMAND"
-
     export PS1="$BLACK\$(date +%d:%k:%M) $YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 fi
 
@@ -166,6 +166,10 @@ if [ $HOSTNAME = "Sirius" ]; then
     PROMPT_COMMAND='history -a; history -c; history -r; printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
     export PS1="$GREEN\h $BLUE\w$YELLOW \$ $COLOR_RESET"
 fi
+
+#put prompt in the last line (bottom of window)
+TOLASTLINE=$(tput cup "$LINES")
+#export PS1="\[$TOLASTLINE\]"
 
 #export TERM=xterm-256color
 export TERM=screen-256color
