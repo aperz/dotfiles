@@ -6,7 +6,8 @@
 " Default GUI Colours (my)
 let s:foreground = "ffffff"
 "eaeaea"
-let s:background = "171717" "colour233 is 121212 ???
+let s:background = "000000"
+"121212" "colour233
 "000000"
 let s:selection = "585858"
 "424242"
@@ -18,14 +19,16 @@ let s:yellow = "f8ff33"
 let s:green = "7FFA66"
 let s:aqua = "33FFE7"
 let s:blue = "729fcf"
+let s:purple = "d77dcd"
+let s:window = "4d5057"
+
+" theme colours
 let s:theme = "005f5f" "193 dark seledine
 "005f87" "24
 "005f5f
 let s:theme2 = "dfffaf" "23 light seledine
 "87ffff" "123
 let s:theme3 = "00af87" "36
-let s:purple = "d77dcd"
-let s:window = "4d5057"
 
 hi clear
 "syntax reset

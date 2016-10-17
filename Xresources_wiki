@@ -1,0 +1,131 @@
+XTerm*faceName: Ubuntu Mono
+xterm*faceSize: 20
+xterm*loginShell: true
+!xterm*termName: xterm-256color
+xterm*termName: xterm-color
+xterm*eightBitInput: false
+
+! stop output to terminal from jumping down to bottom of scroll again
+xterm*scrollTtyOutput: false
+
+! double-click to select whole URLs :D
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+! VGA
+*color0:  #000000
+*color1:  #AA0000
+*color2:  #00AA00
+*color3:  yellow
+*color4:  #0000AA
+*color5:  #AA00AA
+*color6:  #00AAAA
+*color7:  #AAAAAA
+*color8:  #666666
+*color9:  #FF5555
+*color10: #55FF55
+*color11: #FFFF55
+*color12: #5555FF
+*color13: #FF55FF
+*color14: #55FFFF
+*color15: #FFFFFF
+
+!! DOS-box colours...
+!*.foreground: rgb:a8/a8/a8
+!*.background: rgb:00/00/00
+!*.color0: rgb:00/00/00
+!*.color1: rgb:a8/00/00
+!*.color2: rgb:00/a8/00
+!*.color3: rgb:a8/54/00
+!*.color4: rgb:00/00/a8
+!*.color5: rgb:a8/00/a8
+!*.color6: rgb:00/a8/a8
+!*.color7: rgb:a8/a8/a8
+!*.color8: rgb:54/54/54
+!*.color9: rgb:fc/54/54
+!*.color10: rgb:54/fc/54
+!*.color11: rgb:fc/fc/54
+!*.color12: rgb:54/54/fc
+!*.color13: rgb:fc/54/fc
+!*.color14: rgb:54/fc/fc
+!*.color15: rgb:fc/fc/fc
+!! jwr dark
+
+!!black
+!*_color0: #333333
+!*_color8: #3D3D3D
+!!_red
+!*_color1: #8C4665
+!*_color9: #BF4D80
+!!_green
+!*_color2: #287373
+!*_color10: #53A6A6
+!!_yellow
+!*_color3: #7C7C99
+!*_color11: #9E9ECB
+!!_blue
+!*_color4: #395573
+!*_color12: #477AB3
+!!_magenta
+!*_color5: #5E468C
+!*_color13: #7E62B3
+!!_cyan
+!*_color6: #31658C
+!*_color14: #6096BF
+!!_white
+!*_color7: #899CA1
+!*_color15: #C0C0C0
+
+!!BLK Cursor
+!#define _color0        #000d18
+!#define _color8        #000d18
+!!RED Tag
+!#define _color1        #e89393
+!#define _color9        #e89393
+!!GRN SpecialKey
+!#define _color2        #9ece9e
+!#define _color10       #9ece9e
+!!YEL Keyword
+!#define _color3        #f0dfaf
+!#define _color11       #f0dfaf
+!!BLU Number
+!#define _color4        #8cd0d3
+!#define _color12       #8cd0d3
+!!MAG Precondit
+!#define _color5        #c0bed1
+!#define _color13       #c0bed1
+!!CYN Float
+!#define _color6        #dfaf8f
+!#define _color14       #dfaf8f
+!!WHT Search
+!#define _color7        #efefef
+!#define _color15       #efefef
+!!FMT Include, StatusLine, ErrorMsg
+!#define _colorBD       #ffcfaf
+!#define _colorUL       #ccdc90
+!#define _colorIT       #80d4aa
+!!TXT Normal, Normal, Cursor
+!#define _foreground    #dcdccc
+!#define _background    #1f1f1f
+!#define _cursorColor   #8faf9f
+!
+!*.color0         : _color0
+!*.color1         : _color1
+!*.color2         : _color2
+!*.color3         : _color3
+!*.color4         : _color4
+!*.color5         : _color5
+!*.color6         : _color6
+!*.color7         : _color7
+!*.color8         : _color8
+!*.color9         : _color9
+!*.color10        : _color10
+!*.color11        : _color11
+!*.color12        : _color12
+!*.color13        : _color13
+!*.color14        : _color14
+!*.color15        : _color15
+!*.colorBD        : _colorBD
+!*.colorIT        : _colorIT
+!*.colorUL        : _colorUL
+!*.foreground     : _foreground
+!*.background     : _background
+!*.cursorColor    : _cursorColor
