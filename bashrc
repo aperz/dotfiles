@@ -75,9 +75,9 @@ alias xterm='xterm -maximized'
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 
 if [ $HOSTNAME = "Osiris" ]; then
-    alias vim='vim --servername VIM'
-    alias wb='cd /dat1/metag'
-    alias dt='cd /dat2'
+    #alias vim='vim --servername VIM'
+    alias wb='cd /d/metag'
+    alias dt='cd /f'
 fi
 
 if [[ -f ~/.bin/py_utils.py ]]; then
@@ -152,13 +152,13 @@ COLOR_RESET='\[\033[00m\]'
 #    PS1="$YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 ##fi
 
-export PS1="$YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+export PS1="$YELLOW\h $BLUE\w$YELLOW \$ $COLOR_RESET"
 
 
 if [ $HOSTNAME = "Osiris" ]; then
     # Save and reload history after every command finishes
     export PROMPT_COMMAND="history -a; history -c; history -r" #; $PROMPT_COMMAND"
-    export PS1="$BLACK\$(date +%d:%k:%M) $YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+    #export PS1="$BLACK\$(date +%d:%k:%M) $YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 fi
 
 if [ $HOSTNAME = "Sirius" ]; then
@@ -209,16 +209,23 @@ fi
 #fi
 
 ### ruby ror rvm
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 
 ### android sdk
-export PATH=${PATH}:$HOME/Android/Sdk/tools
-export PATH=${PATH}:$HOME/Android/Sdk/platform-tools
+#export PATH=${PATH}:$HOME/Android/Sdk/tools
+#export PATH=${PATH}:$HOME/Android/Sdk/platform-tools
 
 if [[ -f $HOME/.my_keymap ]]; then
     loadkeys $HOME/.my_keymap
 fi
+
+
+### virtualenvwrapper
+#if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
+#    source /usr/bin/virtualenvwrapper.sh
+#    export WORKON_HOME=~/envs
+#fi
