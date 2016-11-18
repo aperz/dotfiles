@@ -156,7 +156,6 @@ let g:indentLine_char = '¦'
 
 "" For tmux support
 let g:ScreenImpl = 'Tmux'
-let vimrplugin_screenvsplit = 1 " For vertical tmux split
 "let g:ScreenShellInitialFocus = 'shell' 
 "" instruct to use your own .screenrc file
 "let g:vimrplugin_noscreenrc = 1
@@ -244,9 +243,6 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extr
 """""""""""""""""""""""""""""""""""""""
 """ Keymap
 
-inoremap <C-x> <Esc>
-vnoremap <C-x> <Esc>
-"inoremap <C-b> <C-h>
 inoremap <BS> <Nop>
 inoremap <C-b> <>
 " or C-Space
@@ -257,9 +253,13 @@ nnoremap <C-h> <BS>
 " scrolling
 nnoremap <C-e> <C-u>
 nnoremap <C-u> <C-e>
+vnoremap <C-e> <C-u>
+vnoremap <C-u> <C-e>
 
 " show type of thing under cursor
 noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+noremap <C-s> <Nop>
+noremap <C-a> <Nop>
 " omnicompletion navigation in popup buffers
 "inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
 "inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
@@ -284,14 +284,24 @@ inoremap <C-h> ^[OD
 "nnoremap <C-l> <C-w>l
 "nnoremap <C-h> <C-w>h
 
+
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
 
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+" these dont work: ^K, ^[k ^M-k, M-k, A-k
+noremap <silent> <C-j> :TmuxNavigateDown<cr>
+noremap <silent> <C-k> :TmuxNavigateUp<cr>
+noremap <silent> <C-l> :TmuxNavigateRight<cr>
+noremap <silent> <C-h> :TmuxNavigateLeft<cr>
+noremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
+
+"TODO: try mapping to something different after
+" The below prevents alt pane changing (also control)
+"map <C-j> <Nop>
+"map <C-k> <Nop>
+"map <C-l> <Nop>
+"map <C-h> <Nop>
 
 """"""""""""""""""""""""""""""""""""""""
 set tabstop=4
