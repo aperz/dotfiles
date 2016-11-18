@@ -1,0 +1,9 @@
+BioTK==0.2-144-g5a09bca
+Orange-Bioinformatics==2.5.40
+acfsa==0.0.1
+pelorus==1.1.5
+
+cd ~/packages
+git clone https://aleksandra_perz@bitbucket.org/wrenlab/acfsa.git #aho-corasick implementation
+git clone https://aleksandra_perz@bitbucket.org/wrenlab/wrenlab.git
+git clone https://aleksandra_perz@bitbucket.org/wrenlab/biotk.git

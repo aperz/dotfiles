@@ -32,6 +32,10 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 sudo apt-get install git
 sudo apt-get install python-pip
+sudo apt-get install python3-pip
+sudo apt-get install setuptools
+sudo apt-get install ez_setup
+
 pip install dotfiles
 git clone https://github.com/AleksTheAraneus/dotfiles
 mv dotfiles ~/Dotfiles
@@ -75,7 +79,8 @@ sudo dselect
 # may not work right away untested script
 R_packages_list.R -r -d "~/.backups/"
 
-sudo apt-get install python3-pip
+sudo apt-get install python-yaml
+sudo apt-get install python3-yaml
 pip3 install (~/.backups/pip3_package_list_old)
 pip install (~/.backups/pip2_package_list_old)
 

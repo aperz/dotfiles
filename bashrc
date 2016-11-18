@@ -81,8 +81,9 @@ if [ $HOSTNAME = "Osiris" ]; then
 fi
 
 if [[ -f ~/.bin/py_utils.py ]]; then
-    alias ipython3="ipython3 -i ~/.bin/py_utils.py"
-    alias ipython="ipython -i ~/.bin/py_utils.py"
+    alias ipython3="ipython3 -i ~/.bin/py_utils.py --TerminalInteractiveShell.highlighting_style='rrt' --TerminalInteractiveShell.colors='Linux'"
+    alias ipython2="ipython2 -i ~/.bin/py_utils.py --TerminalInteractiveShell.highlighting_style='rrt' --TerminalInteractiveShell.colors='Linux'"
+    alias ipython="ipython -i ~/.bin/py_utils.py --TerminalInteractiveShell.highlighting_style='rrt' --TerminalInteractiveShell.colors='Linux'"
 fi
 
 # Alias definitions.
@@ -204,9 +205,13 @@ if [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
     . /usr/lib/git-core/git-sh-prompt
 fi
 
-#if [[ -f $HOME/.git_completion.sh ]]; then # git_completion or git-completion?
-	#source $HOME/.git_completion.sh
-#fi
+if [[ -f $HOME/.git_completion.sh ]]; then
+	source $HOME/.git_completion.sh
+fi
+
+if [[ -f $HOME/.git-prompt.sh ]]; then
+	source $HOME/.git-prompt.sh
+fi
 
 ### ruby ror rvm
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

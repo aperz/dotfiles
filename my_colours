@@ -1,9 +1,38 @@
 ------------------------------
 My efforts to unify ALL the colours.
 ------------------------------
+Tomorrow Night Bright theme
+
+#000000 Background
+#2a2a2a Current Line
+#424242 Selection
+#eaeaea Foreground
+#969896 Comment
+#d54e53 Red
+#e78c45 Orange
+#e7c547 Yellow
+#b9ca4a Green
+#70c0b1 Aqua
+#7aa6da Blue
+#c397d8 Purple
+
+Tomorrow Night theme
+#1d1f21 Background
+#282a2e Current Line
+#373b41 Selection
+#c5c8c6 Foreground
+#969896 Comment
+#cc6666 Red
+#de935f Orange
+#f0c674 Yellow
+#b5bd68 Green
+#8abeb7 Aqua
+#81a2be Blue
+#b294bb Purple 
 
 ------------------------------
 Xresources
+
 
 !TomorrowNight
 #define t_foreground        #1c1c1c

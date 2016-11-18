@@ -3,32 +3,58 @@
 "
 " Hex colour conversion functions borrowed from the theme "Desert256""
 
-" Default GUI Colours (my)
-let s:foreground = "ffffff"
-"eaeaea"
+"" Default GUI Colours (my)
+"let s:foreground = "ffffff"
+""eaeaea"
+"let s:background = "121212"
+""colour233
+"let s:selection = "585858"
+""424242"
+"let s:line = "2a2a2a"
+"let s:comment = "969896"
+"let s:red = "d54e53"
+"let s:orange = "ffa321"
+"let s:yellow = "fff374"
+""let s:yellow = "f8ff33"
+"let s:green = "7FFA66"
+let s:green = "64DD64"
+let s:aqua = "33FFE7" 
+let s:blue = "729fcf"
+"let s:purple = "d77dcd"
+"let s:window = "4d5057"
+
+" from jay colorscheme
+let s:red =    'df5f5f'
+"let s:orange = 'dfaf5f'
+"let s:yellow = 'dfdf5f'
+"let s:green =  '5fdf5f'
+"let s:aqua =   '5fdfdf'
+"let s:blue =   '5f87df'
+"let s:purple = 'af5fdf'
+
+" Default GUI Colours (TomorrowNightBright original) (good night theme)
+let s:foreground = "eaeaea"
 let s:background = "000000"
-"121212" "colour233
-"000000"
-let s:selection = "585858"
-"424242"
+let s:selection = "424242"
 let s:line = "2a2a2a"
 let s:comment = "969896"
-let s:red = "d54e53"
-let s:orange = "ffa321"
-let s:yellow = "f8ff33"
-let s:green = "7FFA66"
-let s:aqua = "33FFE7"
-let s:blue = "729fcf"
-let s:purple = "d77dcd"
+let s:orange = "e78c45"
+let s:yellow = "e7c547"
+let s:purple = "c397d8"
 let s:window = "4d5057"
 
+"let s:green = "b9ca4a"
+"let s:aqua = "70c0b1"
+"let s:blue = "7aa6da"
+"let s:red = "d54e53"
+
 " theme colours
-let s:theme = "005f5f" "193 dark seledine
+let s:theme = "005f5f" "193 dark saturated seledine (on bg=black)
 "005f87" "24
 "005f5f
 let s:theme2 = "dfffaf" "23 light seledine
 "87ffff" "123
-let s:theme3 = "00af87" "36
+let s:theme3 = "00af87" "36 dark cold-greyish seledine (on bg=23)
 
 hi clear
 "syntax reset
