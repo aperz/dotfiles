@@ -23,3 +23,21 @@ Brother MFC9970CDW
 vim
 --------------------
 see ~/Dotfiles/backups/setup*
+
+
+--------------------
+bluetooth
+--------------------
+
+# restarting the computer helps a lot 
+
+sudo /etc/init.d/bluetooth restart
+ps aux | grep blu
+
+hciconfig
+sudo hciconfig hci0 up
+
+hcitool scan
+
+bluez-simple-agent hci0 7C:ED:8D:6A:CE:94
+bluez-test-device remove 7C:ED:8D:6A:CE:94

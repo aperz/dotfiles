@@ -10,68 +10,90 @@ xterm*scrollTtyOutput: false
 xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
 
 ! urxvt
-URxvt*scrollBar: false
+URxvt*urlLauncher: /usr/bin/firefox
+URxvt*iconFile: $HOME/themes_my/bfa_terminal_flat-rounded-square-white-on-black_512x512.png
+Rxvt*scrollBar: false
 ! By default the distance between characters can feel too wide. Its controlled
 ! by this entry: 
 URxvt.letterSpace: -1
 URxvt.font:xft:Ubuntu Mono:pixelsize=17
 URxvt.boldfont:xft:Ubuntu Mono Bold:pixelsize=17
 
-! TomorrowNightBright moidfied
-#define t_background        #121212
-#define t_current_line      #2a2a2a
-#define t_selection      	#585858
-#define t_foreground      	#ffffff
-#define t_comment	     	#969896
-#define t_red		     	#d54e53
-#define t_orange	     	#ffa321
-! #define t_orange	     	#e78c45
-#define t_yellow        	#f8ff33
-! #define t_yellow        	#e7c547
-#define t_green	        	#7ffa66
-! #define t_green	        	#b9ca4a
-#define t_aqua	        	#33FFE7
-! #define t_aqua	        	#70c0b1
-#define t_blue	        	#7aa6da
-#define t_purple        	#c397d8
+! TomorrowNightBright
+*foreground:   #eaeaea
+*background:   #000000
+*cursorColor:  #aeafad
+*color0:       #000000
+*color1:       #912226
+*color2:       #778900
+*color3:       #ae7b00
+*color4:       #1d2594
+*color5:       #682a9b
+*color6:       #2b6651
+*color7:       #929593
+*color8:       #666666
+*color9:       #cc6666
+*color10:      #b5bd68
+*color11:      #f0c674
+*color12:      #81a2be
+*color13:      #b294bb
+*color14:      #8abeb7
+*color15:      #ecebec
 
 #define t_theme              #005f5f
 #define t_theme2             #dfffaf
 #define t_theme3             #00af87
 
+!! TomorrowNightBright moidfied
+!#define t_background        #121212
+!#define t_current_line      #2a2a2a
+!#define t_selection      	#585858
+!#define t_foreground      	#ffffff
+!#define t_comment	     	#969896
+!#define t_red		     	#d54e53
+!#define t_orange	     	#ffa321
+!! #define t_orange	     	#e78c45
+!#define t_yellow        	#fff374
+!! #define t_yellow        	#e7c547
+!#define t_green	        	#7ffa66
+!! #define t_green	        	#b9ca4a
+!#define t_aqua	        	#33FFE7
+!! #define t_aqua	        	#70c0b1
+!#define t_blue	        	#7aa6da
+!#define t_purple        	#c397d8
 
-*.foreground:   t_foreground
-*.background:   t_background
-*.cursorColor:  #aeafad
-
-! Black / Grey
-*.color0:       #000000
-*.color8:       #666666
-
-! Red / Bright Red
-*.color1:       t_red
-*.color9:       #FF3334
-
-! Green + Bright Green
-*.color2:       t_green
-*.color10:      #9ec400
-
-! Yellow (Orange) + Bright Yellow (Yellow)
-*.color3:       t_orange
-*.color11:      t_yellow
-
-! Blue + Bright Blue
-*.color4:       t_blue
-*.color12:      t_blue
-
-! Magenta (Purple) + Bright Magenta
-*.color5:       t_purple
-*.color13:      #b777e0
-
-! Cyan (Aqua) + Bright Cyan
-*.color6:       t_aqua
-*.color14:      #54ced6
-
-! Light Grey (Selection) + White (Current Line)
-*.color7:       t_selection
-*.color15:      t_current_line
+!*.foreground:   t_foreground
+!*.background:   t_background
+!*.cursorColor:  #aeafad
+!
+!! Black / Grey
+!*.color0:       #000000
+!*.color8:       #666666
+!
+!! Red / Bright Red
+!*.color1:       t_red
+!*.color9:       #FF3334
+!
+!! Green + Bright Green
+!*.color2:       t_green
+!*.color10:      #9ec400
+!
+!! Yellow (Orange) + Bright Yellow (Yellow)
+!*.color3:       t_orange
+!*.color11:      t_yellow
+!
+!! Blue + Bright Blue
+!*.color4:       t_blue
+!*.color12:      t_blue
+!
+!! Magenta (Purple) + Bright Magenta
+!*.color5:       t_purple
+!*.color13:      #b777e0
+!
+!! Cyan (Aqua) + Bright Cyan
+!*.color6:       t_aqua
+!*.color14:      #54ced6
+!
+!! Light Grey (Selection) + White (Current Line)
+!*.color7:       t_selection
+!*.color15:      t_current_line
