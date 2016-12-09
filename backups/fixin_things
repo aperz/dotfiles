@@ -1,5 +1,23 @@
 Solutions to various problems that I may not remember later.
 
+
+--------------------
+FIREFOX CONF
+--------------------
+# disable Ctrl-h in gtk applications
+# uh this did not work
+vim ~/.config/gtk-3.0/settings.ini
+
+    [Settings]
+    gtk-key-theme-name = Emacs
+
+# gnome
+# gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
+
+# xfce
+xfconf-query -c xsettings -p /Gtk/KeyThemeName -s Emacs
+
+
 --------------------
 LAB
 --------------------
@@ -11,7 +29,10 @@ LAB
 --------------------
 PRINTERS
 --------------------
-CUPS
+CUPS (pacman cups)
+systemctl enable org.cups.cupsd.service
+systemctl start org.cups.cupsd.service
+
 localhost:631
 Brother MFC9970CDW
     dnssd://Brother%20MFC-9970CDW._pdl-datastream._tcp.local/
@@ -23,6 +44,11 @@ Brother MFC9970CDW
 vim
 --------------------
 see ~/Dotfiles/backups/setup*
+
+# ycm server breaks
+pacman -S cmake
+cd ~/.vim/bundle/YouCompleteMe
+./install.py --clang-completer
 
 
 --------------------
@@ -41,3 +67,23 @@ hcitool scan
 
 bluez-simple-agent hci0 7C:ED:8D:6A:CE:94
 bluez-test-device remove 7C:ED:8D:6A:CE:94
+
+
+--------------------
+git prompt and completion
+--------------------
+cd ~/Dotfiles
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+dotfiles -s .git_prompt.sh
+
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+mv git-completion.bash git_completion.sh
+dotfiles -s .git_completion.sh
+
+
+--------------------
+vibreoffice
+--------------------
+wget https://raw.github.com/seanyeh/vibreoffice/master/dist/vibreoffice-0.1.4.oxt
+#open it in LibreOffice
+# Tools - Customize... - Ctrl-H, Ctrl-j, Ctrl-c

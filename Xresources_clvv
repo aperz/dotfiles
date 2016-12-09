@@ -19,26 +19,47 @@ URxvt.letterSpace: -1
 URxvt.font:xft:Ubuntu Mono:pixelsize=17
 URxvt.boldfont:xft:Ubuntu Mono Bold:pixelsize=17
 
-! TomorrowNightBright
-*foreground:   #eaeaea
-*background:   #000000
-*cursorColor:  #aeafad
-*color0:       #000000
-*color1:       #912226
-*color2:       #778900
-*color3:       #ae7b00
-*color4:       #1d2594
-*color5:       #682a9b
-*color6:       #2b6651
-*color7:       #929593
-*color8:       #666666
-*color9:       #cc6666
-*color10:      #b5bd68
-*color11:      #f0c674
-*color12:      #81a2be
-*color13:      #b294bb
-*color14:      #8abeb7
-*color15:      #ecebec
+!! TomorrowNightBright
+!*foreground:   #eaeaea
+!*background:   #000000
+!*cursorColor:  #aeafad
+!*color0:       #000000
+!*color1:       #912226
+!*color2:       #778900
+!*color3:       #ae7b00
+!*color4:       #1d2594
+!*color5:       #682a9b
+!*color6:       #2b6651
+!*color7:       #929593
+!*color8:       #666666
+!*color9:       #cc6666
+!*color10:      #b5bd68
+!*color11:      #f0c674
+!*color12:      #81a2be
+!*color13:      #b294bb
+!*color14:      #8abeb7
+!*color15:      #ecebec
+
+! Molokai theme
+*background: #101010
+*foreground: #d0d0d0
+*cursorColor: #d0d0d0
+*color0: #101010
+*color1: #960050
+*color2: #66aa11
+*color3: #c47f2c
+*color4: #30309b
+*color5: #7e40a5
+*color6: #3579a8
+*color7: #9999aa
+*color8: #303030
+*color9: #ff0090
+*color10: #80ff00
+*color11: #ffba68
+*color12: #5f5fee
+*color13: #bb88dd
+*color14: #4eb4fa
+*color15: #d0d0d0
 
 #define t_theme              #005f5f
 #define t_theme2             #dfffaf

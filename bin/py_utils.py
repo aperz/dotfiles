@@ -1,9 +1,13 @@
 '''
 A helpful file with utility functions and initial settings for python
 '''
+
+
 clever_things = {
     1 : "from os.path import splitext",
     2 : "from math import isnan",
+    3 : "%load_ext autoreload",
+    4 : "%autoreload 2",
     }
 
 def takeoff():

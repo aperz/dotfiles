@@ -8,7 +8,10 @@
 set nocompatible
 
 """"""""""""""""""""""""""""""""""""""""
+" for some reason some elements only load on second execution
 colorscheme Tomorrow-Night-Bright
+colorscheme Tomorrow-Night-Bright
+
 set statusline=%<%f%{FF()}\ %M\ %h%r%=%-10.(%l,%c%V\ b=%n,w=%{winnr()}%)\ %P
 function! FF()
     if &ft == 'qf'
@@ -94,6 +97,7 @@ Plugin 'https://github.com/vim-scripts/Python-mode-klen'
 Plugin 'https://github.com/vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'jaxbot/semantic-highlight.vim'
 
 
 call vundle#end()            " required

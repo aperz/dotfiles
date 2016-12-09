@@ -8,3 +8,10 @@ if(interactive()){
        options(vimcom.verbose = 1) # optional
        library(vimcom)
 }
+
+#cat(".Rprofile: setting default repository\n")
+r = getOption("repos")
+#r["CRAN"]="http//cran.revolutionanalytics.com"
+r["CRAN"]="http://cran.uk.r-project.org"
+options(repos = r)
+rm(r)

@@ -1,20 +1,76 @@
 Xft.antialias: true
-XTerm*faceName: Monospace
+XTerm*faceName: Ubuntu Mono
+! Monospace
 XTerm*faceSize: 12.0
+XTerm*selectToClipboard: true
+
+UXft.antialias: true
+UXTerm*faceName: Ubuntu Mono
+UXTerm*faceSize: 14.0
+UXTerm*selectToClipboard: true
+
+! start command: urxvt -fn "xft:Ubuntu Mono:pixelsize=14,style=regular"
+!URxvt.font: xft:Ubuntu Mono:pixelsize=18:Regular
+!URxvt.boldFont: xft:Ubuntu Mono:pixelsize=18:Regular
+URxvt.font: xft:Source Code Pro:pixelsize=16:Regular
+URxvt.boldFont: xft:Source Code Pro:pixelsize=16:Regular
+URxvt.antialias: true
+!URxvt.faceName: Ubuntu Mono
+!URxvt.faceSize: 15.0
+URxvt.scrollBar:                      false
+URxvt.mouseWheelScrollPage:           false
+URxvt.cursorBlink:                    true
+!URxvt*background:                     black
+URxvt.saveLines:                      5000
+URxvt*letterSpace: -1
+
+!*.antialias: true
+!*.faceName: Ubuntu Mono
+!*.faceSize: 12.0
 
 !TomorrowNight
-#define t_foreground        #1c1c1c
-#define t_background        #000000
-#define t_selection         #424242
-#define t_current_line      #2a2a2a
-#define t_comment           #969896
-#define t_red               #d54e53
-#define t_orange            #ffa321
-#define t_yellow            #f8ff33
-#define t_green             #7FFA66
-#define t_aqua              #87ffff
-#define t_blue              #729fcf
-#define t_purple            #d77dcd
+!#define t_foreground        #1c1c1c
+!#define t_background        #000000
+!#define t_selection         #424242
+!#define t_current_line      #2a2a2a
+!#define t_comment           #969896
+!#define t_red               #d54e53
+!#define t_orange            #ffa321
+!#define t_yellow            #f8ff33
+!#define t_green             #7FFA66
+!#define t_aqua              #87ffff
+!#define t_blue              #729fcf
+!#define t_purple            #d77dcd
+
+! terminal colours
+*foreground:#CCCCCC
+*background:#1B1D1E
+!*background:#0A0A0B
+
+!black darkgray
+*color0:    #1B1D1E
+*color8:    #808080
+!darkred red
+*color1:    #FF0044
+*color9:    #F92672
+!darkgreen green
+*color2:    #82B414
+*color10:   #A6E22E
+!darkyellow yellow
+*color3:    #FD971F
+*color11:   #E6DB74
+!darkblue blue
+*color4:    #266C98
+*color12:   #7070F0
+!darkmagenta magenta
+*color5:    #AC0CB1
+*color13:   #D63AE1
+!darkcyan cyan
+*color6:    #AE81FF
+*color14:   #66D9EF
+!gray white
+*color7:    #CCCCCC
+*color15: #F8F8F2
 
 !#define t_background        #1d1f21eaeaea
 !#define t_current_line      #EEEEEC
@@ -28,40 +84,39 @@ XTerm*faceSize: 12.0
 !#define t_aqua              #06989A
 !#define t_blue              #3465A4
 !#define t_purple            #9A5692
-                                  
 
-*.foreground:   t_foreground
-*.background:   t_background
-*.cursorColor:  #aeafad
-
-! Black / Grey
-*.color0:       #000000
-*.color8:       #555753
-
-! Red / Bright Red
-*.color1:       t_red
-*.color9:       #FCAF3E
-
-! Green + Bright Green
-*.color2:       t_green
-*.color10:      #8AE234
-
-! Yellow (Orange) + Bright Yellow (Yellow)
-*.color3:       t_orange
-*.color11:      t_yellow
-
-! Blue + Bright Blue
-*.color4:       t_blue
-*.color12:      #729FCF
-
-! Magenta (Purple) + Bright Magenta
-*.color5:       t_purple
-*.color13:      #D77DCD
-
-! Cyan (Aqua) + Bright Cyan
-*.color6:       t_aqua
-*.color14:      #63E2E2
-
-! Light Grey (Selection) + White (Current Line)
-*.color7:       t_selection
-*.color15:      t_current_line
+!*foreground:   t_foreground
+!*background:   t_background
+!*cursorColor:  #aeafad
+!
+!!Black / Grey
+!*color0:       #000000
+!*color8:       #555753
+!
+!!Red / Bright Red
+!*color1:       t_red
+!*color9:       #FCAF3E
+!
+!!Green + Bright Green
+!*color2:       t_green
+!*color10:      #8AE234
+!
+!!Yellow (Orange) + Bright Yellow (Yellow)
+!*color3:       t_orange
+!*color11:      t_yellow
+!
+!!Blue + Bright Blue
+!*color4:       t_blue
+!*color12:      #729FCF
+!
+!!Magenta (Purple) + Bright Magenta
+!*color5:       t_purple
+!*color13:      #D77DCD
+!
+!!Cyan (Aqua) + Bright Cyan
+!*color6:       t_aqua
+!*color14:      #63E2E2
+!
+!!Light Grey (Selection) + White (Current Line)
+!*color7:       t_selection
+!*color15:      t_current_line

@@ -35,9 +35,10 @@ if (restore_f) {
     load(ofile)
     tmp <- installed.packages(fields = "RemoteType")
     installedpkgs_new <- as.vector(tmp[is.na(tmp[,"Priority"]), 1])
-    installedpkgs_github_new <- installedpkgs_new[installedpkgs_new[, "RemoteType"] %in% "github", "Package"]
+    print(installedpkgs_new)
+    installedpkgs_github_new <- installedpkgs_new[installedpkgs_new %in% c("github", "Package")]
     missing <- setdiff(installedpkgs_old, installedpkgs_new)
-    missing_guthub <- setdiff(installedpkgs_github_old, installedpkgs_github_new)
+    missing_github <- setdiff(installedpkgs_github_old, installedpkgs_github_new)
 
     # install from CRAN
     install.packages(missing)
@@ -56,10 +57,15 @@ if (restore_f) {
     update.packages()
 
     # restore from github
-    message(paste("Restoring", length(missing_guthub), "packages from github"))
-    for (i in length(missing_guthub)) {
-        install_github(missing_guthub[i])
+    # devtools::install_githuB
+    message(paste("Restoring", length(missing_github), "packages from github"))
+    message("the list should have entries like: IRkernel/IRkernel, TODO")
+    for (i in length(missing_github)) {
+        devtools::install_github(missing_github[i])
     }
+    IRkernel::install_spec() # register kernel for Jupyter notebooks
+    message("reinstall from github: ")
+    print(missing_github)
 
     # say if any couldn't be restored
     tmp <- installed.packages()

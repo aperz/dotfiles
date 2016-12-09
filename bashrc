@@ -53,6 +53,7 @@ shopt -s checkwinsize
 #    ;;
 #esac
 
+#eval $(dircolors -b ~/.dir_colors)
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -76,8 +77,8 @@ alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 
 if [ $HOSTNAME = "Osiris" ]; then
     #alias vim='vim --servername VIM'
-    alias wb='cd /d/metag'
-    alias dt='cd /f'
+    alias wb='cd $WB'
+    alias dt='cd $DATA_MAIN'
 fi
 
 if [[ -f ~/.bin/py_utils.py ]]; then
@@ -110,9 +111,14 @@ fi
 if [ $HOSTNAME = "Osiris" ]; then
     # export PATH=$PATH:/home/perza/.aspera/connect/bin
     export PATH=$PATH:/home/perza/.bin
-    export PATH=$PATH:/usr/local/bin/sratoolkit.2.5.2-ubuntu64/binexport 
-    export PATH=$PATH:/usr/local/bin/kentUtils
-    export PATH=$PATH:/dat1/metag
+    export PATH=$PATH:/home/perza/.local/bin
+    #export PATH=$PATH:/usr/local/bin/sratoolkit.2.5.2-ubuntu64/binexport 
+    #export PATH=$PATH:/usr/local/bin/kentUtils
+    export PATH=$PATH:/P/metag
+
+    # work bench path
+    WB="/P/metag"
+    DATA_MAIN="/D"
 fi
 
 
@@ -159,7 +165,7 @@ export PS1="$YELLOW\h $BLUE\w$YELLOW \$ $COLOR_RESET"
 if [ $HOSTNAME = "Osiris" ]; then
     # Save and reload history after every command finishes
     export PROMPT_COMMAND="history -a; history -c; history -r" #; $PROMPT_COMMAND"
-    #export PS1="$BLACK\$(date +%d:%k:%M) $YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+    export PS1="$BLACK\$(date +%d:%k:%M) $YELLOW\h $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
 fi
 
 if [ $HOSTNAME = "Sirius" ]; then
@@ -209,8 +215,8 @@ if [[ -f $HOME/.git_completion.sh ]]; then
 	source $HOME/.git_completion.sh
 fi
 
-if [[ -f $HOME/.git-prompt.sh ]]; then
-	source $HOME/.git-prompt.sh
+if [[ -f $HOME/.git_prompt.sh ]]; then
+	source $HOME/.git_prompt.sh
 fi
 
 ### ruby ror rvm
@@ -230,7 +236,6 @@ fi
 
 
 ### virtualenvwrapper
-#if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
-#    source /usr/bin/virtualenvwrapper.sh
-#    export WORKON_HOME=~/envs
-#fi
+if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
+    source /usr/bin/virtualenvwrapper.sh
+fi

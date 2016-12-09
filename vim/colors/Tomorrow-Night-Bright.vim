@@ -2,6 +2,7 @@
 " http://chriskempson.com
 "
 " Hex colour conversion functions borrowed from the theme "Desert256""
+set background=dark
 
 "" Default GUI Colours (my)
 "let s:foreground = "ffffff"
@@ -34,7 +35,8 @@ let s:red =    'df5f5f'
 
 " Default GUI Colours (TomorrowNightBright original) (good night theme)
 let s:foreground = "eaeaea"
-let s:background = "000000"
+"let s:background = "000000"
+let s:background = "1B1D1E"
 let s:selection = "424242"
 let s:line = "2a2a2a"
 let s:comment = "969896"
@@ -276,17 +278,20 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("helpOption", s:blue, "", "")
 
 	" Vim Highlighting
-	call <SID>X("Normal", s:foreground, s:background, "")
+	"call <SID>X("Normal", s:foreground, s:background, "")
+	call <SID>X("Normal", s:foreground, "", "")
 	call <SID>X("LineNr", s:selection, "", "")
 	call <SID>X("CursorLineNr", s:theme2, "", "")
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
-	call <SID>X("Search", s:background, s:yellow, "")
+	"call <SID>X("Search", s:background, s:yellow, "")
+	call <SID>X("Search", "", s:yellow, "")
 	call <SID>X("TabLine", s:window, s:foreground, "reverse")
 	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
 	call <SID>X("StatusLine", s:theme, s:theme2, "bold")
 	call <SID>X("StatusLineNC", s:theme, s:theme2, "reverse")
-	call <SID>X("VertSplit", s:selection, s:background, "none")
+	"call <SID>X("VertSplit", s:selection, s:background, "none")
+	call <SID>X("VertSplit", s:selection, "", "none")
 	call <SID>X("Visual", "", s:selection, "")
 	call <SID>X("Directory", s:blue, "", "")
     call <SID>X("ModeMsg", s:theme, s:theme2, "")
@@ -294,8 +299,10 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("Question", s:theme3, "", "")
 	call <SID>X("WarningMsg", s:red, "", "")
 	call <SID>X("MatchParen", "", s:selection, "")
-	call <SID>X("Folded", s:background, s:window, "")
-	call <SID>X("FoldColumn", "", s:background, "")
+	"call <SID>X("Folded", s:background, s:window, "")
+	call <SID>X("Folded", "", s:window, "")
+	"call <SID>X("FoldColumn", "", s:background, "")
+	call <SID>X("FoldColumn", "", "", "")
 	if version >= 700
 		"autocmd InsertEnter * hi CursorLine ctermbg=237
 		"autocmd InsertLeave * hi CursorLine ctermbg=24
@@ -316,8 +323,10 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("vimCommand", s:red, "", "none")
 
 	" Standard Highlighting
-	syn match Attention '#ATT'
-    call <SID>X("Attention", s:background, s:orange, "")
+	syn match AttentionFlag '#ATT'
+	syn match DebuggingFlag '#DEB'
+    call <SID>X("AttentionFlag", s:background, s:orange, "")
+    call <SID>X("DebuggingFlag", s:background, s:aqua, "")
 	call <SID>X("Comment", s:comment, "", "")
 	call <SID>X("Todo", s:background, s:yellow, "")
 	call <SID>X("Title", s:comment, "", "")
@@ -561,4 +570,3 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	delf <SID>grey_number
 endif
 
-"set background=dark

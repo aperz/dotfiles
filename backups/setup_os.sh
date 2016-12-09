@@ -4,6 +4,7 @@
 # - where to store manually downnloaded pacage files? Where to install them? checkinstall
 # - /usr/local/scr and bin both requrie password; perhaps ~/src?
 # if not Ubuntu: find list of base Ubuntu packages and subtract; dpkg manually installed?
+# - use checkinstall
 
 ### vim
 cd
@@ -25,7 +26,9 @@ make
 sudo make install
 
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# cp ~/.vim/bundle/vim-ipython/ftplugin/* ~/.vim/ftplugin #?
 # vim :PluginInstall
+
 
 
 ### DOTFILES
@@ -77,7 +80,8 @@ sudo dselect
 ## REINSTALL PYTHON AND R PACKAGES
 
 # may not work right away untested script
-R_packages_list.R -r -d "~/.backups/"
+# install.packages(c("argparse", "devtools"))
+~/.bin/R_packages_list.R -r -d "~/.backups/R_pkgs_installed.rda"
 
 sudo apt-get install python-yaml
 sudo apt-get install python3-yaml
@@ -116,4 +120,23 @@ rsync -a /media/perza/UUI/backup_Osiris_rsync/gamma_postM /dat1/gamma_postM
 ## keymaps on X
 setxkbmap pl 
 loadkeys pl # for current session
+
+
+
+## Firefox
+# Adblock Plus | Tab Mix Plus | Xmarks | Stylish | Tab Mem Usage | Google Translator for Firefox
+
+## Thunar
+
+# custom action to restore a file to previous version via Deja Dup
+# 1. Select Edit and Configure custom actions ...
+# 2. Click on the + button to create a new custom action.
+# 3. Complete the text boxes:
+#   Name:  Restore previous version
+#   Description:  Restores earlier file versions via Deja Dup
+#   Command:  deja-dup --restore %F
+# 4. Select an icon if you want one.
+# 5. Click on Appearance Conditions tab and check all 6 boxes.
+# 6. Click on OK.
+# 7. Log out / in
 
