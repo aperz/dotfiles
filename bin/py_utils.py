@@ -2,31 +2,35 @@
 A helpful file with utility functions and initial settings for python
 '''
 
+########################################
 
-clever_things = {
-    1 : "from os.path import splitext",
-    2 : "from math import isnan",
-    3 : "%load_ext autoreload",
-    4 : "%autoreload 2",
-    }
+import pandas as pd
+import numpy as np
 
-def takeoff():
-    '''
-    Set some initial settings
-    '''
-    # misc imports
-    import save_ipython_variables
+from os.path import splitext
 
-    #pandas
-    import pandas as pd
-    pd.set_option("display.width", False)
-    terminal_n_col = pd.util.terminal.get_terminal_size()[0]
+########################################
 
-    # numpy
-    import numpy as np
-    np.set_printoptions(linewidth = terminal_n_col)
+#pandas
+pd.set_option("display.width", False)
+terminal_n_col = pd.util.terminal.get_terminal_size()[0]
 
+# numpy
+np.set_printoptions(linewidth = terminal_n_col)
 
+########################################
+
+clever_things = [
+    "from os.path import splitext",
+    "from math import isnan",
+    "%load_ext autoreload",
+    "%autoreload 2",
+    ]
+
+#def takeoff():
+#    '''
+#    et some initial settings
+#    '''
 
 
 def eAnd(*args):

@@ -92,7 +92,7 @@ Plugin 'https://github.com/vim-scripts/Vim-R-plugin'
 Plugin 'https://github.com/jalvesaq/VimCom'
 Plugin 'https://github.com/ivanov/vim-ipython'
 "Plugin 'https://github.com/vim-scripts/pythoncomplete'
-"Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-scripts/indentpython.vim'
 Plugin 'https://github.com/vim-scripts/Python-mode-klen'
 Plugin 'https://github.com/vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
@@ -247,7 +247,12 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extr
 """""""""""""""""""""""""""""""""""""""
 """ Keymap
 
+" disable some
 inoremap <BS> <Nop>
+noremap <C-s> <Nop>
+noremap <C-a> <Nop>
+noremap <F3> <Nop>
+
 inoremap <C-b> <>
 " or C-Space
 inoremap <C-c> <C-h>
@@ -262,11 +267,12 @@ vnoremap <C-u> <C-e>
 
 " show type of thing under cursor
 noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-noremap <C-s> <Nop>
-noremap <C-a> <Nop>
 " omnicompletion navigation in popup buffers
 "inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
 "inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+
+" Search hi Press F4 to toggle highlighting on/off, and show current value.
+noremap <F4> :set hlsearch! hlsearch?<CR>
 
 
 "Plugins

@@ -36,14 +36,22 @@ let s:red =    'df5f5f'
 " Default GUI Colours (TomorrowNightBright original) (good night theme)
 let s:foreground = "eaeaea"
 "let s:background = "000000"
-let s:background = "1B1D1E"
-let s:selection = "424242"
-let s:line = "2a2a2a"
-let s:comment = "969896"
+"let s:background = "1B1D1E"
 let s:orange = "e78c45"
 let s:yellow = "e7c547"
 let s:purple = "c397d8"
 let s:window = "4d5057"
+
+" for almost black bkgr
+"let s:selection = "424242"
+"let s:comment = "969896"
+"let s:line = "2a2a2a"
+
+" for lighter grey bkg
+let s:selection = "8b8282"
+let s:comment = "8b8282"
+"let s:comment = "e0dede"
+"let s:line = "544f4f" "is turned off
 
 "let s:green = "b9ca4a"
 "let s:aqua = "70c0b1"
@@ -57,6 +65,11 @@ let s:theme = "005f5f" "193 dark saturated seledine (on bg=black)
 let s:theme2 = "dfffaf" "23 light seledine
 "87ffff" "123
 let s:theme3 = "00af87" "36 dark cold-greyish seledine (on bg=23)
+"let s:search = "38002a"
+"let s:search = "4d0039"
+"let s:search = "4d004d"
+let s:search = "666699"
+"let s:theme3 = "d9ecc6"
 
 hi clear
 "syntax reset
@@ -285,7 +298,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
 	"call <SID>X("Search", s:background, s:yellow, "")
-	call <SID>X("Search", "", s:yellow, "")
+	call <SID>X("Search", s:foreground, s:search, "")
 	call <SID>X("TabLine", s:window, s:foreground, "reverse")
 	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
 	call <SID>X("StatusLine", s:theme, s:theme2, "bold")
@@ -306,8 +319,10 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	if version >= 700
 		"autocmd InsertEnter * hi CursorLine ctermbg=237
 		"autocmd InsertLeave * hi CursorLine ctermbg=24
-		call <SID>X("CursorLine", "", s:line, "none")
-		call <SID>X("CursorColumn", "", s:line, "none")
+		"call <SID>X("CursorLine", "", s:line, "none")
+		"call <SID>X("CursorColumn", "", s:line, "none")
+		call <SID>X("CursorLine", "", "", "none") "s:line!
+		call <SID>X("CursorColumn", "", "", "none")
 		call <SID>X("PMenu", s:foreground, s:selection, "none")
 		call <SID>X("PMenuSel", s:foreground, s:selection, "reverse")
 		call <SID>X("SignColumn", "", s:background, "none")

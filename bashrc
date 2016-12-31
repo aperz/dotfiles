@@ -53,6 +53,10 @@ shopt -s checkwinsize
 #    ;;
 #esac
 
+# disable exiting on pressing Ctrl-D once (exits when pressed IGNOREEOF times)
+export IGNOREEOF=5
+
+
 #eval $(dircolors -b ~/.dir_colors)
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -68,7 +72,8 @@ fi
 
 # some more ls aliases
 #alias hir='history -r'
-alias lf='ls -B' # list files (anf folders)
+alias rm='rm -i'
+alias lf='ls -B' # list files (and folders)
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -81,11 +86,15 @@ if [ $HOSTNAME = "Osiris" ]; then
     alias dt='cd $DATA_MAIN'
 fi
 
-if [[ -f ~/.bin/py_utils.py ]]; then
-    alias ipython3="ipython3 -i ~/.bin/py_utils.py --TerminalInteractiveShell.highlighting_style='rrt' --TerminalInteractiveShell.colors='Linux'"
-    alias ipython2="ipython2 -i ~/.bin/py_utils.py --TerminalInteractiveShell.highlighting_style='rrt' --TerminalInteractiveShell.colors='Linux'"
-    alias ipython="ipython -i ~/.bin/py_utils.py --TerminalInteractiveShell.highlighting_style='rrt' --TerminalInteractiveShell.colors='Linux'"
-fi
+#if [[ -f ~/.bin/py_utils.py ]]; then
+#    alias ipython3="ipython3 -i ~/.bin/py_utils.py"
+#    alias ipython2="ipython2 -i ~/.bin/py_utils.py"
+#    alias ipython="ipython -i ~/.bin/py_utils.py"
+#
+#    alias ipython3_bare="ipython3"
+#    alias ipython2_bare="ipython2"
+#    alias ipython_bare="ipython"
+#fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -218,6 +227,10 @@ fi
 if [[ -f $HOME/.git_prompt.sh ]]; then
 	source $HOME/.git_prompt.sh
 fi
+
+### R RScript
+# this is a patch for rpy2 to not complain; R sources some script that tries to load a library 'setwidth', which does not exist
+#alias R='R --vanilla'
 
 ### ruby ror rvm
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
