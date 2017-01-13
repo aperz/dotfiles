@@ -3,6 +3,8 @@
 "
 " Hex colour conversion functions borrowed from the theme "Desert256""
 set background=dark
+" hi clear Normal " from default
+" set bg&
 
 "" Default GUI Colours (my)
 "let s:foreground = "ffffff"
@@ -11,7 +13,7 @@ set background=dark
 ""colour233
 "let s:selection = "585858"
 ""424242"
-"let s:line = "2a2a2a"
+let s:line = "2a2a2a"
 "let s:comment = "969896"
 "let s:red = "d54e53"
 "let s:orange = "ffa321"

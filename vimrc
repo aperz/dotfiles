@@ -1,6 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""
 "NOTES, POSSIBILITIES?
-"
+" global: /etc/vimrc
+" arch-specific: /usr/share/vim/vimfiles/archlinux.vim
 "
 
 """"""""""""""""""""""""""""""""""""""""
@@ -8,8 +9,6 @@
 set nocompatible
 
 """"""""""""""""""""""""""""""""""""""""
-" for some reason some elements only load on second execution
-colorscheme Tomorrow-Night-Bright
 colorscheme Tomorrow-Night-Bright
 
 set statusline=%<%f%{FF()}\ %M\ %h%r%=%-10.(%l,%c%V\ b=%n,w=%{winnr()}%)\ %P
@@ -70,6 +69,15 @@ syntax on
 "    au InsertLeave * silent execute "!gnome-terminal-cursor-shape.sh block"
 "    au VimLeave * silent execute "!gnome-terminal-cursor-shape.sh block"
 "endif
+
+""""""""""""""""""""""""""""""""""""""""
+" this section was in the end - some reason?
+set tabstop=4
+set softtabstop=4
+set expandtab
+set shiftwidth=4
+set autoindent
+set smartindent
 
 """"""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
@@ -255,7 +263,6 @@ noremap <F3> <Nop>
 
 inoremap <C-b> <>
 " or C-Space
-inoremap <C-c> <C-h>
 inoremap <C-h> <BS>
 nnoremap <C-h> <BS>
 
@@ -313,10 +320,45 @@ noremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 "map <C-l> <Nop>
 "map <C-h> <Nop>
 
+
 """"""""""""""""""""""""""""""""""""""""
-set tabstop=4
-set softtabstop=4
-set expandtab
-set shiftwidth=4
-set autoindent
-set smartindent
+"" Map the C-c / Esc variations
+
+"" Can be typed even faster than jj.
+":imap jk <Esc>
+"" If want to avoid jk in certain languages can use:
+"" (and to make it where order doesn't matter, the second mapping also)
+":imap jw <Esc>
+":imap wj <Esc>
+"" Press i to enter insert mode, and ii to exit.
+":imap ii <Esc>
+"" Pressing Ctrl-L leaves insert mode in evim, so why not in regular vim, too.
+":imap <C-L> <Esc>
+"" This is a variation on the previous mapping that checks for evim
+"" and only changes the function of <C-L> in regular vim.  This allows <C-L>
+"" to still work as usual in evim. See :help insertmode for more.
+":inoremap <expr> <C-L> &insertmode ? '<C-L>' : '<Esc>'
+"" This is a variation on the previous mapping that additionally checks
+"" for the popup menu (present when doing completions). During completions,
+"" <C-L> adds a character from the current match, so this mapping will
+"" preserve that behavior. See :help popupmenu-keys for more.
+":inoremap <expr> <C-L> (pumvisible() <bar><bar> &insertmode) ? '<C-L>' : '<Esc>'
+"" Use backtick.
+":imap ` <Esc>
+"" Two semicolons are easy to type.
+":imap ;; <Esc>
+"" Press Shift-Space (may not work on your system).
+":imap <S-Space> <Esc>
+"" Try the following so Shift-Space also enters insert mode.
+":nmap <S-Space> i
+"" Or just Space to enter insert mode.
+":nmap <Space> i
+"" In Mac OS X, mapping <S-space> does not work, but the following
+"" is better (press the "apple" key and the space key).
+"" Note that this will conflict with the spotlight shortcut
+":imap <D-space> <Esc>
+"" On gvim and Linux console Vim, you can use Alt-Space.
+":imap <M-Space> <Esc>
+inoremap <C-q> <C-c>
+:inoremap <C-q> <C-c>
+

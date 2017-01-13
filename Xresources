@@ -4,10 +4,16 @@ XTerm*faceName: Ubuntu Mono
 XTerm*faceSize: 12.0
 XTerm*selectToClipboard: true
 
-UXft.antialias: true
-UXTerm*faceName: Ubuntu Mono
-UXTerm*faceSize: 14.0
+UXTerm*faceSize: 12.0
 UXTerm*selectToClipboard: true
+!UXTerm*faceName: Ubuntu Mono
+UXTerm*faceName: xft:Source Code Pro:pixelsize=16:Regular
+UXTerm*italicFont: xft:Source Code Pro:pixelsize=16:Italic
+UXTerm*antialias: true
+UXTerm*scrollBar:                      false
+UXTerm*mouseWheelScrollPage:           false
+UXTerm*cursorBlink:                    true
+UXTerm*saveLines:                      5000
 
 ! start command: urxvt -fn "xft:Ubuntu Mono:pixelsize=14,style=regular"
 !URxvt.font: xft:Ubuntu Mono:pixelsize=18:Regular
@@ -206,6 +212,7 @@ URxvt*letterSpace: -1
 !*background: #3A3636
 !*color0: #363636
 !!*color8: #424242
+
 !*color8: #1c1c1c
 !*color1: #C37561
 !*color9: #D19485
@@ -247,7 +254,7 @@ URxvt*letterSpace: -1
 *cursorColor: #d0d0d0
 *cursorColor2: #3a3a3a
 *colorBD: #e4e4e4
-*fading:                  20
+!*fading:                  20
 !!!!!!!!!!
 
 !!!!! Solarized color scheme for the X Window System
