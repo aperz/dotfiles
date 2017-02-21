@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+# An anti-depression tool.
+
+
+while :; do
+    printf "Happy birthday! %.0s" {1..23} | lolcat
+done
+
+#TODO also change terminal colours to rainbowwww
