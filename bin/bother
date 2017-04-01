@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+until ((baton_wrzuci_zdjecia))
+do
+    echo 'Zdjęcia!'
+    sleep 24h
+done
+
+
+#16:14:23 Osiris ~ $ echo "echo 'workingxx' > /home/perza/testfile" | at now + 1 min
+#echo "echo 'Zdjęcia!' > /dev/bartek" | at teatime
+
+

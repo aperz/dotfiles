@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+echo '-- Check:'
+echo 'pip3 list --outdated --format=freeze'
+echo 'pip2 list --outdated --format=freeze'
+
+echo '-- Upgrade:'
+echo 'pacman -Syu'
+echo 'pip-upgrade.py -v3'
+echo 'pip-upgrade.py -v2'
+echo 'R_package_manager.R -u (NOT TESTED)'
+
+
