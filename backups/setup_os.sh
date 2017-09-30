@@ -40,7 +40,7 @@ sudo apt-get install setuptools
 sudo apt-get install ez_setup
 
 pip install dotfiles
-git clone https://github.com/AleksTheAraneus/dotfiles
+git clone https://github.com/olorze/dotfiles
 mv dotfiles ~/Dotfiles
 dotfiles -s
 
@@ -140,3 +140,32 @@ loadkeys pl # for current session
 # 6. Click on OK.
 # 7. Log out / in
 
+
+# ---------------
+# CromeOS crouton
+# ---------------
+# with crouton install targets: linux, extension, core, cli-tools(?)
+$ sudo apt-get install nodejs git
+vim :PluginInstall (disable youcompleteme and other memory-intense plugins)
+
+sudo apt-get install python-pip
+sudo apt-get install python3-pip
+sudo apt-get install setuptools
+
+pip install dotfiles
+git clone https://github.com/olorze/dotfiles
+mv dotfiles ~/Dotfiles
+dotfiles -s
+
+# ChromeOS intergation
+#curl -sL https://cdn.rawgit.com/zwhitchcox/crouton-clipboard/ed2b0303/install.sh | sh
+wget https://cdn.rawgit.com/zwhitchcox/crouton-clipboard/ed2b0303/install.sh
+sudo sh install.sh
+#git clone http://github.com/zwhitchcox/crouton-clipboard ~/.crouton-clipboard
+#~/.crouton-clipboard/install.sh
+
+# Dropbox
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+wget https://www.dropbox.com/download?dl=packages/dropbox.py ~/.bin/dropbox.py
+chmod +x .bin/dropbox.py
+.dropbox-dist/dropboxd #KEEP THIS RUNNING! and open link in any browser on any computer

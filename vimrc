@@ -23,7 +23,9 @@ set number                " turns line numbering on
 set ruler           " show the cursor position all the time
 set rulerformat=%l\:%c
 set cursorline
-"set colorcolumn=81
+set colorcolumn=81
+hi colorcolumn ctermbg=4
+"set colorcolumn=81 ctermbg=7
 """"""""""""""""""""""""""""""""""""""""
 if has("vms")
       set nobackup              " do not keep a backup file, use versions instead
@@ -93,18 +95,18 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'https://github.com/Yggdroot/indentLine'
 "Plugin 'https://github.com/nathanaelkane/vim-indent-guides'
-Plugin 'https://github.com/jalvesaq/R-Vim-runtime'
+"Plugin 'https://github.com/jalvesaq/R-Vim-runtime'
 "Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux'
 Plugin 'https://github.com/ervandew/screen'
-Plugin 'https://github.com/vim-scripts/Vim-R-plugin'
+"Plugin 'https://github.com/vim-scripts/Vim-R-plugin'
 Plugin 'https://github.com/jalvesaq/VimCom'
 Plugin 'https://github.com/ivanov/vim-ipython'
 "Plugin 'https://github.com/vim-scripts/pythoncomplete'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'https://github.com/vim-scripts/Python-mode-klen'
-Plugin 'https://github.com/vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'https://github.com/vim-ruby/vim-ruby'
+"Plugin 'tpope/vim-rails'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'jaxbot/semantic-highlight.vim'
 
 
@@ -126,7 +128,8 @@ call vundle#end()            " required
 " indentLine
 let g:indentLine_color_term = 239
 " disable by def let g:indentLine_enabled = 0
-let g:indentLine_char = '¦'
+"let g:indentLine_char = '¦'
+let g:indentLine_char = "'"
 "¦ ┆ │
 
 
@@ -167,7 +170,6 @@ let g:indentLine_char = '¦'
 "	C-w 10+                increase size of current pane by value
 
 "" For tmux support
-let g:ScreenImpl = 'Tmux'
 "let g:ScreenShellInitialFocus = 'shell' 
 "" instruct to use your own .screenrc file
 "let g:vimrplugin_noscreenrc = 1
@@ -362,3 +364,5 @@ noremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 inoremap <C-q> <C-c>
 :inoremap <C-q> <C-c>
 
+nnoremap "*p :r !cat /home/ola/.crouton-clipboard/data.txt<CR>
+vnoremap "*y :'<,'>w! /home/ola/.crouton-clipboard/data.txt<CR>

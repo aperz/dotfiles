@@ -37,7 +37,7 @@ let s:red =    'df5f5f'
 
 " Default GUI Colours (TomorrowNightBright original) (good night theme)
 let s:foreground = "eaeaea"
-"let s:background = "000000"
+let s:background = "000000"
 "let s:background = "1B1D1E"
 let s:orange = "e78c45"
 let s:yellow = "e7c547"

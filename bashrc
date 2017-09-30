@@ -117,10 +117,17 @@ if ! shopt -oq posix; then
 fi
 
 # set additional PATHs
+if [ -d $HOME/.bin ]; then
+    export PATH=$PATH:$HOME/.bin
+fi
+
+if [ -d $HOME/.bin ]; then
+    export PATH=$PATH:$HOME/.local/bin
+fi
+
 if [ $HOSTNAME = "Osiris" ]; then
     # export PATH=$PATH:/home/perza/.aspera/connect/bin
-    export PATH=$PATH:/home/perza/.bin
-    export PATH=$PATH:/home/perza/.local/bin
+    #export PATH=$PATH:/home/perza/.local/bin
     #export PATH=$PATH:/usr/local/bin/sratoolkit.2.5.2-ubuntu64/binexport 
     #export PATH=$PATH:/usr/local/bin/kentUtils
     export PATH=$PATH:/P/metag
@@ -132,13 +139,9 @@ fi
 
 
 if [ $HOSTNAME = "Sirius" ]; then
-    export PATH=$PATH:/home/aleksandra/.bin
     export PATH=$PATH:/home/aleksandra/.gem/ruby/2.3.0/bin 
 fi
 
-if [ $HOSTNAME = "Maciek" ]; then
-    export PATH=$PATH:/home/aleksandra/.bin
-fi
 
 #####
 #BLACK='\[\033[38;5;000m\]'
@@ -169,6 +172,12 @@ COLOR_RESET='\[\033[00m\]'
 ##fi
 
 export PS1="$YELLOW\h $BLUE\w$YELLOW \$ $COLOR_RESET"
+chromeos_display_name='Cyan'
+
+if [ $HOSTNAME = "localhost" ]; then
+    export PS1="$CYAN$chromeos_display_name $BLUE\w$PURPLE\$(__git_ps1)$YELLOW \$ $COLOR_RESET"
+    DATA='/var/host/media/removable/'
+fi
 
 
 if [ $HOSTNAME = "Osiris" ]; then
@@ -252,3 +261,7 @@ fi
 if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
     source /usr/bin/virtualenvwrapper.sh
 fi
+
+## crouton-clipboard
+#nodejs ~/.crouton-clipboard/server
+(nohup nodejs ~/.crouton-clipboard/server.js > /dev/null 2>&1 &)                                                                          
