@@ -29,15 +29,32 @@ LAB
 --------------------
 PRINTERS
 --------------------
-CUPS (pacman cups)
-systemctl enable org.cups.cupsd.service
-systemctl start org.cups.cupsd.service
 
 localhost:631
 Brother MFC9970CDW
     dnssd://Brother%20MFC-9970CDW._pdl-datastream._tcp.local/
     70.163.84.130, 96
     10.84.146.25 (Feb 2016)
+    brmfc9970cdw.ppd Brother MFC-9970CDW CUPS
+    network lpd://PR00914-300/BINARY_P1 "Brother MFC-9970CDW" "Brother MFC-9970CDW" "MFG:Brother;CMD:PJL,PCL,PCLXL;MDL:MFC-9970CDW;CLS:PRINTER;CID:Brother Color Type3;" ""
+
+0. install cups, psutils
+
+1. cups
+    systemctl enable org.cups.cupsd.service
+    systemctl start org.cups.cupsd.service
+
+2. get info
+    $ /usr/lib/cups/backend/snmp 10.84.146.25
+
+3. add printer
+    $ sudo lpadmin -p MFC-9970CDW -v socket://10.84.146.25 -m brmfc9970cdw.ppd
+
+4. enable and set to accept jobs
+    $ sudo cupsenable MFC-9970CDW
+    $ sudo cupsaccept MFC-9970CDW
+
+
 
 
 --------------------

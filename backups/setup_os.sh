@@ -80,8 +80,8 @@ sudo dselect
 ## REINSTALL PYTHON AND R PACKAGES
 
 # may not work right away untested script
-# install.packages(c("argparse", "devtools"))
-~/.bin/R_packages_list.R -r -d "~/.backups/R_pkgs_installed.rda"
+#install.packages(c("argparse", "devtools"))
+~/.bin/R_packages_manager.R -r -d "~/.backups/R_pkgs_installed.rda"
 
 sudo apt-get install python-yaml
 sudo apt-get install python3-yaml

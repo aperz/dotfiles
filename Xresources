@@ -3,8 +3,9 @@ XTerm*faceName: Ubuntu Mono
 ! Monospace
 XTerm*faceSize: 12.0
 XTerm*selectToClipboard: true
+xterm*metaSendsEscape:  true
 
-UXTerm*faceSize: 12.0
+UXTerm*faceSize: 15.0
 UXTerm*selectToClipboard: true
 !UXTerm*faceName: Ubuntu Mono
 UXTerm*faceName: xft:Source Code Pro:pixelsize=16:Regular
@@ -14,6 +15,7 @@ UXTerm*scrollBar:                      false
 UXTerm*mouseWheelScrollPage:           false
 UXTerm*cursorBlink:                    true
 UXTerm*saveLines:                      5000
+UXTerm*metaSendsEscape:  true
 
 ! start command: urxvt -fn "xft:Ubuntu Mono:pixelsize=14,style=regular"
 !URxvt.font: xft:Ubuntu Mono:pixelsize=18:Regular
@@ -232,11 +234,11 @@ URxvt*letterSpace: -1
 
 !!!!! seoul256 (dark) theme adapted for URxvt
 !orig
-!*background: #3a3a3a 
+!*background: #3a3a3a
 *background: #3A3636
-*foreground: #d0d0d0 
+*foreground: #d0d0d0
 *color0: #4e4e4e
-*color1: #d68787 
+*color1: #d68787
 *color2: #5f865f
 *color3: #d8af5f
 *color4: #85add4
@@ -246,11 +248,13 @@ URxvt*letterSpace: -1
 *color8: #626262
 *color9: #d75f87
 *color10: #87af87
-*color11: #ffd787 
+*color11: #ffd787
 *color12: #add4fb
 *color13: #ffafaf
 *color14: #87d7d7
 *color15: #e4e4e4
+! ATT
+*color235: #3A3636
 *cursorColor: #d0d0d0
 *cursorColor2: #3a3a3a
 *colorBD: #e4e4e4

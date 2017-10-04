@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 
 from os.path import splitext
+import os
 
 ########################################
 
@@ -31,6 +32,14 @@ clever_things = [
 #    '''
 #    et some initial settings
 #    '''
+
+def mkdir(dirname):
+    if not os.path.isdir(dirname):
+        os.mkdir(dirname)
+
+def import_all_from(module_list):
+    for m in module_list:
+        exec('from ' + m + 'import *')
 
 
 def eAnd(*args):

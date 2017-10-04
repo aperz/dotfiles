@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 def say_no():
     print("No.")
 

@@ -123,10 +123,10 @@ if [ $HOSTNAME = "Osiris" ]; then
     export PATH=$PATH:/home/perza/.local/bin
     #export PATH=$PATH:/usr/local/bin/sratoolkit.2.5.2-ubuntu64/binexport 
     #export PATH=$PATH:/usr/local/bin/kentUtils
-    export PATH=$PATH:/P/metag
+    export PATH=$PATH:/P/mnenonic
 
     # work bench path
-    WB="/P/metag"
+    WB="/P/mnemonic"
     DATA_MAIN="/D"
 fi
 
@@ -137,6 +137,10 @@ if [ $HOSTNAME = "Sirius" ]; then
 fi
 
 if [ $HOSTNAME = "Maciek" ]; then
+    export PATH=$PATH:/home/aleksandra/.bin
+fi
+
+if [ $HOSTNAME = "Ein" ]; then
     export PATH=$PATH:/home/aleksandra/.bin
 fi
 
@@ -184,8 +188,8 @@ if [ $HOSTNAME = "Sirius" ]; then
 fi
 
 #put prompt in the last line (bottom of window)
-TOLASTLINE=$(tput cup "$LINES")
-#export PS1="\[$TOLASTLINE\]"
+#TOLASTLINE=$(tput cup "$LINES")
+#export PS1="\[$TOLASTLINE\]$PS1"
 
 #export TERM=xterm-256color
 export TERM=screen-256color
@@ -203,7 +207,10 @@ fi
 
 ### python
 # add my py_scripts to python module search path
-export PYTHONPATH="~/.bin; $PYTHONPATH"
+export PYTHONPATH="$PYTHONPATH:$HOME/.bin:/P/mnemonic"
+export FLASK_APP='/P/errco-stable/errco/__init__.py'
+#export FLASK_DEBUG=true
+
 
 ### git-completion
 # copied from /etc/bash_completion.d/git-prompt
@@ -228,6 +235,9 @@ if [[ -f $HOME/.git_prompt.sh ]]; then
 	source $HOME/.git_prompt.sh
 fi
 
+### R
+#export R_LIBS_USER="/home/perza/R/auxiliary_libs:/home/perza/R/x86_64-pc-linux-gnu-library/3.3"
+
 ### R RScript
 # this is a patch for rpy2 to not complain; R sources some script that tries to load a library 'setwidth', which does not exist
 #alias R='R --vanilla'
@@ -249,6 +259,6 @@ fi
 
 
 ### virtualenvwrapper
-if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
-    source /usr/bin/virtualenvwrapper.sh
-fi
+#if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
+#    source /usr/bin/virtualenvwrapper.sh
+#fi

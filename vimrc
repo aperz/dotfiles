@@ -9,7 +9,8 @@
 set nocompatible
 
 """"""""""""""""""""""""""""""""""""""""
-colorscheme Tomorrow-Night-Bright
+"colorscheme Tomorrow-Night-Bright
+colorscheme colorsbox-greenish
 
 set statusline=%<%f%{FF()}\ %M\ %h%r%=%-10.(%l,%c%V\ b=%n,w=%{winnr()}%)\ %P
 function! FF()
@@ -43,6 +44,7 @@ set laststatus=2
 set visualbell
 set clipboard=unnamed
 set paste
+set hlsearch
 
 let mapleader=","
 "let mapleader = "\<Space>"
@@ -89,22 +91,31 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+
+" NOTES:
+" :SemanticHighlightToggle -> toggle
+" :set hlsearch! -> toggle
+
 " Keep Plugin commands between vundle#begin/end.
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'https://github.com/Yggdroot/indentLine'
-"Plugin 'https://github.com/nathanaelkane/vim-indent-guides'
-Plugin 'https://github.com/jalvesaq/R-Vim-runtime'
-"Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux'
-Plugin 'https://github.com/ervandew/screen'
-Plugin 'https://github.com/vim-scripts/Vim-R-plugin'
-Plugin 'https://github.com/jalvesaq/VimCom'
-Plugin 'https://github.com/ivanov/vim-ipython'
-"Plugin 'https://github.com/vim-scripts/pythoncomplete'
+Plugin 'Yggdroot/indentLine'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'jalvesaq/R-Vim-runtime'
+"Plugin 'vim-scripts/Screen-vim---gnu-screentmux'
+Plugin 'ervandew/screen'
+Plugin 'vim-scripts/Vim-R-plugin'
+Plugin 'jalvesaq/VimCom'
+Plugin 'ivanov/vim-ipython'
+"Plugin 'vim-scripts/pythoncomplete'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'https://github.com/vim-scripts/Python-mode-klen'
-Plugin 'https://github.com/vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails'
+Plugin 'vim-scripts/Python-mode-klen'
+"Plugin 'vim-ruby/vim-ruby'
+"Plugin 'tpope/vim-rails'
 Plugin 'Valloric/YouCompleteMe'
+"autocmd FileType python Bundle 'Valloric/YouCompleteMe'
+"autocmd FileType R Bundle 'Valloric/YouCompleteMe'
+"autocmd FileType c++ Bundle 'Valloric/YouCompleteMe'
+"autocmd FileType c++ Bundle 'Valloric/YouCompleteMe'
 Plugin 'jaxbot/semantic-highlight.vim'
 
 
@@ -250,6 +261,7 @@ map <F8> :!g++ -pipe -O2 -std=c++11 max_pairwise_product.cpp % && ./a.out <CR>
 """""""""""""""""""""""""""""""""""""""
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_largefile=1
 
 
 """""""""""""""""""""""""""""""""""""""
@@ -282,7 +294,7 @@ noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> tr
 noremap <F4> :set hlsearch! hlsearch?<CR>
 
 
-"Plugins
+"Plugins: ScreenShell
 vnoremap <Space> <Plug>RDSendSelection
 nnoremap <Space> <Plug>RDSendLine
 nnoremap <Space> :ScreenSend
@@ -302,7 +314,7 @@ inoremap <C-h> ^[OD
 "nnoremap <C-h> <C-w>h
 
 
-" vim-tmux-navigator
+"Plugins: vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
 
 " these dont work: ^K, ^[k ^M-k, M-k, A-k

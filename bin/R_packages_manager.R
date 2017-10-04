@@ -2,7 +2,7 @@
 
 library(argparse, quietly=TRUE)
 
-parser = ArgumentParser(description = "This script allows to save a list of currently installed packages in R (from CRAN, Bioconductor, and github) and to restore it from the saved object.")
+parser = ArgumentParser(description = "This script allows to save a list of currently installed packages in R (from CRAN, Bioconductor, and github) and to restore it from the saved object. Probably needs to be called with a sudo?")
 parser$add_argument("-u", "--upgrade", action = 'store_true', default = FALSE,
     help="Just upgrade all packages.")
 parser$add_argument("-s", "--save", action = 'store_true', default = FALSE,
@@ -20,19 +20,25 @@ restore_f = args$restore
 save_f = args$save
 odir = args$odir
 
+ofile = paste0(odir, "R_packages_installed_old.rda")
+
+#biocValid() checks if everythiong is fine (TRUE if fine)
+# TODO list and save all packages installed from biocLite()
+
 if (upgrade) {
-    install.packages( 
-        lib  = lib <- .libPaths()[1],
-        pkgs = as.data.frame(installed.packages(lib), stringsAsFactors=FALSE)$Package,
-        type = 'source'
-        )
-    stop("Upgraded, perhaps there were errors but I don't know")
+    ##install.packages( 
+    #    lib  = lib <- .libPaths()[1],
+    #    pkgs = as.data.frame(installed.packages(lib), stringsAsFactors=FALSE)$Package,
+    #    type = 'source'
+    #    )
+
+    source("https://bioconductor.org/biocLite.R")
+    biocLite()
+    #stop("Upgraded, perhaps there were errors but I don't know")
 }
 
-ofile = paste0(odir, "R_packages_installed_old.rda")
-message(paste("Saving to", ofile))
-
 if (save_f) {
+    message(paste("Saving to", ofile))
     tmp <- installed.packages(fields = "RemoteType")
     installedpkgs_old <- as.vector(tmp[is.na(tmp[,"Priority"]), 1])
     installedpkgs_github_old <- tmp[tmp[, "RemoteType"] %in% "github", "Package"]
@@ -53,20 +59,24 @@ if (restore_f) {
     missing_github <- setdiff(installedpkgs_github_old, installedpkgs_github_new)
 
     # install from CRAN (three runs)
-    install.packages(missing, repos='http://cran.us.r-project.org')
-    update.packages()
+    # WARNING: don't use the built-in manager, use biocLite() instead!
+    #install.packages(missing, repos='http://cran.us.r-project.org')
+    #update.packages()
 
     # refresh and restore missing pkgs from Bioconductor
-    tmp <- installed.packages()
-    installedpkgs_new <- as.vector(tmp[is.na(tmp[,"Priority"]), 1])
-    missing <- setdiff(installedpkgs_old, installedpkgs_new)
+    #tmp <- installed.packages()
+    #installedpkgs_new <- as.vector(tmp[is.na(tmp[,"Priority"]), 1])
+    #missing <- setdiff(installedpkgs_old, installedpkgs_new)
 
-    #?biocLite() 
+    #biocLite() 
     source("https://bioconductor.org/biocLite.R")
+    biocLite("BiocUpgrade")
+    biocLite("BiocInstaller")
     for (i in 1:length(missing)) {
         biocLite(missing[i])
     }
-    update.packages()
+    biocLite()
+    #update.packages()
 
     # restore from github
     # devtools::install_githuB
