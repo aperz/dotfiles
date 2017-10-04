@@ -9,9 +9,10 @@
 set nocompatible
 
 """"""""""""""""""""""""""""""""""""""""
-if system('uname') =~ 'Osiris':
+
+if hostname() == 'Osiris'
     colorscheme colorsbox-greenish
-else:
+else
     colorscheme Tomorrow-Night-Bright
 endif
 
@@ -102,42 +103,47 @@ Plugin 'VundleVim/Vundle.vim'
 " :set hlsearch! -> toggle
 
 " Keep Plugin commands between vundle#begin/end.
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'Yggdroot/indentLine'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'jalvesaq/R-Vim-runtime'
-"Plugin 'vim-scripts/Screen-vim---gnu-screentmux'
-Plugin 'ervandew/screen'
-Plugin 'vim-scripts/Vim-R-plugin'
-Plugin 'jalvesaq/VimCom'
-Plugin 'ivanov/vim-ipython'
-"Plugin 'vim-scripts/pythoncomplete'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'vim-scripts/Python-mode-klen'
-"Plugin 'vim-ruby/vim-ruby'
-"Plugin 'tpope/vim-rails'
-Plugin 'Valloric/YouCompleteMe'
-"autocmd FileType python Bundle 'Valloric/YouCompleteMe'
-"autocmd FileType R Bundle 'Valloric/YouCompleteMe'
-"autocmd FileType c++ Bundle 'Valloric/YouCompleteMe'
-"autocmd FileType c++ Bundle 'Valloric/YouCompleteMe'
-" =======
-" Plugin 'https://github.com/Yggdroot/indentLine'
-" "Plugin 'https://github.com/nathanaelkane/vim-indent-guides'
-" "Plugin 'https://github.com/jalvesaq/R-Vim-runtime'
-" "Plugin 'https://github.com/vim-scripts/Screen-vim---gnu-screentmux'
-" Plugin 'https://github.com/ervandew/screen'
-" "Plugin 'https://github.com/vim-scripts/Vim-R-plugin'
-" Plugin 'https://github.com/jalvesaq/VimCom'
-" Plugin 'https://github.com/ivanov/vim-ipython'
-" "Plugin 'https://github.com/vim-scripts/pythoncomplete'
-" Plugin 'vim-scripts/indentpython.vim'
-" Plugin 'https://github.com/vim-scripts/Python-mode-klen'
-" "Plugin 'https://github.com/vim-ruby/vim-ruby'
-" "Plugin 'tpope/vim-rails'
-" "Plugin 'Valloric/YouCompleteMe'
-" >>>>>>> refs/remotes/origin/master
-Plugin 'jaxbot/semantic-highlight.vim'
+if hostname() == 'Osiris'
+    Plugin 'christoomey/vim-tmux-navigator'
+    Plugin 'Yggdroot/indentLine'
+    Plugin 'nathanaelkane/vim-indent-guides'
+    Plugin 'jalvesaq/R-Vim-runtime'
+    "Plugin 'vim-scripts/Screen-vim---gnu-screentmux'
+    Plugin 'ervandew/screen'
+    Plugin 'vim-scripts/Vim-R-plugin'
+    Plugin 'jalvesaq/VimCom'
+    Plugin 'ivanov/vim-ipython'
+    "Plugin 'vim-scripts/pythoncomplete'
+    Plugin 'vim-scripts/indentpython.vim'
+    Plugin 'vim-scripts/Python-mode-klen'
+    "Plugin 'vim-ruby/vim-ruby'
+    "Plugin 'tpope/vim-rails'
+    Plugin 'Valloric/YouCompleteMe'
+    "autocmd FileType python Bundle 'Valloric/YouCompleteMe'
+    "autocmd FileType R Bundle 'Valloric/YouCompleteMe'
+    "autocmd FileType c++ Bundle 'Valloric/YouCompleteMe'
+    "autocmd FileType c++ Bundle 'Valloric/YouCompleteMe'
+    Plugin 'jaxbot/semantic-highlight.vim'
+
+elseif hostname() == 'localhost'
+    Plugin 'https://github.com/Yggdroot/indentLine'
+    Plugin 'https://github.com/ervandew/screen'
+    Plugin 'https://github.com/jalvesaq/VimCom'
+    Plugin 'https://github.com/ivanov/vim-ipython'
+    Plugin 'vim-scripts/indentpython.vim'
+    Plugin 'https://github.com/vim-scripts/Python-mode-klen'
+    Plugin 'jaxbot/semantic-highlight.vim'
+
+else
+    Plugin 'https://github.com/Yggdroot/indentLine'
+    Plugin 'https://github.com/ervandew/screen'
+    Plugin 'https://github.com/jalvesaq/VimCom'
+    Plugin 'https://github.com/ivanov/vim-ipython'
+    Plugin 'vim-scripts/indentpython.vim'
+    Plugin 'https://github.com/vim-scripts/Python-mode-klen'
+    Plugin 'jaxbot/semantic-highlight.vim'
+endif
+
 
 
 call vundle#end()            " required
