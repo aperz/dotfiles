@@ -30,6 +30,14 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 # vim :PluginInstall
 
 
+for p in $HOME/.vim/bundle/*
+do
+    cd $p
+    git fetch
+    git merge
+    git submodule update --init --recursive
+done
+
 
 ### DOTFILES
 

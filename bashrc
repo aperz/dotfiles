@@ -77,8 +77,10 @@ alias lf='ls -B' # list files (and folders)
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
 alias xterm='xterm -maximized'
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
+alias tree="tree -I '*~'"
 
 if [ $HOSTNAME = "Osiris" ]; then
     #alias vim='vim --servername VIM'
@@ -277,3 +279,4 @@ if [ $HOSTNAME = "localhost" ]; then
     #nodejs ~/.crouton-clipboard/server
     (nohup nodejs ~/.crouton-clipboard/server.js > /dev/null 2>&1 &)                                                                          
 fi
+

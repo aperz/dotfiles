@@ -27,12 +27,6 @@
 !add Control = Control_R
 !add Mod1 = Alt_R
 
-clear lock
-clear control
-clear mod1
-clear mod2
-clear mod3
-clear mod4
 
 !remove control = Control_L
 !remove mod1 = Alt_L
@@ -40,18 +34,26 @@ clear mod4
 !remove mod4 = Super_L
 !remove mod4 = Alt_L
 
-keycode 37 = Super_L
-keycode 133 = Alt_L
-keycode 66 = Control_L
-keycode 64 = Control_L
-
-add control = Control_L
-add mod1 = Alt_L
-add mod4 = Super_L
+! WORKIGN caps-Ctrl and Alt-super?
+!clear lock
+!clear control
+!clear mod1
+!clear mod2
+!clear mod3
+!clear mod4
+!
+!keycode 37 = Super_L
+!keycode 133 = Alt_L
+!keycode 66 = Control_L
+!keycode 64 = Control_L
+!
+!add control = Control_L
+!add mod1 = Alt_L
+!add mod4 = Super_L
 
 
 !WORKING CAPS-Ctrl
-!clear lock
-!clear control
-!add control = Caps_Lock Control_R
-!keycode 66 = Control_L Caps_Lock NoSymbol NoSymbol
+clear lock
+clear control
+add control = Caps_Lock Control_R
+keycode 66 = Control_L Caps_Lock NoSymbol NoSymbol
