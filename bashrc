@@ -81,6 +81,8 @@ alias l='ls -CF'
 alias xterm='xterm -maximized'
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 alias tree="tree -I '*~'"
+alias v='vim'
+alias g='git'
 
 if [ $HOSTNAME = "Osiris" ]; then
     #alias vim='vim --servername VIM'
