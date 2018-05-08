@@ -83,6 +83,7 @@ alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 alias tree="tree -I '*~'"
 alias v='vim'
 alias g='git'
+alias py='ipython'
 
 if [ $HOSTNAME = "Osiris" ]; then
     #alias vim='vim --servername VIM'
@@ -205,7 +206,7 @@ fi
 #export PS1="\[$TOLASTLINE\]$PS1"
 
 #export TERM=xterm-256color
-export TERM=screen-256color
+#export TERM=screen-256color
 
 if [ -f $HOME/.Xdefaults ]; then
   xrdb -merge $HOME/.Xdefaults
@@ -220,7 +221,7 @@ fi
 
 ### python
 # add my py_scripts to python module search path
-export PYTHONPATH="$PYTHONPATH:$HOME/.bin:/P/mnemonic"
+export PYTHONPATH="$PYTHONPATH:$HOME/.bin:/P/mnemonic-old"
 #export FLASK_APP='/P/errco-stable/errco/__init__.py'
 #export FLASK_DEBUG=true
 
@@ -248,6 +249,20 @@ if [[ -f $HOME/.git_prompt.sh ]]; then
 	source $HOME/.git_prompt.sh
 fi
 
+### Windows manager and keyboard
+
+if [[ -f $HOME/.my_keymap ]]; then
+    loadkeys $HOME/.my_keymap
+fi
+
+# Do not sleep display (solution to can't wake up problem)
+if [ $HOSTNAME = "Osiris" ]; then
+    #setterm -blank 0 -powerdown 0
+    setterm -powerdown 0
+fi
+
+
+
 ### R
 #export R_LIBS_USER="/home/perza/R/auxiliary_libs:/home/perza/R/x86_64-pc-linux-gnu-library/3.3"
 
@@ -266,10 +281,6 @@ fi
 #export PATH=${PATH}:$HOME/Android/Sdk/tools
 #export PATH=${PATH}:$HOME/Android/Sdk/platform-tools
 
-if [[ -f $HOME/.my_keymap ]]; then
-    loadkeys $HOME/.my_keymap
-fi
-
 
 ### virtualenvwrapper
 #if [[ -f /usr/bin/virtualenvwrapper.sh ]]; then
@@ -282,3 +293,5 @@ if [ $HOSTNAME = "localhost" ]; then
     (nohup nodejs ~/.crouton-clipboard/server.js > /dev/null 2>&1 &)                                                                          
 fi
 
+# wrenlab matrixdb metalearn
+ export LD_LIBRARY_PATH=$HOME/.local/lib

@@ -124,6 +124,8 @@ if hostname() == 'Osiris'
     "autocmd FileType c++ Bundle 'Valloric/YouCompleteMe'
     "autocmd FileType c++ Bundle 'Valloric/YouCompleteMe'
     Plugin 'jaxbot/semantic-highlight.vim'
+    Plugin 'challenger-deep-theme/vim'
+    Plugin 'itchyny/lightline.vim'
 
 elseif hostname() == 'localhost'
     Plugin 'https://github.com/Yggdroot/indentLine'
@@ -159,6 +161,29 @@ call vundle#end()            " required
 "let g:indent_guides_guide_size = 1
 "hi IndentGuidesOdd ctermbg = 235
 "hi IndentGuidesEven ctermbg = 236
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" lightline
+set noshowmode
+
+
+
+let g:lightline = {
+    \ 'colorscheme': 'one_modified',
+    \ 'component': {
+    \   'filename': '%f', 
+    \ },
+    \ 'inactive': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \           [ 'readonly', 'filename', 'modified' ] ],
+    \   'right': [ [ 'lineinfo' ],
+    \            [ 'percent' ],
+    \            [ 'fileformat', 'fileencoding', 'filetype' ] ]
+    \ },
+    \ }
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " indentLine
@@ -306,11 +331,11 @@ inoremap <C-b> <>
 inoremap <C-h> <BS>
 nnoremap <C-h> <BS>
 
-" scrolling
-nnoremap <C-e> <C-u>
-nnoremap <C-u> <C-e>
-vnoremap <C-e> <C-u>
-vnoremap <C-u> <C-e>
+" scrolling (uses e-d to scroll buffers - one hand scrolling)
+"nnoremap <C-e> <C-u>
+"vnoremap <C-e> <C-u>
+"nnoremap <C-u> <C-e>
+"vnoremap <C-u> <C-e>
 
 " show type of thing under cursor
 noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
@@ -402,5 +427,7 @@ noremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 inoremap <C-q> <C-c>
 :inoremap <C-q> <C-c>
 
+""""""""""""""""""""""""""""""""""""""""
+" crouton
 nnoremap "*p :r !cat /home/ola/.crouton-clipboard/data.txt<CR>
 vnoremap "*y :'<,'>w! /home/ola/.crouton-clipboard/data.txt<CR>

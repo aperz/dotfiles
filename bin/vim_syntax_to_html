@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+ifile=$1
+ofile=$2
+vim ${ifile} -e -s -c 'runtime! syntax/syntax.vim' -c 'runtime! syntax/2html.vim' -c "w ${ofile}" -c 'q!' -c 'q!' > /dev/null
+

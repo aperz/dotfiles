@@ -5,9 +5,13 @@ echo 'pip3 list --outdated --format=freeze'
 echo 'pip2 list --outdated --format=freeze'
 
 echo '-- Upgrade:'
-echo 'pacman -Syu'
+echo 'pacman -Syu #use packer?'
 echo 'pip-upgrade.py -v3'
 echo 'pip-upgrade.py -v2'
 echo 'R_package_manager.R -u (NOT TESTED)'
+echo 'vim -c PluginUpdate'
+
+echo '-- AUR:'
+echo 'cd ~/packages #pull, reinstall'
 
 

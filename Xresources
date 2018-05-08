@@ -30,7 +30,7 @@ URxvt.antialias: true
 URxvt.scrollBar:                      false
 URxvt.mouseWheelScrollPage:           false
 URxvt.cursorBlink:                    true
-!URxvt*background:                     black
+URxvt*background:                     #262626
 URxvt.saveLines:                      5000
 URxvt*letterSpace: -1
 
@@ -235,7 +235,9 @@ URxvt*letterSpace: -1
 !!!!! seoul256 (dark) theme adapted for URxvt
 !orig
 !*background: #3a3a3a
-*background: #3A3636
+!*background: #3A3636 # this was last setting
+*background: #262626 
+!hi Normal ctermbg=235
 *foreground: #d0d0d0
 *color0: #4e4e4e
 *color1: #d68787
