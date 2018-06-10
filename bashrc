@@ -55,7 +55,12 @@ shopt -s checkwinsize
 
 # disable exiting on pressing Ctrl-D once (exits when pressed IGNOREEOF times)
 export IGNOREEOF=5
-
+ 
+# disable freezing
+stty stop ''
+stty start ''
+stty -ixon
+stty -ixoff
 
 #eval $(dircolors -b ~/.dir_colors)
 # enable color support of ls and also add handy aliases
@@ -294,4 +299,4 @@ if [ $HOSTNAME = "localhost" ]; then
 fi
 
 # wrenlab matrixdb metalearn
- export LD_LIBRARY_PATH=$HOME/.local/lib
+export LD_LIBRARY_PATH=$HOME/.local/lib
