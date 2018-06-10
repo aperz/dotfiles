@@ -1,5 +1,7 @@
 #!/bin/bash
 
+### newer things are also here
+
 ### THINGHS TO CONSIDER:
 # - where to store manually downnloaded pacage files? Where to install them? checkinstall
 # - /usr/local/scr and bin both requrie password; perhaps ~/src?
@@ -177,3 +179,13 @@ cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 wget https://www.dropbox.com/download?dl=packages/dropbox.py ~/.bin/dropbox.py
 chmod +x .bin/dropbox.py
 .dropbox-dist/dropboxd #KEEP THIS RUNNING! and open link in any browser on any computer
+
+# arch + terminal
+pacman -S 
+	dialog iw wpa-supplicant # net 
+	ntfs-3g # mounting Windows partition 
+
+git clone https://aur.archlinux.org/packer.git
+packer -S adobe-source-code-pro-fonts
+
+git clone https://aur.archlinux.org/spotify.git
