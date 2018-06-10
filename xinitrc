@@ -1,6 +1,11 @@
 #!/bin/sh
 
-userresources=$HOME/.Xresources
+case "$HOSTNAME" in
+    Sirius) userresources=$HOME/.Xresources_black
+    ;;
+    *) userresources=$HOME/.Xresources
+    ;;
+esac
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
