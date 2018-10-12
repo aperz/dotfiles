@@ -82,6 +82,7 @@ alias lf='ls -B' # list files (and folders)
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias won='trash'
 
 alias xterm='xterm -maximized'
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
