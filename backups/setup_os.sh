@@ -180,10 +180,48 @@ wget https://www.dropbox.com/download?dl=packages/dropbox.py ~/.bin/dropbox.py
 chmod +x .bin/dropbox.py
 .dropbox-dist/dropboxd #KEEP THIS RUNNING! and open link in any browser on any computer
 
+# ============================================================================== 
+# Arch
+# ============================================================================== 
+
+# ------------------------------------------------------------------------------
+# USB boot
+# ------------------------------------------------------------------------------
+
+
+echo "Ghuleh" > /etc/hostname
+vi /etc/locale.gen 
+locale-gen
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+export LANG=en_US.UTF-8
+ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime -f
+hwclock --systohc --utc
+vi /etc/pacman.conf # add multilib
+pacman -Syu
+passwd
+
+# EFI - Dell, Toshiba? 
+# In th Dell, also change boot setting in BIOS
+pacman -S grub efibootmgr dosfstools os-prober mtools
+mkdir /boot/EFI
+mount /dev/sda1 /boot/EFI
+grub-install  --target=x86_64-efi --bootloader-id=grub-uefi --recheck
+# grub-install --target=i386-pc /dev/sda ??
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# Add user
+useradd -mg users -G wheel,storage,power,audio -s /bin/bash ola
+passwd ola
+pacman -S sudo
+visudo
+
+# ------------------------------------------------------------------------------
+
 # arch + terminal
 pacman -S 
 	dialog iw wpa-supplicant # net 
 	ntfs-3g # mounting Windows partition 
+    git
 
 git clone https://aur.archlinux.org/packer.git
 packer -S adobe-source-code-pro-fonts
@@ -194,3 +232,27 @@ git clone https://aur.archlinux.org/spotify.git
 cd .vim/bundle/YouCompleteMe
 ./install.py
 
+packer -S   
+    dotfiles
+    vim
+    awesome xorg vicious
+    dobe-source-code-pro-fonts
+    jshon expac spotify
+    brightnessctl
+    dropbox
+    alsa-utils
+    google-chrome-stable
+    rxvt-unicode
+
+# Dell (fix resolution issue)
+    xorg-xdpyinfo
+# xdpyinfo | grep -B 2 resolution
+# modify .Xresources
+
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# Minecraft
+sudo pacman -S jre8-openjdk 
+sudo pacman -S jdk8-openjdk 
+packer -S feedthebeast
+packer -S minecraft

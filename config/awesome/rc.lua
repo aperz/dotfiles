@@ -59,6 +59,7 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
+    awful.layout.suit.floating,
     awful.layout.suit.tile.left,
     awful.layout.suit.floating,
     awful.layout.suit.tile.bottom,
@@ -602,3 +603,4 @@ cputext_format = " $1%" -- %1 average cpu, %[2..] every other thread individuall
 
 membar_enable = true -- show memory bar
 memtext_format = " $1%" -- %1 percentage, %2 used %3 total %4 free
+
