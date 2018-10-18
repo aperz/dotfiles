@@ -156,7 +156,7 @@ loadkeys pl # for current session
 # ---------------
 # with crouton install targets: linux, extension, core, cli-tools(?)
 $ sudo apt-get install nodejs git
-vim :PluginInstall (disable youcompleteme and other memory-intense plugins)
+vim :PluginInstall (disable youcompleteme and other memory-intense plugins-?)
 
 sudo apt-get install python-pip
 sudo apt-get install python3-pip
@@ -189,3 +189,8 @@ git clone https://aur.archlinux.org/packer.git
 packer -S adobe-source-code-pro-fonts
 
 git clone https://aur.archlinux.org/spotify.git
+
+# recompile ycmd server
+cd .vim/bundle/YouCompleteMe
+./install.py
+

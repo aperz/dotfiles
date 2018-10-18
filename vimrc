@@ -126,6 +126,8 @@ if hostname() == 'Osiris'
     Plugin 'jaxbot/semantic-highlight.vim'
     Plugin 'challenger-deep-theme/vim'
     Plugin 'itchyny/lightline.vim'
+    "Plugin 'manabuishii/vim-cwl'
+    Plugin 'bioSyntax/bioSyntax-vim.git'
 
 elseif hostname() == 'localhost'
     Plugin 'https://github.com/Yggdroot/indentLine'
