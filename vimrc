@@ -104,6 +104,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
 if hostname() == 'Osiris'
+    Plugin 'https://github.com/chr4/nginx.vim'
     Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'Yggdroot/indentLine'
     Plugin 'nathanaelkane/vim-indent-guides'
@@ -127,7 +128,9 @@ if hostname() == 'Osiris'
     Plugin 'challenger-deep-theme/vim'
     Plugin 'itchyny/lightline.vim'
 
+" chromebook crouton
 elseif hostname() == 'localhost'
+    Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'https://github.com/Yggdroot/indentLine'
     Plugin 'https://github.com/ervandew/screen'
     Plugin 'https://github.com/jalvesaq/VimCom'
@@ -137,6 +140,8 @@ elseif hostname() == 'localhost'
     Plugin 'jaxbot/semantic-highlight.vim'
 
 else
+    Plugin 'https://github.com/chr4/nginx.vim'
+    Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'https://github.com/Yggdroot/indentLine'
     Plugin 'https://github.com/ervandew/screen'
     Plugin 'https://github.com/jalvesaq/VimCom'
