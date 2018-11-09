@@ -1,3 +1,11 @@
+! for Dell retina resolution
+Xft.dpi: 180
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.rgba: rgb
+
 
 Xft.antialias: true
 XTerm*faceName: Ubuntu Mono
@@ -18,16 +26,13 @@ UXTerm*cursorBlink:                    true
 UXTerm*saveLines:                      5000
 UXTerm*metaSendsEscape:  true
 
-! start command: urxvt -fn "xft:Ubuntu Mono:pixelsize=14,style=regular"
-!URxvt.font: xft:Ubuntu Mono:pixelsize=18:Regular
-!URxvt.boldFont: xft:Ubuntu Mono:pixelsize=18:Regular
-URxvt.font: xft:Source Code Pro:pixelsize=16:Regular
-URxvt.italicFont: xft:Source Code Pro:pixelsize=16:Italic
+!start command: urxvt -fn "xft:Ubuntu Mono:pixelsize=14,style=regular"
+
+URxvt.font: xft:Source Code Pro:pixelsize=35:Regular
+URxvt.italicFont: xft:Source Code Pro:pixelsize=35:Italic
 ! Disable bold font
-!URxvt.boldFont: xft:Source Code Pro:pixelsize=16:Regular
+!URxvt.boldFont: xft:Source Code Pro:pixelsize=35:Regular
 URxvt.antialias: true
-!URxvt.faceName: Ubuntu Mono
-!URxvt.faceSize: 15.0
 URxvt.scrollBar:                      false
 URxvt.mouseWheelScrollPage:           false
 URxvt.cursorBlink:                    true
@@ -37,7 +42,7 @@ URxvt*letterSpace: -1
 
 !*.antialias: true
 !*.faceName: Ubuntu Mono
-!*.faceSize: 12.0
+!*.faceSize: 20.0
 
 !!TomorrowNight
 !#define t_foreground        #1c1c1c

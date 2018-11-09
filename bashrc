@@ -82,13 +82,33 @@ alias lf='ls -B' # list files (and folders)
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias won='trash'
 
 alias xterm='xterm -maximized'
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 alias tree="tree -I '*~'"
 alias v='vim'
-alias g='git'
 alias py='ipython'
+
+g() {
+    if [[ $@ == "s" ]]; then
+        command git status
+    else
+        command git "$@"
+    fi
+}
+
+venv() {
+    if [[ $@ == "mne" ]]; then
+        command source /P/mnemonic_playground/venv-mnemonic-python3.5/bin/activate
+    elif [[ $@ == "pubqc" ]]; then
+        command source /P/playground/venv-pubqc/bin/activate
+    elif [[ $@ == "pubqc-stable" ]]; then
+        command source /P/playground/venv-pubqc-stable/bin/activate
+    else
+        command venv
+    fi
+}
 
 if [ $HOSTNAME = "Osiris" ]; then
     #alias vim='vim --servername VIM'
@@ -127,20 +147,27 @@ if ! shopt -oq posix; then
 fi
 
 # set additional PATHs
+if [ -d $HOME/bin ]; then
+    export PATH=$PATH:$HOME/bin
+fi
+
 if [ -d $HOME/.bin ]; then
     export PATH=$PATH:$HOME/.bin
 fi
 
-if [ -d $HOME/.bin ]; then
+if [ -d $HOME/.local/.bin ]; then
     export PATH=$PATH:$HOME/.local/bin
 fi
 
 if [ $HOSTNAME = "Osiris" ]; then
-    # export PATH=$PATH:/home/perza/.aspera/connect/bin
-    #export PATH=$PATH:/home/perza/.local/bin
+    #export PATH=$PATH:/home/perza/.aspera/connect/bin
     #export PATH=$PATH:/usr/local/bin/sratoolkit.2.5.2-ubuntu64/binexport 
     #export PATH=$PATH:/usr/local/bin/kentUtils
-    export PATH=$PATH:/P/mnenonic
+    #export PATH=$PATH:/P/mnenonic-old
+    export PATH=$PATH:/P/metaphlan2
+    export PATH=$PATH:/P/microbiome_helper
+    # wrenlab matrixdb metalearn
+    export LD_LIBRARY_PATH=$HOME/.local/lib
 
     # work bench path
     WB="/P/mnemonic"
@@ -210,7 +237,7 @@ fi
 #TOLASTLINE=$(tput cup "$LINES")
 #export PS1="\[$TOLASTLINE\]$PS1"
 
-#export TERM=xterm-256color
+#export TERM=xterm-color # scala interpreter needs this for some reason https://github.com/lihaoyi/mill/issues/139
 #export TERM=screen-256color
 
 if [ -f $HOME/.Xdefaults ]; then
@@ -226,7 +253,7 @@ fi
 
 ### python
 # add my py_scripts to python module search path
-export PYTHONPATH="$PYTHONPATH:$HOME/.bin:/P/mnemonic-old"
+#export PYTHONPATH="$PYTHONPATH:$HOME/.bin:/P/mnemonic-old"
 #export FLASK_APP='/P/errco-stable/errco/__init__.py'
 #export FLASK_DEBUG=true
 
@@ -298,5 +325,9 @@ if [ $HOSTNAME = "localhost" ]; then
     (nohup nodejs ~/.crouton-clipboard/server.js > /dev/null 2>&1 &)                                                                          
 fi
 
-# wrenlab matrixdb metalearn
-export LD_LIBRARY_PATH=$HOME/.local/lib
+
+PATH="/home/perza/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/perza/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/perza/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/perza/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/perza/perl5"; export PERL_MM_OPT;

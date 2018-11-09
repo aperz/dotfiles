@@ -3,6 +3,8 @@
 case "$HOSTNAME" in
     Sirius) userresources=$HOME/.Xresources_black
     ;;
+    Ghuleh) userresources=$HOME/.Xresources_dell
+    ;;
     *) userresources=$HOME/.Xresources
     ;;
 esac
