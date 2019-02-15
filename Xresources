@@ -1,22 +1,64 @@
+!!!!! seoul256 (dark) theme adapted for URxvt
+!orig
+!*background: #3a3a3a
+!*background: #3A3636 # this was last setting
+!hi Normal ctermbg=235
+
+
+!!! Uncomment this to go back to nice colours
+!!! START
+!*background: #262626 
+!*foreground: #d0d0d0
+!*color0: #4e4e4e
+!*color1: #d68787
+!*color2: #5f865f
+!*color3: #d8af5f
+!*color4: #85add4
+!*color5: #d7afaf
+!*color6: #87afaf
+!*color7: #d0d0d0
+!*color8: #626262
+!*color9: #d75f87
+!*color10: #87af87
+!*color11: #ffd787
+!*color12: #add4fb
+!*color13: #ffafaf
+!*color14: #87d7d7
+!*color15: #e4e4e4
+!*color235: #3A3636
+!*cursorColor: #d0d0d0
+!*cursorColor2: #3a3a3a
+!*colorBD: #e4e4e4
+!!! END
+
+!*fading:                  20
+!!!!!!!!!!
 
 Xft.antialias: true
 XTerm*faceName: Ubuntu Mono
 ! Monospace
-XTerm*faceSize: 12.0
+XTerm*faceSize: 14.0
 XTerm*selectToClipboard: true
 xterm*metaSendsEscape:  true
 
-UXTerm*faceSize: 15.0
-UXTerm*selectToClipboard: true
+UXTerm*faceSize: 12.5
 !UXTerm*faceName: Ubuntu Mono
-UXTerm*faceName: xft:Source Code Pro:pixelsize=16:Regular
-UXTerm*italicFont: xft:Source Code Pro:pixelsize=16:Italic
-UXTerm*antialias: true
-UXTerm*scrollBar:                      false
-UXTerm*mouseWheelScrollPage:           false
-UXTerm*cursorBlink:                    true
-UXTerm*saveLines:                      5000
-UXTerm*metaSendsEscape:  true
+!UXTerm*faceName: Droid Sans Mono
+UXTerm*faceName: xft:Source Code Pro
+UXTerm*boldFont: xft:Source Code Pro Semibold 
+!UXTerm*italicFont: xft:Source Code Pro:pixelsize=16:Italic
+UXTerm*letterSpace: -1
+UXTerm*antialias:               true
+UXTerm*scrollBar:               false
+UXTerm*mouseWheelScrollPage:    false
+UXTerm*cursorBlink:             true
+UXTerm*saveLines:               5000
+UXTerm*metaSendsEscape:         true
+UXTerm*selectToClipboard:       true
+XTerm*visualbell: false
+XTerm*bellIsUrgent: false
+UXTerm.vt100.backarrowKey: false
+UXTerm.ttyModes: erase ^?
 
 ! start command: urxvt -fn "xft:Ubuntu Mono:pixelsize=14,style=regular"
 !URxvt.font: xft:Ubuntu Mono:pixelsize=18:Regular
@@ -30,7 +72,7 @@ URxvt.antialias: true
 !URxvt.faceSize: 15.0
 URxvt.scrollBar:                      false
 URxvt.mouseWheelScrollPage:           false
-URxvt.cursorBlink:                    true
+Rxvt.cursorBlink:                    true
 URxvt*background:                     #262626
 URxvt.saveLines:                      5000
 URxvt*letterSpace: -1
@@ -233,36 +275,6 @@ URxvt*letterSpace: -1
 !*color15: #E6E6E6
 !!!!!!!!!!!!!!
 
-!!!!! seoul256 (dark) theme adapted for URxvt
-!orig
-!*background: #3a3a3a
-!*background: #3A3636 # this was last setting
-*background: #262626 
-!hi Normal ctermbg=235
-*foreground: #d0d0d0
-*color0: #4e4e4e
-*color1: #d68787
-*color2: #5f865f
-*color3: #d8af5f
-*color4: #85add4
-*color5: #d7afaf
-*color6: #87afaf
-*color7: #d0d0d0
-*color8: #626262
-*color9: #d75f87
-*color10: #87af87
-*color11: #ffd787
-*color12: #add4fb
-*color13: #ffafaf
-*color14: #87d7d7
-*color15: #e4e4e4
-! ATT
-*color235: #3A3636
-*cursorColor: #d0d0d0
-*cursorColor2: #3a3a3a
-*colorBD: #e4e4e4
-!*fading:                  20
-!!!!!!!!!!
 
 !!!!! Solarized color scheme for the X Window System
 ! http://ethanschoonover.com/solarized
@@ -324,3 +336,90 @@ URxvt*letterSpace: -1
 !*color13:                 S_violet
 !*color14:                 S_base1
 !*color15:                 S_base3
+
+!! NEON theme
+!! special
+!*.foreground:   #d0d0d0
+!*.background:   #000000
+!*.cursorColor:  #d0d0d0
+!
+!! black
+!*.color0:       #000000
+!*.color8:       #808080
+!
+!! red
+!*.color1:       #ff0000
+!*.color9:       #ff0000
+!
+!! green
+!*.color2:       #33ff00
+!*.color10:      #33ff00
+!
+!! yellow
+!*.color3:       #ff0099
+!*.color11:      #ff0099
+!
+!! blue
+!*.color4:       #0066ff
+!*.color12:      #0066ff
+!
+!! magenta
+!*.color5:       #cc00ff
+!*.color13:      #cc00ff
+!
+!! cyan
+!*.color6:       #00ffff
+!*.color14:      #00ffff
+!
+!! white
+!*.color7:       #d0d0d0
+!*.color15:      #ffffff
+!!!!
+!
+!
+!!! NEON modified
+
+! other custom
+*color235: #3A3636
+*cursorColor: #d0d0d0
+*cursorColor2: #3a3a3a
+*colorBD: #e4e4e4
+
+! special
+*.foreground:   #f8f8f8
+*.background:   #171717
+!*.cursorColor:  #f8f8f8
+
+! black
+*.color0:       #515151
+*.color8:       #a4a2a2
+
+! red
+*.color1:       #d81765
+*.color9:       #e54886
+
+! green
+*.color2:       #97d01a
+*.color10:      #7bc436
+
+! yellow
+*.color3:       #ffe300
+*.color11:      #e1c426
+
+! blue
+*.color4:       #16b1fb
+*.color12:      #289cd5
+
+! magenta
+*.color5:       #f524ff
+*.color13:      #f124ff
+
+! cyan
+*.color6:       #0fdcb6
+*.color14:      #0a9b81
+
+! white
+*.color7:       #c2c0c0
+*.color15:      #9d9b9b
+
+

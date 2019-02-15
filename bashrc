@@ -2,7 +2,7 @@
 # - [[ versus [
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+
 # for examples
 
 # If not running interactively, don't do anything
@@ -100,7 +100,7 @@ g() {
 
 venv() {
     if [[ $@ == "mne" ]]; then
-        command source /P/mnemonic_playground/venv-mnemonic-python3.5/bin/activate
+        command source /P/mnemonic_playground/venv-mnemonic-python3.5.new/bin/activate
     elif [[ $@ == "pubqc" ]]; then
         command source /P/playground/venv-pubqc/bin/activate
     elif [[ $@ == "pubqc-stable" ]]; then
@@ -110,10 +110,15 @@ venv() {
     fi
 }
 
+ra() {
+    command radian
+    }
+
 if [ $HOSTNAME = "Osiris" ]; then
     #alias vim='vim --servername VIM'
     alias wb='cd $WB'
     alias dt='cd $DATA_MAIN'
+    alias qview='qiime tools view'
 fi
 
 #if [[ -f ~/.bin/py_utils.py ]]; then
@@ -156,6 +161,10 @@ if [ -d $HOME/.bin ]; then
 fi
 
 if [ -d $HOME/.local/.bin ]; then
+    export PATH=$PATH:$HOME/.local/.bin
+fi
+
+if [ -d $HOME/.local/bin ]; then
     export PATH=$PATH:$HOME/.local/bin
 fi
 
@@ -165,6 +174,8 @@ if [ $HOSTNAME = "Osiris" ]; then
     #export PATH=$PATH:/usr/local/bin/kentUtils
     #export PATH=$PATH:/P/mnenonic-old
     export PATH=$PATH:/P/metaphlan2
+    export PATH=$PATH:/P/metaphlan2/utils
+    export PATH=$PATH:/P/metaphlan2/strainphlan_src
     export PATH=$PATH:/P/microbiome_helper
     # wrenlab matrixdb metalearn
     export LD_LIBRARY_PATH=$HOME/.local/lib
@@ -256,6 +267,8 @@ fi
 #export PYTHONPATH="$PYTHONPATH:$HOME/.bin:/P/mnemonic-old"
 #export FLASK_APP='/P/errco-stable/errco/__init__.py'
 #export FLASK_DEBUG=true
+unset PYTHONPATH
+#export PYTHONPATH= "/tmp/packerbuild-1000/miniconda3/miniconda3/pkg/miniconda3/opt/miniconda3"
 
 
 ### git-completion

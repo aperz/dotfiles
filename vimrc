@@ -10,11 +10,13 @@ set nocompatible
 
 """"""""""""""""""""""""""""""""""""""""
 
-if hostname() == 'Osiris'
-    colorscheme colorsbox-greenish
-else
-    colorscheme Tomorrow-Night-Bright
-endif
+colorscheme Tomorrow-Night-Bright
+"if hostname() == 'Osiris'
+"    colorscheme colorsbox-greenish
+"else
+"    colorscheme Tomorrow-Night-Bright
+"endif
+
 
 set statusline=%<%f%{FF()}\ %M\ %h%r%=%-10.(%l,%c%V\ b=%n,w=%{winnr()}%)\ %P
 function! FF()
@@ -48,6 +50,8 @@ set nospell                    " turns on spell check for all files
 set paste                      " turns on traditional pasting of text
 set laststatus=2
 set visualbell
+set belloff=all
+set t_vb=
 set clipboard=unnamed
 set paste
 set hlsearch
