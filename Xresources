@@ -5,6 +5,7 @@
 !hi Normal ctermbg=235
 
 
+
 !!! Uncomment this to go back to nice colours
 !!! START
 !*background: #262626 
@@ -41,12 +42,20 @@ XTerm*faceSize: 14.0
 XTerm*selectToClipboard: true
 xterm*metaSendsEscape:  true
 
-UXTerm*faceSize: 12.5
+!UXTerm*faceSize: 12.5
 !UXTerm*faceName: Ubuntu Mono
 !UXTerm*faceName: Droid Sans Mono
-UXTerm*faceName: xft:Source Code Pro
-UXTerm*boldFont: xft:Source Code Pro Semibold 
+
+UXTerm*font:     xft:Source Code Pro:pixelsize=15:Regular
+UXTerm*boldFont: xft:Source Code Pro:pixelsize=15:Regular
+UXTerm*italicFont: xft:Source Code Pro:pixelsize=15:Italic
+
+!UXTerm*font:     xft:Monoid Halfloose:pixelsize=13:antialias=true
+!UXTerm*boldFont: xft:Monoid Halfloose:bold:pixelsize=13:antialias=true
+
+!UXTerm.faceName: xft:Source Code Pro
 !UXTerm*italicFont: xft:Source Code Pro:pixelsize=16:Italic
+!UXTerm*allowBoldFonts: false
 UXTerm*letterSpace: -1
 UXTerm*antialias:               true
 UXTerm*scrollBar:               false
@@ -392,7 +401,7 @@ URxvt*letterSpace: -1
 
 ! black
 *.color0:       #515151
-*.color8:       #a4a2a2
+*.color8:       #777474
 
 ! red
 *.color1:       #d81765

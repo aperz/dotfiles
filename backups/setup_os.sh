@@ -174,6 +174,8 @@ sudo sh install.sh
 #git clone http://github.com/zwhitchcox/crouton-clipboard ~/.crouton-clipboard
 #~/.crouton-clipboard/install.sh
 
+# ------------------------------------------------------------------------------
+
 # Dropbox
 cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 wget https://www.dropbox.com/download?dl=packages/dropbox.py ~/.bin/dropbox.py
@@ -217,7 +219,7 @@ visudo
 
 # ------------------------------------------------------------------------------
 
-# arch + terminal
+# arch + terminal initial setup
 pacman -S 
 	dialog iw wpa-supplicant # net 
 	ntfs-3g # mounting Windows partition 
@@ -227,10 +229,6 @@ git clone https://aur.archlinux.org/packer.git
 packer -S adobe-source-code-pro-fonts
 
 git clone https://aur.archlinux.org/spotify.git
-
-# recompile ycmd server
-cd .vim/bundle/YouCompleteMe
-./install.py
 
 packer -S   
     dotfiles
@@ -250,9 +248,26 @@ packer -S
 # modify .Xresources
 
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim -c :PluginInstall
+
+# ------------------------------------------------------------------------------
+# awesome wm
+# themes
+# https://github.com/lcpz/awesome-copycats
+git clone --recursive https://github.com/lcpz/awesome-copycats.git
+mv -bv awesome-copycats/* ~/.config/awesome && rm -rf awesome-copycats
+
+# recompile ycmd server
+cd .vim/bundle/YouCompleteMe
+./install.py
+
+# ------------------------------------------------------------------------------
+
 
 # Minecraft
 sudo pacman -S jre8-openjdk 
 sudo pacman -S jdk8-openjdk 
 packer -S feedthebeast
 packer -S minecraft
+
+

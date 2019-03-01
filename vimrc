@@ -33,6 +33,7 @@ set cursorline
 set colorcolumn=81
 hi colorcolumn ctermbg=4
 "set colorcolumn=81 ctermbg=7
+set term=screen-256color
 """"""""""""""""""""""""""""""""""""""""
 if has("vms")
       set nobackup              " do not keep a backup file, use versions instead

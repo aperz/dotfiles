@@ -1,0 +1,1 @@
+/home/perza/Dotfiles/oh-my-zsh/themes/spaceship-prompt/spaceship.zsh-theme

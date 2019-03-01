@@ -3,8 +3,8 @@
 "
 " Hex colour conversion functions borrowed from the theme "Desert256""
 set background=dark
-" hi clear Normal " from default
-" set bg&
+hi clear Normal " from default
+set bg&
 
 "" Default GUI Colours (my)
 "let s:foreground = "ffffff"
@@ -36,9 +36,10 @@ let s:red =    'df5f5f'
 "let s:purple = 'af5fdf'
 
 " Default GUI Colours (TomorrowNightBright original) (good night theme)
-let s:foreground = "eaeaea"
+"let s:foreground = "eaeaea"
 let s:background = "000000"
 "let s:background = "1B1D1E"
+let s:foreground = "ffffff"
 let s:orange = "e78c45"
 let s:yellow = "e7c547"
 let s:purple = "c397d8"
@@ -303,7 +304,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("Search", s:foreground, s:search, "")
 	call <SID>X("TabLine", s:window, s:foreground, "reverse")
 	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
-	call <SID>X("StatusLine", s:theme, s:theme2, "bold")
+	"call <SID>X("StatusLine", s:theme, s:theme2, "bold")
+	call <SID>X("StatusLine", s:theme, s:theme2, "none")
 	call <SID>X("StatusLineNC", s:theme, s:theme2, "reverse")
 	"call <SID>X("VertSplit", s:selection, s:background, "none")
 	call <SID>X("VertSplit", s:selection, "", "none")
@@ -332,7 +334,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	if version >= 703
 		call <SID>X("ColorColumn", "", s:line, "none")
 		" moje
-		call <SID>X("ErrorMsg", s:orange, s:background, "bold")
+		"call <SID>X("ErrorMsg", s:orange, s:background, "bold")
+		call <SID>X("ErrorMsg", s:orange, s:background, "none")
 
 	end
 
@@ -573,7 +576,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	" Git
 	call <SID>X("diffAdded", s:green, "", "")
 	call <SID>X("diffRemoved", s:red, "", "")
-	call <SID>X("gitcommitSummary", "", "", "bold")
+	"call <SID>X("gitcommitSummary", "", "", "bold")
+	call <SID>X("gitcommitSummary", "", "", "none")
 
 	" Delete Functions
 	delf <SID>X

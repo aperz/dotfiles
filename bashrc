@@ -217,6 +217,8 @@ CYAN='\[\e[1;36m\]'
 WHITE='\[\e[1;37m\]'
 COLOR_RESET='\[\033[00m\]'
 
+TERM=screen-256color
+
 ##if [ "$TERM" == "screen" ]; then
 ##    PS1="$BLUE\w $GREEN\$ $COLOR_RESET"
 ##else
@@ -344,3 +346,13 @@ PERL5LIB="/home/perza/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB
 PERL_LOCAL_LIB_ROOT="/home/perza/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/perza/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/perza/perl5"; export PERL_MM_OPT;
+
+# SHELL shells
+# zsh 
+export ZSH="/home/perza/Dotfiles/oh-my-zsh"
+
+# Only use zsh if inside tmux - is that a good solution?
+if [ ! -z $TMUX ]; then
+    exec zsh
+    #echo "We are inside tmux"
+fi

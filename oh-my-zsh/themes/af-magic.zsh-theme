@@ -13,10 +13,9 @@ $FG[105]%(!.#.»)%{$reset_color%} '
 PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
 RPS1='${return_code}'
 
-
 # color vars
-eval my_gray='$FG[237]'
-eval my_orange='$FG[214]'
+eval my_gray='$FG[243]'
+eval my_orange='$FG[078]'
 
 # right prompt
 if type "virtualenv_prompt_info" > /dev/null
