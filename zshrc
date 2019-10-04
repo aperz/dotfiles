@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/perza/Dotfiles/oh-my-zsh"
+export ZSH=$HOME"/Dotfiles/oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -224,6 +224,12 @@ if [[ $HOSTNAME == "Osiris" ]]; then
     # work bench path
     WB="/P/mnemonic"
     DATA_MAIN="/D"
+
+    export PATH="/home/perza/perl5/bin${PATH:+:${PATH}}"; export PATH;
+    export PERL5LIB="/home/perza/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+    export PERL_LOCAL_LIB_ROOT="/home/perza/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+    export PERL_MB_OPT="--install_base \"/home/perza/perl5\""; export PERL_MB_OPT;
+    export PERL_MM_OPT="INSTALL_BASE=/home/perza/perl5"; export PERL_MM_OPT;
 fi
 
 
@@ -243,8 +249,3 @@ if [[ $HOSTNAME == "localhost" ]]; then
 fi
 
 
-export PATH="/home/perza/perl5/bin${PATH:+:${PATH}}"; export PATH;
-export PERL5LIB="/home/perza/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-export PERL_LOCAL_LIB_ROOT="/home/perza/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-export PERL_MB_OPT="--install_base \"/home/perza/perl5\""; export PERL_MB_OPT;
-export PERL_MM_OPT="INSTALL_BASE=/home/perza/perl5"; export PERL_MM_OPT;
