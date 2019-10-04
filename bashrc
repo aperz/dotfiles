@@ -352,7 +352,7 @@ PERL_MM_OPT="INSTALL_BASE=/home/perza/perl5"; export PERL_MM_OPT;
 export ZSH="/home/perza/Dotfiles/oh-my-zsh"
 
 # Only use zsh if inside tmux - is that a good solution?
+#echo "We are inside tmux"
 if [ ! -z $TMUX ]; then
     exec zsh
-    #echo "We are inside tmux"
 fi

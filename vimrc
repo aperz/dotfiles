@@ -34,6 +34,8 @@ set colorcolumn=81
 hi colorcolumn ctermbg=4
 "set colorcolumn=81 ctermbg=7
 set term=screen-256color
+set t_md=
+
 """"""""""""""""""""""""""""""""""""""""
 if has("vms")
       set nobackup              " do not keep a backup file, use versions instead
@@ -134,6 +136,11 @@ if hostname() == 'Osiris'
     Plugin 'itchyny/lightline.vim'
     "Plugin 'manabuishii/vim-cwl'
     Plugin 'bioSyntax/bioSyntax-vim.git'
+    "TODO require: +clipboard Plugin 'NLKNguyen/copy-cut-paste.vim'
+    Plugin 'Rykka/InstantRst'
+    Plugin 'Rykka/riv.vim'
+
+
 
 " chromebook crouton
 elseif hostname() == 'localhost'
