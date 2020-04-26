@@ -2,7 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME"/Dotfiles/oh-my-zsh"
+# export ZSH=$HOME"/Dotfiles/oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -11,6 +12,8 @@ export ZSH=$HOME"/Dotfiles/oh-my-zsh"
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="af-magic-my" # I broke this?
 ZSH_THEME="spaceship"
+# Theunraveller kolo sorin
+# oxide typewritten powerlevel10k alien/bullettrain
 SPACESHIP_PROMPT_PREFIXES_SHOW=false
 SPACESHIP_PROMPT_ORDER=(
     #time          # Time stamps section
