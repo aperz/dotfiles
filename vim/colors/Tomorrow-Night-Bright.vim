@@ -334,7 +334,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	"call <SID>X("Normal", s:foreground, s:background, "")
 	call <SID>X("Normal", s:foreground, "", "")
 	call <SID>X("LineNr", s:selection, "", "")
-	call <SID>X("CursorLineNr", s:theme2, "", "")
+	call <SID>X("CursorLineNr", s:theme2, s:line, "bold")
+    " CursorLineNr term=bold cterm=underline ctermfg=Yellow gui=bold guifg=Yellow
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
 	"call <SID>X("Search", s:background, s:yellow, "")

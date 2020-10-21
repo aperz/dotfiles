@@ -1,3 +1,7 @@
+-- If LuaRocks is installed, make sure that packages installed through it are
+-- found (e.g. lgi). If LuaRocks is not installed, do nothing.
+pcall(require, "luarocks.loader")
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -9,7 +13,7 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup").widget
+local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -42,7 +46,6 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 -- From awesome-copycats
 local themes = {
@@ -58,7 +61,7 @@ local themes = {
     "vertex",          -- 10
     }
 
-local chosen_theme = themes[5]
+local chosen_theme = themes[1]
 -- END
 
 -- This is used later as the default terminal and editor to run.
@@ -78,7 +81,6 @@ awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.floating,
     awful.layout.suit.tile.left,
-    awful.layout.suit.floating,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
     -- awful.layout.suit.fair,
@@ -113,11 +115,11 @@ end
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
-   { "hotkeys", function() return false, hotkeys_popup.show_help end},
+   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end}
+   { "quit", function() awesome.quit() end },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
@@ -182,6 +184,9 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
+-- Simply set a solid black wallpaper. Remove this to get any other solution working (ap)
+gears.wallpaper.set("#000000")
+
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
@@ -190,8 +195,8 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        -- gears.wallpaper.maximized(wallpaper, s, true)
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+        gears.wallpaper.maximized(wallpaper, s, true)
+        -- gears.wallpaper.maximized(beautiful.wallpaper, s, true)
     end
 end
 
@@ -203,6 +208,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
+    -- awful.tag({ "", "", "", "", "", "", "", "", "" }, s, awful.layout.layouts[1])
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
@@ -216,10 +222,18 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    s.mytaglist = awful.widget.taglist {
+        screen  = s,
+        filter  = awful.widget.taglist.filter.all,
+        buttons = taglist_buttons
+    }
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
+    s.mytasklist = awful.widget.tasklist {
+        screen  = s,
+        filter  = awful.widget.tasklist.filter.currenttags,
+        buttons = tasklist_buttons
+    }
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -244,6 +258,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 end)
 
+-- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 -- From awesome-copycats
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme))
 -- }}}
@@ -332,8 +347,9 @@ globalkeys = gears.table.join(
                   local c = awful.client.restore()
                   -- Focus restored client
                   if c then
-                      client.focus = c
-                      c:raise()
+                    c:emit_signal(
+                        "request::activate", "key.unminimize", {raise = true}
+                    )
                   end
               end,
               {description = "restore minimized", group = "client"}),
@@ -452,9 +468,18 @@ for i = 1, 9 do
 end
 
 clientbuttons = gears.table.join(
-    awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-    awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize))
+    awful.button({ }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+    end),
+    awful.button({ modkey }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.move(c)
+    end),
+    awful.button({ modkey }, 3, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.resize(c)
+    end)
+)
 
 -- Set keys
 root.keys(globalkeys)
@@ -465,16 +490,15 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     --border_width = 0,
+      properties = { -- border_width = beautiful.border_width,
+                     border_width = 0,
                      border_color = beautiful.border_normal,
-                     size_hints_honor = false,
                      focus = awful.client.focus.filter,
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
      }
     },
 
@@ -483,35 +507,51 @@ awful.rules.rules = {
         instance = {
           "DTA",  -- Firefox addon DownThemAll.
           "copyq",  -- Includes session name in class.
+          "pinentry",
         },
         class = {
           "Arandr",
+          "Blueman-manager",
           "Gpick",
           "Kruler",
           "MessageWin",  -- kalarm.
           "Sxiv",
+          "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
           "Wpa_gui",
-          "pinentry",
           "veromix",
           "xtightvncviewer"},
 
+        -- Note that the name property shown in xprop might be set slightly after creation of the client
+        -- and the name shown there might not match defined rules here.
         name = {
           "Event Tester",  -- xev.
         },
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.
+          "ConfigManager",  -- Thunderbird's about:config.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true }},
+      }, 
+      except_any = { 
+        name = { "Tabs Outliner"},
+      },
+      properties = { 
+        floating = true,
+        titlebars_enabled = true,
+        }},
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = false } --ATT
     },
 
-    -- { rule = { class = "uxvrt" },
-    --    properties = { maximized_vertical = true, maximized_horizontal = true }
-    --  },
+    -- Try to fill the terminal to the display size; remove borders
+    { rule_any = { class = {"xterm", "UXTerm", "uxterm", "XTerm",  "uxvrt", } },
+       properties = {   -- maximized_vertical = true,  -- this causes problems with tiling
+                        -- maximized_horizontal = true ,
+                        size_hints_honor = false,
+       }
+     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
@@ -526,8 +566,8 @@ client.connect_signal("manage", function (c)
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
 
-    if awesome.startup and
-      not c.size_hints.user_position
+    if awesome.startup
+      and not c.size_hints.user_position
       and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
@@ -539,13 +579,11 @@ client.connect_signal("request::titlebars", function(c)
     -- buttons for the titlebar
     local buttons = gears.table.join(
         awful.button({ }, 1, function()
-            client.focus = c
-            c:raise()
+            c:emit_signal("request::activate", "titlebar", {raise = true})
             awful.mouse.client.move(c)
         end),
         awful.button({ }, 3, function()
-            client.focus = c
-            c:raise()
+            c:emit_signal("request::activate", "titlebar", {raise = true})
             awful.mouse.client.resize(c)
         end)
     )
@@ -578,10 +616,7 @@ end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
-    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-        and awful.client.focus.filter(c) then
-        client.focus = c
-    end
+    c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
@@ -589,9 +624,15 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- {{{ Spotify - add keyboard shortcuts
-awful.key({ modkey, "Shift"}, "/", function () awful.util.spawn("sp play", false) end)
-awful.key({ modkey, "Shift"}, ".", function () awful.util.spawn("sp next", false) end)
-awful.key({ modkey, "Shift"}, ",", function () awful.util.spawn("sp prev", false) end)
+
+-- with the sp utility
+-- awful.key({ modkey, "Shift"}, "/", function () awful.util.spawn("sp play", false) end)
+-- awful.key({ modkey, "Shift"}, ".", function () awful.util.spawn("sp next", false) end)
+-- awful.key({ modkey, "Shift"}, ",", function () awful.util.spawn("sp prev", false) end)
+
+awful.key({ modkey, "Shift"}, "/", function () awful.util.spawn_with_shell("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end)
+awful.key({ modkey, "Shift"}, ".", function () awful.util.spawn_with_shell("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") end)
+awful.key({ modkey, "Shift"}, ",", function () awful.util.spawn_with_shell("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") end)
 -- }}}
 
 -- {{{ Naughty
@@ -610,9 +651,21 @@ awful.key({ modkey, "Shift"}, ",", function () awful.util.spawn("sp prev", false
 -- naughty.config.default_preset.border_width     = 2
 -- naughty.config.default_preset.hover_timeout    = nil
 
--- Turn off Spotify notifications
--- naughty.config.presets.spotify = {callback = function() return false end}
--- table.insert(naughty.config.mapping, {{appname = "Spotify"}, naughty.config.presets.spotify})
+-- {{{ Changing spotify notifications. (ap)
+-- https://gist.github.com/alepmaros/847020a2e40972e178648a4dc2288e83
+naughty.config.presets.spotify = { 
+    -- if you want to disable Spotify notifications completely, return false
+    callback = function(args)
+        return false -- switch (ap)
+    end,
+
+    -- Adjust the size of the notification
+    height = 100,
+    width  = 400,
+    -- Guessing the value, find a way to fit it to the proper size later
+    icon_size = 90
+}
+table.insert(naughty.dbus.config.mapping, {{appname = "Spotify"}, naughty.config.presets.spotify})
 -- }}}
 
 -- My edits
@@ -625,3 +678,5 @@ cputext_format = " $1%" -- %1 average cpu, %[2..] every other thread individuall
 membar_enable = true -- show memory bar
 memtext_format = " $1%" -- %1 percentage, %2 used %3 total %4 free
 
+-- smaller notifications
+-- naughty.config.defaults['icon_size'] = 50

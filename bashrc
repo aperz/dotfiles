@@ -100,11 +100,11 @@ g() {
 
 venv() {
     if [[ $@ == "mne" ]]; then
-        command source /P/mnemonic_playground/venv-mnemonic-python3.5.new/bin/activate
+        command source $HOME/P/mnemonic_playground/venv-mnemonic-python3.5.new/bin/activate
     elif [[ $@ == "pubqc" ]]; then
-        command source /P/playground/venv-pubqc/bin/activate
+        command source $HOME/P/playground/venv-pubqc/bin/activate
     elif [[ $@ == "pubqc-stable" ]]; then
-        command source /P/playground/venv-pubqc-stable/bin/activate
+        command source $HOME/P/playground/venv-pubqc-stable/bin/activate
     else
         command venv
     fi

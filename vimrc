@@ -11,11 +11,6 @@ set nocompatible
 """"""""""""""""""""""""""""""""""""""""
 
 colorscheme Tomorrow-Night-Bright
-"if hostname() == 'Osiris'
-"    colorscheme colorsbox-greenish
-"else
-"    colorscheme Tomorrow-Night-Bright
-"endif
 
 
 set statusline=%<%f%{FF()}\ %M\ %h%r%=%-10.(%l,%c%V\ b=%n,w=%{winnr()}%)\ %P
@@ -56,8 +51,8 @@ set visualbell
 set belloff=all
 set t_vb=
 set clipboard=unnamed
-set paste
 set hlsearch
+set timeoutlen=0
 
 let mapleader=","
 "let mapleader = "\<Space>"
@@ -91,7 +86,7 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 set shiftwidth=4
-set autoindent
+set noautoindent " disabled for fix-vim-pasting plugin
 set smartindent
 
 """"""""""""""""""""""""""""""""""""""""
@@ -169,6 +164,9 @@ elseif hostname() == 'Embers'
     "TODO require: +clipboard Plugin 'NLKNguyen/copy-cut-paste.vim'
     Plugin 'Rykka/InstantRst'
     Plugin 'Rykka/riv.vim'
+    "Plugin 'ryanpcmcquen/fix-vim-pasting'
+    Plugin 'preservim/nerdcommenter'
+
 
 
 
@@ -182,6 +180,7 @@ elseif hostname() == 'localhost'
     Plugin 'vim-scripts/indentpython.vim'
     Plugin 'https://github.com/vim-scripts/Python-mode-klen'
     Plugin 'jaxbot/semantic-highlight.vim'
+    Plugin 'preservim/nerdcommenter'
 
 else
     Plugin 'https://github.com/chr4/nginx.vim'
@@ -193,6 +192,8 @@ else
     Plugin 'vim-scripts/indentpython.vim'
     Plugin 'https://github.com/vim-scripts/Python-mode-klen'
     Plugin 'jaxbot/semantic-highlight.vim'
+    "Plugin 'ryanpcmcquen/fix-vim-pasting'
+    Plugin 'preservim/nerdcommenter'
 endif
 
 
@@ -219,7 +220,7 @@ set noshowmode
 
 
 let g:lightline = {
-    \ 'colorscheme': 'one_modified',
+    \ 'colorscheme': 'one',
     \ 'component': {
     \   'filename': '%f', 
     \ },
@@ -476,7 +477,17 @@ noremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 inoremap <C-q> <C-c>
 :inoremap <C-q> <C-c>
 
+
+
+
 """"""""""""""""""""""""""""""""""""""""
 " crouton
-nnoremap "*p :r !cat /home/ola/.crouton-clipboard/data.txt<CR>
-vnoremap "*y :'<,'>w! /home/ola/.crouton-clipboard/data.txt<CR>
+"nnoremap "*p :r !cat /home/ola/.crouton-clipboard/data.txt<CR>
+"vnoremap "*y :'<,'>w! /home/ola/.crouton-clipboard/data.txt<CR>
+
+" keep folds on close file 
+augroup remember_folds
+    autocmd!
+    autocmd BufWinLeave ?* mkview | filetype detect
+    autocmd BufWinEnter ?* silent loadview | filetype detect
+augroup END

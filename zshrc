@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 # export ZSH=$HOME"/Dotfiles/oh-my-zsh"
@@ -176,6 +176,8 @@ alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 alias tree="tree -I '*~'"
 alias v='vim'
 alias py='ipython'
+alias jupyter-bright="jt -t onedork -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook"
+alias jupyter-dark="jt -t grade3 -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook"
 
 function g() {
     if [[ $@ == "s" ]]; then
@@ -186,10 +188,11 @@ function g() {
 }
 
 function venv() {
+    # with Osiris, the location was /P/
     if [[ $@ == "mne" ]]; then
-        source /P/mnemonic_playground/venv-mnemonic-python3.5.new/bin/activate
+        source $HOME/P/mnemonic_playground/venv-mnemonic-python3.5.new/bin/activate
     elif [[ $@ != "" ]]; then
-        source /P/venv/$@/bin/activate
+        source $HOME/P/venv/$@/bin/activate
     else
         echo "venv: Specify venv name"
     fi
@@ -252,3 +255,5 @@ if [[ $HOSTNAME == "localhost" ]]; then
 fi
 
 
+# ESC timeout  (Ola) 
+KEYTIMEOUT=1
