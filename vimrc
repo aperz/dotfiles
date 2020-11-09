@@ -1,14 +1,13 @@
-""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "NOTES, POSSIBILITIES?
 " global: /etc/vimrc
 " arch-specific: /usr/share/vim/vimfiles/archlinux.vim
 "
-
-""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 colorscheme Tomorrow-Night-Bright
 
@@ -31,7 +30,7 @@ hi colorcolumn ctermbg=4
 set term=screen-256color
 set t_md=
 
-""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("vms")
       set nobackup              " do not keep a backup file, use versions instead
 else
@@ -52,7 +51,7 @@ set belloff=all
 set t_vb=
 set clipboard=unnamed
 set hlsearch
-set timeoutlen=0
+" set timeoutlen=0 # this is great for using Esc but it causes the leader key to become unsueable.
 
 let mapleader=","
 "let mapleader = "\<Space>"
@@ -80,7 +79,7 @@ syntax on
 "    au VimLeave * silent execute "!gnome-terminal-cursor-shape.sh block"
 "endif
 
-""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " this section was in the end - some reason?
 set tabstop=4
 set softtabstop=4
@@ -89,7 +88,7 @@ set shiftwidth=4
 set noautoindent " disabled for fix-vim-pasting plugin
 set smartindent
 
-""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
 set rtp+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -203,7 +202,7 @@ call vundle#end()            " required
 " see :h vundle for more details or wiki for FAQ
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-indent-guidelines
 "let mycolour = 222
 "set ts=4 sw=4 et
@@ -213,7 +212,7 @@ call vundle#end()            " required
 "hi IndentGuidesEven ctermbg = 236
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " lightline
 set noshowmode
 
@@ -235,8 +234,8 @@ let g:lightline = {
 
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" indentLine
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins: indentLine
 let g:indentLine_color_term = 239
 " disable by def let g:indentLine_enabled = 0
 "let g:indentLine_char = '¦'
@@ -244,8 +243,8 @@ let g:indentLine_char = "'"
 "¦ ┆ │
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-r-plugin and screen.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins: vim-r-plugin and screen.vim
 
 " Installation 
 "       - Place plugin file under ~/.vim/
@@ -301,8 +300,10 @@ let g:indentLine_char = "'"
 "" send selection to R with space bar
 "" send line to R with space bar
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" python-mode
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins: python-mode
 " K             Show python docs
 " <Ctrl-Space>  Rope autocomplete
 " <Ctrl-c>g     Rope goto definition
@@ -352,7 +353,7 @@ let pymode_paths = []
 let pymode_run = 1
 let pymode_run_key = 'r'
 
-"""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " cpp c++ c
 
 " key to compile and run current file (coursera Algorithmic Toolbox flags)
@@ -361,13 +362,13 @@ map <F8> :!g++ -pipe -O2 -std=c++11 max_pairwise_product.cpp % && ./a.out <CR>
 "autocmd BufNewFile *.cpp r /path/to/file.cpp
 
 
-"""""""""""""""""""""""""""""""""""""""
-" YouCompleteMe
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins: YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_largefile=1
 
 
-"""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Keymap
 
 " disable some
@@ -436,7 +437,32 @@ noremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 "map <C-h> <Nop>
 
 
-""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins: NERDCommenter
+" Add spaces after comment delimiters by default
+" let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+
+"noremap <C-n> <Nop>
+map <C-n> <plug>NERDCommenterToggle
+"noremap <leader>, <plug>NERDCommenterToggle
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Map the C-c / Esc variations
 
 "" Can be typed even faster than jj.
@@ -480,7 +506,7 @@ inoremap <C-q> <C-c>
 
 
 
-""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " crouton
 "nnoremap "*p :r !cat /home/ola/.crouton-clipboard/data.txt<CR>
 "vnoremap "*y :'<,'>w! /home/ola/.crouton-clipboard/data.txt<CR>
@@ -491,3 +517,5 @@ augroup remember_folds
     autocmd BufWinLeave ?* mkview | filetype detect
     autocmd BufWinEnter ?* silent loadview | filetype detect
 augroup END
+
+
