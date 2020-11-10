@@ -2,6 +2,7 @@
 /config/*
 vim/.netrwhist
 vim/bundle/
+vim/view
 *.swp
 *.swo
 *~
