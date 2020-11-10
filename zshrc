@@ -176,8 +176,8 @@ alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 alias tree="tree -I '*~'"
 alias v='vim'
 alias py='ipython'
-alias jupyter-bright="jt -t onedork -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook --NotebookApp.token='' --NotebookApp.password='' "
-alias jupyter-dark="jt -t grade3 -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook --NotebookApp.token='' --NotebookApp.password='' "
+alias jupyter-dark="jt -t onedork -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook --NotebookApp.token='' --NotebookApp.password='' "
+alias jupyter-bright="jt -t grade3 -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook --NotebookApp.token='' --NotebookApp.password='' "
 
 function g() {
     if [[ $@ == "s" ]]; then

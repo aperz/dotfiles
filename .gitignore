@@ -6,3 +6,4 @@ vim/view
 *.swp
 *.swo
 *~
+bin/ngrok
