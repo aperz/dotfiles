@@ -257,3 +257,8 @@ fi
 
 # ESC timeout  (Ola) 
 KEYTIMEOUT=1
+fpath=($fpath "/home/alx/.zfunctions")
+
+  # Set Spaceship ZSH as a prompt
+  autoload -U promptinit; promptinit
+  prompt spaceship

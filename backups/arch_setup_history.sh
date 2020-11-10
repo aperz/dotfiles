@@ -51,27 +51,27 @@ sudo pacman -S urxvt-term
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim .vimrc
 cd ~/.vim/bundle/YouCompleteMe
-./install.py --clangd-completer
-sudo pacman -S cmake
+# git submodule update --init --recursive # do this for others? shouldn't be needed
+# ./install.py --clangd-completer
+sudo pacman -S cmake npm
 ./install.py --all
 
 vim .tmux.conf 
 vim Dotfiles/oh-my-zsh/themes/spaceship.zsh-theme 
 vim Dotfiles/oh-my-zsh/themes/spaceship-my.zsh-theme 
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 
-yay -S git
-yay -S npm
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-echo $ZSH_CUSTOM
-
+# spaceship theme - just look into the repo for updates instruciotns
+#yay -S git npm
+#npm install -g spaceship-prompt
+git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme" 
+#Set ZSH_THEME="spaceship" in your .zshrc.
 
 
 # sound
 amixer
 amixer sset Master unmute
 
-yay -S oh-my-zsh
 sudo pacman -S powerline powerline-fonts
 vim /etc/shells
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

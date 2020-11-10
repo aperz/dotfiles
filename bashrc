@@ -349,7 +349,7 @@ PERL_MM_OPT="INSTALL_BASE=/home/perza/perl5"; export PERL_MM_OPT;
 
 # SHELL shells
 # zsh 
-export ZSH="/home/perza/Dotfiles/oh-my-zsh"
+export ZSH="$HOME/Dotfiles/oh-my-zsh"
 
 # Only use zsh if inside tmux - is that a good solution?
 #echo "We are inside tmux"
