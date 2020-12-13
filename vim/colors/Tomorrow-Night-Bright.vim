@@ -107,7 +107,7 @@ let s:selection = "8b8282"
 "let s:theme = "005f5f" "193 dark saturated seledine (on bg=black)
 "let s:theme2 = "dfffaf" "23 light seledine
 "let s:theme3 = "00af87" "36 dark cold-greyish seledine (on bg=23)
-let s:search = "666699"
+let s:search = "661199"
 
 
 
@@ -338,12 +338,10 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     " CursorLineNr term=bold cterm=underline ctermfg=Yellow gui=bold guifg=Yellow
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
-	"call <SID>X("Search", s:background, s:yellow, "")
 	call <SID>X("Search", s:foreground, s:search, "")
 	call <SID>X("TabLine", s:window, s:foreground, "reverse")
 	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
-	"call <SID>X("StatusLine", s:theme, s:theme2, "bold")
-	call <SID>X("StatusLine", s:theme, s:theme2, "none")
+	call <SID>X("StatusLine", s:red, s:theme2, "none")
 	call <SID>X("StatusLineNC", s:theme, s:theme2, "reverse")
 	"call <SID>X("VertSplit", s:selection, s:background, "none")
 	call <SID>X("VertSplit", s:selection, "", "none")

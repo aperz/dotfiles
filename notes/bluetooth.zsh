@@ -26,8 +26,6 @@ bluetoothctl connect 5C:C6:E9:B6:F6:13 # EDIFIER R1700BT
 
 bluetoothctl connect 3C:8D:20:66:AE:0C # bedroom speaker
 bluetoothctl connect 5C:C6:E9:B6:F6:13 # EDIFIER R1700BT
-bluetoothctl connect A0:E9:DB:08:15:BF # Nude Move
-bluetoothctl connect 04:FE:A1:00:61:D0 # baton-flip
 bluetoothctl connect 00:18:91:78:61:0E # EDIFIER W855BT
 bluetoothctl connect 00:1B:66:B7:C1:9B # Sennheiser CX 150BT
 

@@ -165,6 +165,7 @@ elseif hostname() == 'Embers'
     Plugin 'Rykka/riv.vim'
     "Plugin 'ryanpcmcquen/fix-vim-pasting'
     Plugin 'preservim/nerdcommenter'
+	Plugin 'NLKNguyen/papercolor-theme'
 
 elseif hostname() == 'Altzmyr'
     Plugin 'https://github.com/chr4/nginx.vim'
@@ -197,7 +198,7 @@ elseif hostname() == 'Altzmyr'
     Plugin 'Rykka/riv.vim'
     "Plugin 'ryanpcmcquen/fix-vim-pasting'
     Plugin 'preservim/nerdcommenter'
-
+	Plugin 'NLKNguyen/papercolor-theme'
 
 
 
@@ -248,19 +249,39 @@ call vundle#end()            " required
 " lightline
 set noshowmode
 
+autocmd VimEnter * call SetupLightlineColors()
+function SetupLightlineColors() abort
+  " transparent background in statusbar - set all to NONE
+  " set color of inactive window to something more visible... (quickfix)
+  let l:palette = lightline#palette()
 
+  let l:palette.normal.middle =  [ [ 'NONE', 'NONE', 'grey', 'black' ] ]
+  let l:palette.inactive.middle = [ [ 'NONE', 'NONE', 'gray', 'black' ] ]
+  "let l:palette.inactive.right = [ [ 'NONE', 'NONE', 'gray', 'black' ] ]
+  let l:palette.inactive.left = [ [ 'NONE', 'NONE', 'gray', 'black' ] ]
+
+  call lightline#colorscheme()
+endfunction
 
 let g:lightline = {
-    \ 'colorscheme': 'one',
+	\ 'colorscheme':'powerline',
     \ 'component': {
     \   'filename': '%f', 
+    \   'charvaluehex': '0x%B'
     \ },
+	\ 'active': {
+    \   'left':  [ [ 'mode' ],
+    \              [ 'readonly', 'filename', 'modified' ] ],
+	\   'right': [ [ 'lineinfo' ],
+	\              [ 'percent' ],
+	\              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+	\ },
     \ 'inactive': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \           [ 'readonly', 'filename', 'modified' ] ],
+    \   'left':  [ [ 'mode' ],
+    \              [ 'readonly', 'filename', 'modified' ] ],
     \   'right': [ [ 'lineinfo' ],
-    \            [ 'percent' ],
-    \            [ 'fileformat', 'fileencoding', 'filetype' ] ]
+    \              [ 'percent' ],
+	\              [ 'fileformat', 'fileencoding', 'filetype' ] ]
     \ },
     \ }
 

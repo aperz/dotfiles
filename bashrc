@@ -90,6 +90,13 @@ alias tree="tree -I '*~'"
 alias v='vim'
 alias py='ipython'
 
+alias jupyter-dark="jt -t onedork -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook --NotebookApp.token='' --NotebookApp.password='' "
+alias jupyter-bright="jt -t grade3 -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook --NotebookApp.token='' --NotebookApp.password='' "
+alias trello-app="google-chrome-stable --app='https://trello.com'"
+alias docs-app="google-chrome-stable --app='https://docs.google.com/'"
+
+alias bt='bluetoothctl'
+
 g() {
     if [[ $@ == "s" ]]; then
         command git status

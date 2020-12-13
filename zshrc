@@ -174,10 +174,28 @@ alias tmux='tmux -2' # forces 256 color support
 alias xterm='xterm -maximized'
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 alias tree="tree -I '*~'"
-alias v='vim'
+#alias v='vim'
 alias py='ipython'
 alias jupyter-dark="jt -t onedork -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook --NotebookApp.token='' --NotebookApp.password='' "
 alias jupyter-bright="jt -t grade3 -fs 105 -altp -tfs 13 -nfs 135 -cellw 88% -T && jupyter-notebook --NotebookApp.token='' --NotebookApp.password='' "
+alias trello-app="google-chrome-stable --app='https://trello.com'"
+alias docs-app="google-chrome-stable --app='https://docs.google.com/'"
+
+alias bt='bluetoothctl'
+# not tested
+#function bt() {
+#    if [[ $1 == "connect" ]]; then
+#        if  [[ $2 == "E-headset" ]]; then
+#            bluetoothctl connect 00:18:91:78:61:0E # EDIFIER W855BT
+#        elif  [[ $2 == "E-speaker" ]]; then
+#            bluetoothctl connect 5C:C6:E9:B6:F6:13 # EDIFIER R1700BT
+#        elif  [[ $2 == "S-headset" ]]; then
+#            bluetoothctl connect 00:1B:66:B7:C1:9B # Sennheiser CX 150BT
+#    else
+#        bluetoothctl "$@"
+#    fi
+#}
+
 
 function g() {
     if [[ $@ == "s" ]]; then
@@ -191,6 +209,8 @@ function venv() {
     # with Osiris, the location was /P/
     if [[ $@ == "mne" ]]; then
         source $HOME/P/mnemonic_playground/venv-mnemonic-python3.5.new/bin/activate
+    elif [[ $@ == "ls" ]]; then
+        ls $HOME/P/venv/
     elif [[ $@ != "" ]]; then
         source $HOME/P/venv/$@/bin/activate
     else

@@ -19,6 +19,22 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 local vicious = require("vicious")
 
+-- {{{ awesome-wm-widgets https://github.com/streetturtle/awesome-wm-widgets
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+--local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
+local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
+local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
+local fs_widget = require("awesome-wm-widgets.fs-widget.fs-widget")
+-- }}} awesome-wm-widgets
+
+-- {{{ buttons
+-- https://github.com/streetturtle/awesome-buttons
+-- icons: https://feathericons.com/
+local awesomebuttons = require("awesome-buttons.awesome-buttons")
+-- }}} buttons
+
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -141,6 +157,17 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
+-- BEGIN awesome-wm-widgets: calendar
+local cw = calendar_widget({
+        theme = 'dark',
+        placement = 'top_right'
+    })
+mytextclock:connect_signal("button::press", 
+    function(_, _, _, button)
+        if button == 1 then cw.toggle() end
+    end)
+-- END awesome-wm-widgets: calendar
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -185,7 +212,7 @@ local tasklist_buttons = gears.table.join(
                                           end))
 
 -- Simply set a solid black wallpaper. Remove this to get any other solution working (ap)
-gears.wallpaper.set("#000000")
+-- gears.wallpaper.set("#000000")
 
 local function set_wallpaper(s)
     -- Wallpaper
@@ -206,6 +233,12 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
+
+    -- BEGIN: change visibility of systray
+    s.systray = wibox.widget.systray()
+    s.systray.visible = true
+    -- this doesn't work :(
+    -- END: change visibility of systray
 
     -- Each screen has its own tag table.
     -- awful.tag({ "", "", "", "", "", "", "", "", "" }, s, awful.layout.layouts[1])
@@ -250,10 +283,80 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            s.systray,
+            awesomebuttons.with_icon{
+                        -- eye, box, circle, grid, plus, maximize, more-horizontal
+                        icon = 'more-vertical',
+                        color = '#f8c', icon_size = 15, icon_margin = 3,
+                        onclick = function () awful.screen.focused().systray.visible = not awful.screen.focused().systray.visible end
+                        },
+            awesomebuttons.with_icon{
+                        icon = 'chevron-left',
+                        color = '#EB984E', shape = 'circle', icon_size = 15, icon_margin = 3,
+                        onclick = function () awful.util.spawn_with_shell("spotifyctl previous") end, 
+                        },
+            awesomebuttons.with_icon{
+                        icon = 'pause',
+                        color = '#EB984E', shape = 'circle', icon_size = 15, icon_margin = 3,
+                        onclick = function () awful.util.spawn_with_shell("spotifyctl playpause") end, 
+                        },
+            awesomebuttons.with_icon{
+                        icon = 'chevron-right',
+                        color = '#EB984E', shape = 'circle', icon_size = 15, icon_margin = 3,
+                        onclick = function () awful.util.spawn_with_shell("spotifyctl next") end, 
+                        },
+            awesomebuttons.with_icon{
+                        icon = 'bluetooth',
+                        color = '#5DADE2', shape = 'circle', icon_size = 15, icon_margin = 4,
+                        -- ??
+                        onclick = function () awful.util.spawn_with_shell("bluetoothctl power off && bluetoothctl power on") end, 
+                        },
+            awesomebuttons.with_icon{
+                        icon = 'trello', shape = 'circle',
+                        color = '#48C9B0', shape = 'circle', icon_size = 15, icon_margin = 2,
+                        -- color= "#ffffff11",
+                        onclick = function () awful.util.spawn_with_shell("google-chrome-stable -app='https://trello.com'") end, 
+                        },
+            -- awesome-wm-widgets https://github.com/streetturtle/awesome-wm-widgets
+            -- config info: https://pavelmakhov.com/awesome-wm-widgets/
+            -- colors: https://htmlcolorcodes.com/
+            -- icons: https://feathericons.com/
+            cpu_widget({
+                        --width = 70,
+                        --step_width = 2,
+                        --step_spacing = 0,
+                        --color = '#434ddd'
+                        color = "#138D75",
+                        }),
+            --ram_widget({
+            --            border_width = 3,
+            --            colors = {"#dde387", "#340954"},
+            --            --colors = {
+            --            --beautiful.bg_urgent, -- used
+            --            --beautiful.fg_normal  -- free
+            --            --},
+            --            display_labels = false,
+            --            forced_width = 25,
+            --            widget = wibox.widget.piechart
+            --            }),
+            batteryarc_widget({
+                        main_color = "#ffffff",
+                        -- bg_color= beautiful.bg_color,
+                        -- bg_color = "#363636",
+                        -- "#34495E",
+                        bg_color = "#1C2833",
+                        -- figure out how to change this for a laptop (or disable bat widget for desktop)
+                        enable_battery_warning=false,
+                        show_current_level = true,
+                        }),
             mykeyboardlayout,
-            wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
+            awesomebuttons.with_icon{
+                        icon = 'power',
+                        color = '#EC7063', shape = 'circle', icon_size = 15, icon_margin = 3,
+                        onclick = function () awful.util.spawn_with_shell("systemctl suspend") end, 
+                        },
         },
     }
 end)
@@ -464,6 +567,27 @@ for i = 1, 9 do
                       end
                   end,
                   {description = "toggle focused client on tag #" .. i, group = "tag"})
+
+        -- {{{ Spotify and sound volume - add keyboard shortcuts
+        ,awful.key({}, "#172", function () awful.util.spawn_with_shell("spotifyctl playpause") end,
+             {description = "Spotify play-pause", group = "custom"})
+        ,awful.key({}, "#171", function () awful.util.spawn_with_shell("spotifyctl next") end,
+             {description = "Spotify next", group = "custom"})
+        ,awful.key({}, "#173", function () awful.util.spawn_with_shell("spotifyctl previous") end,
+             {description = "Spotify previous", group = "custom"})
+
+        ,awful.key({ }, "#121", function () awful.util.spawn("amixer -D pulse sset Master toggle") end,
+             {description = "Mute-unmute", group = "custom"})
+        ,awful.key({ }, "#122", function () awful.util.spawn("amixer -D pulse sset Master 2%-") end,
+             {description = "Volume down", group = "custom"})
+        ,awful.key({ }, "#123", function () awful.util.spawn("amixer -D pulse sset Master 2%+") end,
+             {description = "Volume up", group = "custom"})
+        -- }}}
+        -- BEGIN: change visibility of systray
+        ,awful.key({ modkey }, "=", function ()
+            awful.screen.focused().systray.visible = not awful.screen.focused().systray.visible
+            end, {description = "Toggle systray visibility", group = "custom"})
+        -- END: change visibility of systray
     )
 end
 
@@ -529,7 +653,7 @@ awful.rules.rules = {
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.
           "ConfigManager",  -- Thunderbird's about:config.
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+          -- "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools. Chrome's --app mode (that's why I've disabled this line)
         }
       }, 
       except_any = { 
@@ -623,17 +747,6 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
--- {{{ Spotify - add keyboard shortcuts
-
--- with the sp utility
--- awful.key({ modkey, "Shift"}, "/", function () awful.util.spawn("sp play", false) end)
--- awful.key({ modkey, "Shift"}, ".", function () awful.util.spawn("sp next", false) end)
--- awful.key({ modkey, "Shift"}, ",", function () awful.util.spawn("sp prev", false) end)
-
-awful.key({ modkey, "Shift"}, "/", function () awful.util.spawn_with_shell("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end)
-awful.key({ modkey, "Shift"}, ".", function () awful.util.spawn_with_shell("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") end)
-awful.key({ modkey, "Shift"}, ",", function () awful.util.spawn_with_shell("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") end)
--- }}}
 
 -- {{{ Naughty
 -- naughty.config.default_preset.timeout          = 5
