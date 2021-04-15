@@ -23,6 +23,11 @@ bluetoothctl remove 5C:C6:E9:B6:F6:13 # EDIFIER R1700BT
 bluetoothctl pair 5C:C6:E9:B6:F6:13 # EDIFIER R1700BT
 bluetoothctl connect 5C:C6:E9:B6:F6:13 # EDIFIER R1700BT
 #
+bluetoothctl untrust 00:18:91:78:61:0E # EDIFIER W855BT
+bluetoothctl remove 00:18:91:78:61:0E # EDIFIER W855BT
+bluetoothctl pair  00:18:91:78:61:0E # EDIFIER W855BT
+
+bluetoothctl connect 00:18:91:78:61:0E # EDIFIER W855BT
 
 bluetoothctl connect 3C:8D:20:66:AE:0C # bedroom speaker
 bluetoothctl connect 5C:C6:E9:B6:F6:13 # EDIFIER R1700BT

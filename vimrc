@@ -80,7 +80,21 @@ syntax on
 "endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" this section was in the end - some reason?
+" Plugins: Vimspector vimspector settings
+set mouse=a
+set noequalalways
+let g:vimspector_enable_mappings='HUMAN'
+"let g:vimspector_test_plugin_path = expand( '<sfile>:p:h:h' )
+"let mapleader = ','
+"let maplocalleader = "\<Space>"
+"
+"let &runtimepath = &runtimepath . ',' . g:vimspector_test_plugin_path
+"
+"filetype plugin indent on
+"syntax enable
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" this section was in the end - some reason? maybe installed by some plugin
 set tabstop=4
 set softtabstop=4
 set expandtab
@@ -199,6 +213,8 @@ elseif hostname() == 'Altzmyr'
     "Plugin 'ryanpcmcquen/fix-vim-pasting'
     Plugin 'preservim/nerdcommenter'
 	Plugin 'NLKNguyen/papercolor-theme'
+	Plugin 'puremourning/vimspector'
+
 
 
 
@@ -410,7 +426,7 @@ let pymode_run_key = 'r'
 " cpp c++ c
 
 " key to compile and run current file (coursera Algorithmic Toolbox flags)
-map <F8> :!g++ -pipe -O2 -std=c++11 max_pairwise_product.cpp % && ./a.out <CR> 
+" map <F8> :!g++ -pipe -O2 -std=c++11 max_pairwise_product.cpp % && ./a.out <CR> 
 "map <F8> :!g++ % && ./a.out <CR> 
 "autocmd BufNewFile *.cpp r /path/to/file.cpp
 
@@ -442,13 +458,14 @@ nnoremap <C-h> <BS>
 "vnoremap <C-u> <C-e>
 
 " show type of thing under cursor
-noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" noremap <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " omnicompletion navigation in popup buffers
 "inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
 "inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 
 " Search hi Press F4 to toggle highlighting on/off, and show current value.
-noremap <F4> :set hlsearch! hlsearch?<CR>
+" noremap <F4> :set hlsearch! hlsearch?<CR>
 
 
 "Plugins: ScreenShell

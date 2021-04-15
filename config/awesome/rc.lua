@@ -317,6 +317,13 @@ awful.screen.connect_for_each_screen(function(s)
                         -- color= "#ffffff11",
                         onclick = function () awful.util.spawn_with_shell("google-chrome-stable -app='https://trello.com'") end, 
                         },
+--awesomebuttons.with_icon{
+            --            icon = 'circle', shape = 'circle',
+            --            color = '#48C9B0', shape = 'circle', icon_size = 15, icon_margin = 2,
+            --            -- color= "#ffffff11",
+            --            onclick = function () awful.util.spawn_with_shell("jupyter-dark") end,
+            --            },
+
             -- awesome-wm-widgets https://github.com/streetturtle/awesome-wm-widgets
             -- config info: https://pavelmakhov.com/awesome-wm-widgets/
             -- colors: https://htmlcolorcodes.com/
@@ -339,16 +346,16 @@ awful.screen.connect_for_each_screen(function(s)
             --            forced_width = 25,
             --            widget = wibox.widget.piechart
             --            }),
-            batteryarc_widget({
-                        main_color = "#ffffff",
-                        -- bg_color= beautiful.bg_color,
-                        -- bg_color = "#363636",
-                        -- "#34495E",
-                        bg_color = "#1C2833",
-                        -- figure out how to change this for a laptop (or disable bat widget for desktop)
-                        enable_battery_warning=false,
-                        show_current_level = true,
-                        }),
+            --batteryarc_widget({
+            --            main_color = "#ffffff",
+            --            -- bg_color= beautiful.bg_color,
+            --            -- bg_color = "#363636",
+            --            -- "#34495E",
+            --            bg_color = "#1C2833",
+            --            -- figure out how to change this for a laptop (or disable bat widget for desktop)
+            --            enable_battery_warning=false,
+            --            show_current_level = true,
+            --            }),
             mykeyboardlayout,
             mytextclock,
             s.mylayoutbox,
